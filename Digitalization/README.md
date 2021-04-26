@@ -109,37 +109,37 @@ L'étude factice est divisé en trois partie.
 #### Échelle Universitaire
 
 La réalisation de cette partie peut être retrouver ci-dessous: \
-[Factice Data Link](https://github.com/Dorian-rx/TeachingAnalytics/blob/706a491df81d3b6d986aa86a44203b7dfd7b25f8/Digitalization/Example/Data/Digitalization_perYear.csv) \
-[Algorithme Python permettant de réaliser l'Étude](Digitalization\Example\University_Digitalization.py](https://github.com/Dorian-rx/TeachingAnalytics/blob/706a491df81d3b6d986aa86a44203b7dfd7b25f8/Digitalization/Example/University_Digitalization.py))
+[Factice Data Link](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/Data/Digitalization_perYear.csv) \
+[Algorithme Python permettant de réaliser l'Étude](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/University_Digitalization.py)
 
 L'analyse du pourcentage de digitalisation de chaque cours à l'échelle universitaire nous permet d'obtenir la figure suivante:
 
-![factice-data: Pourcentage de Digitalisation d'une Université en fonction de la durée de chaque cours](https://raw.githubusercontent.com/Dorian-rx/TeachingAnalytics/main/Digitalization/Example/Figures/Displot%20of%20the%20Digitalization%20per%20Interval%20of%20Course%20Duration.png)
+![factice-data: Pourcentage de Digitalisation d'une Université en fonction de la durée de chaque cours](https://raw.githubusercontent.com/Educational-Analytics/Teaching-Analytics/main/Digitalization/Example/Figures/Displot%20of%20the%20Digitalization%20per%20Interval%20of%20Course%20Duration.png)
 
 Le graphique ci-dessus montre la fréquence des pourcentages de digitalisation de chaque cours en fonction de la durée de chaque cours. Cependant, cette analyse n'est pas assez ciblé n'offre que très peu d'interprétation.
 
 #### Échelle Départementale
 
 Un ciblage plus important sur chaque département d'une université est possible. La réalisation de cette partie peut être retrouver ci-dessous: \
-[GitHub Factice Data Link](https://github.com/Dorian-rx/TeachingAnalytics/blob/706a491df81d3b6d986aa86a44203b7dfd7b25f8/Digitalization/Example/Data/Digitalization_perDepartment.csv) \
-[Algorithme Python permettant de réaliser l'Étude](https://github.com/Dorian-rx/TeachingAnalytics/blob/706a491df81d3b6d986aa86a44203b7dfd7b25f8/Digitalization/Example/Departments_Digitalization.py)
+[GitHub Factice Data Link](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/Data/Digitalization_perDepartment.csv) \
+[Algorithme Python permettant de réaliser l'Étude](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/Departments_Digitalization.py)
 
 L'analyse du pourcentage de digitalisation de chaque département d'une université nous permets d'obtenir la figure suivante:
 
-![factice-data: Pourcentage de Digitalisation de chaque Département d'une Université de 2017 à 2019](https://raw.githubusercontent.com/Dorian-rx/TeachingAnalytics/main/Digitalization/Example/Figures/Barplots%20of%20the%20Digitalization%20per%20Department%20from%202017%20to%202019.png)
+![factice-data: Pourcentage de Digitalisation de chaque Département d'une Université de 2017 à 2019](https://raw.githubusercontent.com/Educational-Analytics/Teaching-Analytics/main/Digitalization/Example/Figures/Barplots%20of%20the%20Digitalization%20per%20Department%20from%202017%20to%202019.png)
 
 Le graphique ci-dessus montre le pourcentage de digitalisation de chaque département d'une université à travers trois ans (2017 à 2019). Nous pouvons observer une différence de digitalisation à travers les années de chaque départements. Cependant les pourcentages reste similaire à quelques départements, ansi, nous manquons encore d'information pour donner une interprétation intéressante.
 
 #### Échelle Individuelle
 
 Un ciblage encore plus important que précèdemment est un ciblage indivuduel concernant chaque enseignant d'un département. La réalisation de cette partie peut être retrouver ci-dessous: \
-[GitHub Factice Data Link](https://github.com/Dorian-rx/TeachingAnalytics/blob/main/Digitalization/Example/Data/Digitalization_perDep_perTeacher.csv) \
-[Algorithme Python permettant de réaliser l'Étude](https://github.com/Dorian-rx/TeachingAnalytics/blob/b771e09ab4099270463af3fd18035f9f7c2c228a/Digitalization/Example/Teacher_Digitalization.py)
+[GitHub Factice Data Link](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/Data/Digitalization_perDep_perTeacher.csv) \
+[Algorithme Python permettant de réaliser l'Étude](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/Teacher_Digitalization.py)
 
 L'analyse de la digitalisation de chaque enseignant d'un département nous permet d'obtenir la figure suivante:
 
 factice-data: Hybridation par Enseignant
-![factice-data: Pourcentage de Digitalisation de chaque Enseignant des Départements respectifs; AGORA, LPTM et LT2D de 2017 à 2019](https://raw.githubusercontent.com/Dorian-rx/TeachingAnalytics/main/Digitalization/Example/Figures/Barplot%20of%20the%20Digitalization%20per%20Teacher%20of%20Department%20from%202017%20to%202019.png)
+![factice-data: Pourcentage de Digitalisation de chaque Enseignant des Départements respectifs; AGORA, LPTM et LT2D de 2017 à 2019](https://raw.githubusercontent.com/Educational-Analytics/Teaching-Analytics/main/Digitalization/Example/Figures/Barplot%20of%20the%20Digitalization%20per%20Teacher%20of%20Department%20from%202017%20to%202019.png)
 
 Le graphique ci-dessus montre l'évolution du pourcentage de digitalisation de chaque enseignant de trois départements universitaire (respectivement AGORA, LPTM, LT2D) de 2017 à 2019. Cette visualisation est la plus précise est nous permet de comprendre avec le graphique précèdent l'évolution au sein d'un département l'utilisation de ressources en ligne.
 
