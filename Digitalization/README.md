@@ -1,4 +1,4 @@
-# Hybridation au sein d’un ensemble
+# Digitalisation au sein d’un ensemble
 
 ## Description courte du scénario d'analyse
 
