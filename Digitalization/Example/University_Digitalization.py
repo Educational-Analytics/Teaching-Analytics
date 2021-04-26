@@ -33,7 +33,7 @@ for num_courses in list_year_courses:  #Loop to select each element of the list 
     for i in range (0, num_courses):
         rand_num = random.random()  #Define a random number to choose the time interval of a course.
         if (0 <= rand_num < 0.3) : 
-            num_hrs = random.randint(5, 15)   #Define a random number to have a course between 5H and 10H.
+            num_hrs = random.randint(5, 15)   #Define a random number to have a course between 5H and 15H.
         elif (0.3 <= rand_num < 0.8) :
             num_hrs = random.randint(15, 60)  #Define a random number to have a course between 15H and 60H.
         elif (0.8 <= rand_num < 1):
