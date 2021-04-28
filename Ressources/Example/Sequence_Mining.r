@@ -1,31 +1,19 @@
----
-title: "Teaching Analytics"
-author: "ROUX Dorian"
-output: html_document
----
-
-```{r}
 #Import libraries
 library('readr')
 library('dplyr')
 library('TraMineR')
 library("tidyr")
-```
 
-```{r}
-sequences <- read_csv(file ='Data/Prepared_AdvancedSequences.csv')
-#sequences <- sequences[-1]
-head(sequences, 14)
+sequences <- read_csv(file ='Ressources/Example/Data/Prepared_Sequences.csv')
+sequences <- select(sequences, -'X1')
+head(sequences)
 
-```
+sequences_Advanced <- select(sequences, -'Ressources_Type_Basic')
 
-```{r}
-seq_dbt <- spread(sequences, Ressources_Rank,Ressources_Type)
+seq_dbt <- spread(sequences_Advanced, Ressources_Rank,Ressources_Type_Basic)
 seq_dbt
-```
 
 
-```{r}
 seq_dbt_2016 <- seq_dbt %>% filter(Year == 2016)
 seq_dbt_2016
 
@@ -37,13 +25,9 @@ seq_dbt_2016_10frst
 table(is.na(seq_dbt_2016_10frst))
 seq_dbt_2016_10frst_cl <-drop_na(seq_dbt_2016_10frst)
 seq_dbt_2016_10frst_cl
-```
 
-```{r}
+
 mvad.seq <- seqdef(seq_dbt_2016_10frst_cl[, c(2:10)])
 head(mvad.seq, 10)
-```
-```{r}
-seqiplot(mvad.seq, border = NA, withlegend = "right", tlim = 1:10, space=0)
-```
 
+#seqiplot(mvad.seq, border = NA, withlegend = "right", tlim = 1:10, space=0)

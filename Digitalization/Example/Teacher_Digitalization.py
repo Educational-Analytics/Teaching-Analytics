@@ -32,17 +32,17 @@ for i in range(3):
 #Definir 3 nouveaux dataframes pour trois département aléatoire
 print(department)
 
-Digitalization_Teach_D1 = Digitalization_Teach[Digitalization_Teach['Department'] == department[0]].sort_values(by = ['Year', 'Teacher_ID'], ascending = True)
+Digitalization_Teach_D1 = Digitalization_Teach[Digitalization_Teach['Department'] == department[0]].sort_values(by = ['Year', 'Teacher_Name'], ascending = True)
 Digitalization_Teach_D1_2017 = Digitalization_Teach_D1[Digitalization_Teach_D1['Year'] == 2017]
 Digitalization_Teach_D1_2018 = Digitalization_Teach_D1[Digitalization_Teach_D1['Year'] == 2018]
 Digitalization_Teach_D1_2019 = Digitalization_Teach_D1[Digitalization_Teach_D1['Year'] == 2019]
 
-Digitalization_Teach_D2 = Digitalization_Teach[Digitalization_Teach['Department'] == department[1]].sort_values(by = ['Year', 'Teacher_ID'], ascending = True)
+Digitalization_Teach_D2 = Digitalization_Teach[Digitalization_Teach['Department'] == department[1]].sort_values(by = ['Year', 'Teacher_Name'], ascending = True)
 Digitalization_Teach_D2_2017 = Digitalization_Teach_D2[Digitalization_Teach_D2['Year'] == 2017]
 Digitalization_Teach_D2_2018 = Digitalization_Teach_D2[Digitalization_Teach_D2['Year'] == 2018]
 Digitalization_Teach_D2_2019 = Digitalization_Teach_D2[Digitalization_Teach_D2['Year'] == 2019]
 
-Digitalization_Teach_D3 = Digitalization_Teach[Digitalization_Teach['Department'] == department[2]].sort_values(by = ['Year', 'Teacher_ID'], ascending = True)
+Digitalization_Teach_D3 = Digitalization_Teach[Digitalization_Teach['Department'] == department[2]].sort_values(by = ['Year', 'Teacher_Name'], ascending = True)
 Digitalization_Teach_D3_2017 = Digitalization_Teach_D3[Digitalization_Teach_D3['Year'] == 2017]
 Digitalization_Teach_D3_2018 = Digitalization_Teach_D3[Digitalization_Teach_D3['Year'] == 2018]
 Digitalization_Teach_D3_2019 = Digitalization_Teach_D3[Digitalization_Teach_D3['Year'] == 2019]
@@ -58,17 +58,17 @@ fig.suptitle("Percentage of Digitalization for each teacher of respectively the 
 width = 0.35  #Define the width of the bars
 
 #Make the barplots
-rects10 = ax10.bar(Digitalization_Teach_D1_2017['Teacher_ID'], Digitalization_Teach_D1_2017['Digit_Percentage'], width, color = '#18ff6d')
-rects11 = ax11.bar(Digitalization_Teach_D1_2018['Teacher_ID'], Digitalization_Teach_D1_2018['Digit_Percentage'], width, color = '#04e824')
-rects12 = ax12.bar(Digitalization_Teach_D1_2019['Teacher_ID'], Digitalization_Teach_D1_2019['Digit_Percentage'], width, color = '#138a36')
+rects10 = ax10.bar(Digitalization_Teach_D1_2017['Teacher_Name'], Digitalization_Teach_D1_2017['Digit_Percentage'], width, color = '#18ff6d')
+rects11 = ax11.bar(Digitalization_Teach_D1_2018['Teacher_Name'], Digitalization_Teach_D1_2018['Digit_Percentage'], width, color = '#04e824')
+rects12 = ax12.bar(Digitalization_Teach_D1_2019['Teacher_Name'], Digitalization_Teach_D1_2019['Digit_Percentage'], width, color = '#138a36')
 
-rects20 = ax20.bar(Digitalization_Teach_D2_2017['Teacher_ID'], Digitalization_Teach_D2_2017['Digit_Percentage'], width, color = '#faa307')
-rects21 = ax21.bar(Digitalization_Teach_D2_2017['Teacher_ID'], Digitalization_Teach_D2_2018['Digit_Percentage'], width, color = '#dc2f02')
-rects22 = ax22.bar(Digitalization_Teach_D2_2017['Teacher_ID'], Digitalization_Teach_D2_2019['Digit_Percentage'], width, color = '#9d0208')
+rects20 = ax20.bar(Digitalization_Teach_D2_2017['Teacher_Name'], Digitalization_Teach_D2_2017['Digit_Percentage'], width, color = '#faa307')
+rects21 = ax21.bar(Digitalization_Teach_D2_2017['Teacher_Name'], Digitalization_Teach_D2_2018['Digit_Percentage'], width, color = '#dc2f02')
+rects22 = ax22.bar(Digitalization_Teach_D2_2017['Teacher_Name'], Digitalization_Teach_D2_2019['Digit_Percentage'], width, color = '#9d0208')
 
-rects30 = ax30.bar(Digitalization_Teach_D3_2017['Teacher_ID'], Digitalization_Teach_D3_2017['Digit_Percentage'], width, color = '#ade8f4')
-rects31 = ax31.bar(Digitalization_Teach_D3_2018['Teacher_ID'], Digitalization_Teach_D3_2018['Digit_Percentage'], width, color = '#00b4d8')
-rects32 = ax32.bar(Digitalization_Teach_D3_2019['Teacher_ID'], Digitalization_Teach_D3_2019['Digit_Percentage'], width, color = '#023e8a')
+rects30 = ax30.bar(Digitalization_Teach_D3_2017['Teacher_Name'], Digitalization_Teach_D3_2017['Digit_Percentage'], width, color = '#ade8f4')
+rects31 = ax31.bar(Digitalization_Teach_D3_2018['Teacher_Name'], Digitalization_Teach_D3_2018['Digit_Percentage'], width, color = '#00b4d8')
+rects32 = ax32.bar(Digitalization_Teach_D3_2019['Teacher_Name'], Digitalization_Teach_D3_2019['Digit_Percentage'], width, color = '#023e8a')
 
 
 ###################
@@ -82,20 +82,20 @@ rects32 = ax32.bar(Digitalization_Teach_D3_2019['Teacher_ID'], Digitalization_Te
 ax10.set_title('Percentage of Digitalization \nFrom AGORA Department Teachers in 2017')
 ax10.set_ylabel("Percentage of Digitalization")
 ax10.set_xlabel("Teachers Identification")
-ax10.set_xticks(Digitalization_Teach_D1_2017['Teacher_ID'])
-ax10.set_xticklabels(Digitalization_Teach_D1_2017['Teacher_ID'], rotation = 45)
+ax10.set_xticks(Digitalization_Teach_D1_2017['Teacher_Name'])
+ax10.set_xticklabels(Digitalization_Teach_D1_2017['Teacher_Name'], rotation = 45)
 
 ax11.set_title('Percentage of Digitalization \nFrom AGORA Department Teachers in 2018')
 #ax11.set_ylabel("Percentage of Digitalization")
 ax11.set_xlabel("Teachers Identification")
-ax11.set_xticks(Digitalization_Teach_D1_2018['Teacher_ID'])
-ax11.set_xticklabels(Digitalization_Teach_D1_2018['Teacher_ID'], rotation = 45)
+ax11.set_xticks(Digitalization_Teach_D1_2018['Teacher_Name'])
+ax11.set_xticklabels(Digitalization_Teach_D1_2018['Teacher_Name'], rotation = 45)
 
 ax12.set_title('Percentage of Digitalization \nFrom AGORA Department Teachers in 2019')
 #ax12.set_ylabel("Percentage of Digitalization")
 ax12.set_xlabel("Teachers Identification")
-ax12.set_xticks(Digitalization_Teach_D1_2019['Teacher_ID'])
-ax12.set_xticklabels(Digitalization_Teach_D1_2019['Teacher_ID'], rotation = 45)
+ax12.set_xticks(Digitalization_Teach_D1_2019['Teacher_Name'])
+ax12.set_xticklabels(Digitalization_Teach_D1_2019['Teacher_Name'], rotation = 45)
 
 for rect, label in zip(rects10, Digitalization_Teach_D1_2017['Digit_Percentage']):
     height = rect.get_height()
@@ -117,20 +117,20 @@ for rect, label in zip(rects12, Digitalization_Teach_D1_2019['Digit_Percentage']
 ax20.set_title('Percentage of Digitalization \nFrom LPTM Department Teachers in 2017')
 ax20.set_ylabel("Percentage of Digitalization")
 ax20.set_xlabel("Teachers Identification")
-ax20.set_xticks(Digitalization_Teach_D2_2017['Teacher_ID'])
-ax20.set_xticklabels(Digitalization_Teach_D2_2017['Teacher_ID'], rotation = 45)
+ax20.set_xticks(Digitalization_Teach_D2_2017['Teacher_Name'])
+ax20.set_xticklabels(Digitalization_Teach_D2_2017['Teacher_Name'], rotation = 45)
 
 ax21.set_title('Percentage of Digitalization \nFrom LPTM Department Teachers in 2018')
 #ax21.set_ylabel("Percentage of Digitalization")
 ax21.set_xlabel("Teachers Identification")
-ax21.set_xticks(Digitalization_Teach_D2_2018['Teacher_ID'])
-ax21.set_xticklabels(Digitalization_Teach_D2_2018['Teacher_ID'], rotation = 45)
+ax21.set_xticks(Digitalization_Teach_D2_2018['Teacher_Name'])
+ax21.set_xticklabels(Digitalization_Teach_D2_2018['Teacher_Name'], rotation = 45)
 
 ax22.set_title('Percentage of Digitalization \nFrom LPTM Department Teachers in 2019')
 #ax22.set_ylabel("Percentage of Digitalization")
 ax22.set_xlabel("Teachers Identification")
-ax22.set_xticks(Digitalization_Teach_D2_2019['Teacher_ID'])
-ax22.set_xticklabels(Digitalization_Teach_D2_2019['Teacher_ID'], rotation = 45)
+ax22.set_xticks(Digitalization_Teach_D2_2019['Teacher_Name'])
+ax22.set_xticklabels(Digitalization_Teach_D2_2019['Teacher_Name'], rotation = 45)
 
 for rect, label in zip(rects20, Digitalization_Teach_D2_2017['Digit_Percentage']):
     height = rect.get_height()
@@ -152,20 +152,20 @@ for rect, label in zip(rects22, Digitalization_Teach_D2_2019['Digit_Percentage']
 ax30.set_title('Percentage of Digitalization \nFrom LT2D Department Teachers in 2017')
 ax30.set_ylabel("Percentage of Digitalization")
 ax30.set_xlabel("Teachers Identification")
-ax30.set_xticks(Digitalization_Teach_D3_2017['Teacher_ID'])
-ax30.set_xticklabels(Digitalization_Teach_D3_2017['Teacher_ID'], rotation = 45)
+ax30.set_xticks(Digitalization_Teach_D3_2017['Teacher_Name'])
+ax30.set_xticklabels(Digitalization_Teach_D3_2017['Teacher_Name'], rotation = 45)
 
 ax31.set_title('Percentage of Digitalization \nFrom LT2D Department Teachers in 2018')
 #ax31.set_ylabel("Percentage of Digitalization")
 ax31.set_xlabel("Teachers Identification")
-ax31.set_xticks(Digitalization_Teach_D3_2018['Teacher_ID'])
-ax31.set_xticklabels(Digitalization_Teach_D3_2018['Teacher_ID'], rotation = 45)
+ax31.set_xticks(Digitalization_Teach_D3_2018['Teacher_Name'])
+ax31.set_xticklabels(Digitalization_Teach_D3_2018['Teacher_Name'], rotation = 45)
 
 ax32.set_title('Percentage of Digitalization \nFrom LT2D Department Teachers in 2019')
 #ax32.set_ylabel("Percentage of Digitalization")
 ax32.set_xlabel("Teachers Identification")
-ax32.set_xticks(Digitalization_Teach_D3_2019['Teacher_ID'])
-ax32.set_xticklabels(Digitalization_Teach_D3_2019['Teacher_ID'], rotation = 45)
+ax32.set_xticks(Digitalization_Teach_D3_2019['Teacher_Name'])
+ax32.set_xticklabels(Digitalization_Teach_D3_2019['Teacher_Name'], rotation = 45)
 
 for rect, label in zip(rects30, Digitalization_Teach_D3_2017['Digit_Percentage']):
     height = rect.get_height()

@@ -81,6 +81,20 @@ for i in range(0, len(hrs_ppl_y)):
     list_digit_percent.append(int(list_digit_ratio[i] * 100))
 
 
+#Define a list with the name of each teacher per department
+Rand_Name = pd.read_csv('Digitalization/Example/Data/Random_Common_Names.csv').reset_index() #Import the CSV
+teacher_name = []
+
+for num_ppl in ppl_department:
+    for i in range(0, num_ppl):
+        done = False
+        while done == False:
+            rand_name = random.randint(0, len(Rand_Name['Name'])-1)
+            if Rand_Name['Name'][rand_name] not in teacher_name:
+                teacher_name.append(Rand_Name['Name'][rand_name])
+                done = True 
+
+
 
 #Create three temporary lists
 teacher_department = [] #The department of each teacher
@@ -88,6 +102,7 @@ teacher_number_department = [] #The number of teachers per department
 teaching_department = [] #The total number of hours teached by department
 temp_year = [] #The year of the teacher
 list_teacher_ID = [] #List that represents the identification of each teacher
+list_teacher_name = [] #List that represents the name of each teacher
 
 dep = 0
 for year in list_years:
@@ -100,13 +115,14 @@ for year in list_years:
             teaching_department.append(hrs_department[dep])
             temp_year.append(year)
             list_teacher_ID.append(teach_ID)
-
+            list_teacher_name.append(teacher_name[teach_ID-1])
             teach_ID += 1
         dep += 1
 
 
 #Make the dataframe
 Digitalization_Dept = pd.DataFrame({'Teacher_ID': list_teacher_ID,
+                                    'Teacher_Name': list_teacher_name,
                                     'Department': teacher_department,
                                     'Year': temp_year,
                                     'Teacing_Duration': hrs_ppl_y,
