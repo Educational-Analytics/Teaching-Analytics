@@ -83,19 +83,19 @@ ax10.set_title('Percentage of Digitalization \nFrom AGORA Department Teachers in
 ax10.set_ylabel("Percentage of Digitalization")
 ax10.set_xlabel("Teachers Identification")
 ax10.set_xticks(Digitalization_Teach_D1_2017['Teacher_Name'])
-ax10.set_xticklabels(Digitalization_Teach_D1_2017['Teacher_Name'], rotation = 45)
+ax10.set_xticklabels(Digitalization_Teach_D1_2017['Teacher_Name'], rotation = 75)
 
 ax11.set_title('Percentage of Digitalization \nFrom AGORA Department Teachers in 2018')
 #ax11.set_ylabel("Percentage of Digitalization")
 ax11.set_xlabel("Teachers Identification")
 ax11.set_xticks(Digitalization_Teach_D1_2018['Teacher_Name'])
-ax11.set_xticklabels(Digitalization_Teach_D1_2018['Teacher_Name'], rotation = 45)
+ax11.set_xticklabels(Digitalization_Teach_D1_2018['Teacher_Name'], rotation = 75)
 
 ax12.set_title('Percentage of Digitalization \nFrom AGORA Department Teachers in 2019')
 #ax12.set_ylabel("Percentage of Digitalization")
 ax12.set_xlabel("Teachers Identification")
 ax12.set_xticks(Digitalization_Teach_D1_2019['Teacher_Name'])
-ax12.set_xticklabels(Digitalization_Teach_D1_2019['Teacher_Name'], rotation = 45)
+ax12.set_xticklabels(Digitalization_Teach_D1_2019['Teacher_Name'], rotation = 75)
 
 for rect, label in zip(rects10, Digitalization_Teach_D1_2017['Digit_Percentage']):
     height = rect.get_height()
@@ -118,19 +118,19 @@ ax20.set_title('Percentage of Digitalization \nFrom LPTM Department Teachers in 
 ax20.set_ylabel("Percentage of Digitalization")
 ax20.set_xlabel("Teachers Identification")
 ax20.set_xticks(Digitalization_Teach_D2_2017['Teacher_Name'])
-ax20.set_xticklabels(Digitalization_Teach_D2_2017['Teacher_Name'], rotation = 45)
+ax20.set_xticklabels(Digitalization_Teach_D2_2017['Teacher_Name'], rotation = 75)
 
 ax21.set_title('Percentage of Digitalization \nFrom LPTM Department Teachers in 2018')
 #ax21.set_ylabel("Percentage of Digitalization")
 ax21.set_xlabel("Teachers Identification")
 ax21.set_xticks(Digitalization_Teach_D2_2018['Teacher_Name'])
-ax21.set_xticklabels(Digitalization_Teach_D2_2018['Teacher_Name'], rotation = 45)
+ax21.set_xticklabels(Digitalization_Teach_D2_2018['Teacher_Name'], rotation = 75)
 
 ax22.set_title('Percentage of Digitalization \nFrom LPTM Department Teachers in 2019')
 #ax22.set_ylabel("Percentage of Digitalization")
 ax22.set_xlabel("Teachers Identification")
 ax22.set_xticks(Digitalization_Teach_D2_2019['Teacher_Name'])
-ax22.set_xticklabels(Digitalization_Teach_D2_2019['Teacher_Name'], rotation = 45)
+ax22.set_xticklabels(Digitalization_Teach_D2_2019['Teacher_Name'], rotation = 75)
 
 for rect, label in zip(rects20, Digitalization_Teach_D2_2017['Digit_Percentage']):
     height = rect.get_height()
@@ -153,19 +153,19 @@ ax30.set_title('Percentage of Digitalization \nFrom LT2D Department Teachers in 
 ax30.set_ylabel("Percentage of Digitalization")
 ax30.set_xlabel("Teachers Identification")
 ax30.set_xticks(Digitalization_Teach_D3_2017['Teacher_Name'])
-ax30.set_xticklabels(Digitalization_Teach_D3_2017['Teacher_Name'], rotation = 45)
+ax30.set_xticklabels(Digitalization_Teach_D3_2017['Teacher_Name'], rotation = 75)
 
 ax31.set_title('Percentage of Digitalization \nFrom LT2D Department Teachers in 2018')
 #ax31.set_ylabel("Percentage of Digitalization")
 ax31.set_xlabel("Teachers Identification")
 ax31.set_xticks(Digitalization_Teach_D3_2018['Teacher_Name'])
-ax31.set_xticklabels(Digitalization_Teach_D3_2018['Teacher_Name'], rotation = 45)
+ax31.set_xticklabels(Digitalization_Teach_D3_2018['Teacher_Name'], rotation = 75)
 
 ax32.set_title('Percentage of Digitalization \nFrom LT2D Department Teachers in 2019')
 #ax32.set_ylabel("Percentage of Digitalization")
 ax32.set_xlabel("Teachers Identification")
 ax32.set_xticks(Digitalization_Teach_D3_2019['Teacher_Name'])
-ax32.set_xticklabels(Digitalization_Teach_D3_2019['Teacher_Name'], rotation = 45)
+ax32.set_xticklabels(Digitalization_Teach_D3_2019['Teacher_Name'], rotation = 75)
 
 for rect, label in zip(rects30, Digitalization_Teach_D3_2017['Digit_Percentage']):
     height = rect.get_height()
