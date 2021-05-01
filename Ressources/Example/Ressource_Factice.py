@@ -58,13 +58,13 @@ for course in list_courses_ID:
 
         #Create variables from the ratio/percentages of digitalization.
         duration_digit = round(list_course_hrs[ins[0]] * ratio) #Set the number of hours using online ressources. 
-        num_ress = round(list_ress[ins[0]] + ceil(list_ress[ins[0]] * (ratio - list_digit_ratio[ins[0]]))) #Set the number of online ressources.
+        #num_ress = round(list_ress[ins[0]] + ceil(list_ress[ins[0]] * (ratio - list_digit_ratio[ins[0]]))) #Set the number of online ressources.
         
         #Append lists.
         temp_ID.append(course) #Append the course ID in the temporary list.
         list_course_hrs.append(list_course_hrs[ins[0]]) #Append the number of hours of the course.
         list_duration_digit.append(duration_digit) #Append the hours using online ressources of the course.
-        list_ress.append(num_ress) #Append the number of ressources of the course.
+        #list_ress.append(num_ress) #Append the number of ressources of the course.
     
     else: #In case the selected ID has never been set.
         rand_num = random.random()  #Define a random number to choose the time interval of a course.
@@ -88,8 +88,7 @@ for course in list_courses_ID:
         list_digit_ratio.append(ran_unif)  #Append a random number corresponding to the ratio of digitalization
         list_digit_percent.append(int(ran_unif * 100)) #Append a random number corresponding to the percentage of digitalization
         list_duration_digit.append(num_digit) #Append the hours using online ressources of the course.
-        list_ress.append(num_ress) #Append the number of ressources of the course.
-    continue
+        #list_ress.append(num_ress) #Append the number of ressources of the course.
 
 #Create two temporary lists to implementate the year of each course and the total number of course from each year.
 temp_year = []
@@ -108,7 +107,6 @@ Course_PerYear = pd.DataFrame({'Course_ID': list_courses_ID,
                                     'Course_Duration': list_course_hrs,
                                     'Course_Duration_Digit': list_duration_digit,
                                     'Course_Duration_Present': [round(hrs - ldg) for hrs, ldg in zip(list_course_hrs, list_duration_digit)],
-                                    #'Number_Ressources': list_ress,
                                     'Digit_Ratio': list_digit_ratio,
                                     'Digit_Percentage': list_digit_percent,
                                     'Total_Courses_perYear': temp_course_hrs,
@@ -243,14 +241,6 @@ Course_PerYear['Number_Exam_3H'] = [array_exam[i][2] for i in range(0, len(array
 Course_PerYear['Number_Exam_4H'] = [array_exam[i][3] for i in range(0, len(array_exam))]
 
 print(count) #14 078 586
-
-#############
-# Save Data #
-#############
-
-#Save the dataframe into a CSV file
-Course_PerYear = Course_PerYear.sort_values(by = 'Course_ID', ascending = True)
-Course_PerYear.to_csv('Ressources/Example/Data/Ressources.csv')
 
 ####################################
 # Factice Ressources Sequence Data #
