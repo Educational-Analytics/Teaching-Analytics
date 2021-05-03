@@ -43,9 +43,9 @@ def Digit_Ratio(CourseID, lst_CoursesID, Lst_Ratio):
         #Create a while loop to compute the ratio/percentage of digitalization.
         while (inside == True): 
             if Lst_Ratio[ins[-1]] == 0:
-                ratio = round(random.uniform(0.05,0.5),2)
+                ratio = round(random.uniform(0.05,0.35),2)
             else:
-                ratio = Lst_Ratio[ins[-1]] * round(random.uniform(1,1.5),2) #Compute the new ratio from the previous one.
+                ratio = Lst_Ratio[ins[-1]] * round(random.uniform(1,1.25),2) #Compute the new ratio from the previous one.
             
             if ratio <= 1: #We can not have a ratio above 1.
                 inside = False #Since the conditions is respe

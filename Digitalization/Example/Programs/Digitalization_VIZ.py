@@ -45,11 +45,14 @@ def show_values_on_bars(axs):
 
 Digitalization = pd.read_csv('Digitalization\Example\Data\Digitalization.csv').reset_index()
 
+#Select a departments to build a figure
+ran_dep = random.randint(0, len(Digitalization['Department'].unique())-1)
+dep = Digitalization['Department'].unique()[ran_dep]
+print(dep)
 
 ##################
 # Visualizations #
 ##################
-
 
 #########################################################################################
 # Percentage of Digitalization for the Factice University Departments from 2013 to 2020 #
@@ -119,11 +122,6 @@ plt.show()
 # (BOXPLOT) Percentage of Digitalization for the Factice University Departments from 2013 to 2020 #
 ###################################################################################################
 
-#Select a departments to build a figure
-ran_dep = random.randint(0, len(Digitalization['Department'].unique())-1)
-dep = Digitalization['Department'].unique()[ran_dep]
-print(dep)
-
 Digitalization_Dep = Digitalization[Digitalization['Department'] == dep]
 
 #Build the figure
@@ -145,7 +143,7 @@ fig.tight_layout()
 fig.subplots_adjust(right=0.91)
 
 #Save Figure
-fig.savefig("Digitalization/Example/Figures/Boxplot of the Digitalization for the Factice University Department of " + str(dep) + " from 2013 to 2010")
+fig.savefig("Digitalization/Example/Figures/Boxplot of the Digitalization for the Factice University Department of " + str(dep) + " from 2013 to 2020")
 
 #Display the Figure
 plt.show()
@@ -226,11 +224,6 @@ plt.show()
 #####################################################################################################
 # (BARPLOT) Percentage of Digitalization for the Teachers of a Department of the Factice University #        
 #####################################################################################################
-
-#Select a departments to build a figure
-ran_dep = random.randint(0, len(Digitalization['Department'].unique())-1)
-dep = Digitalization['Department'].unique()[ran_dep]
-print(dep)
 
 Digitalization_Teach = Digitalization[Digitalization['Department'] == dep]
 Digitalization_Teach = Digitalization_Teach.groupby(['Teacher_Name', 'Year'])['Digit_Percentage'].mean().reset_index()

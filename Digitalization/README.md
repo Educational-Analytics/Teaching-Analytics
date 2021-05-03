@@ -102,45 +102,44 @@ Indicateur 2: Proportion des cours avec plus de 80% d'utilisation de ressources 
 
 L'étude factice est divisé en trois partie.
 
-1. Pourcentage de Digitalisation d'une Université en fonction de la durée de chaque cours sur une durée de huit années.
-2. Pourcentage de Digitalisation de chaque Département d'une Université de 2017 à 2019.
-3. Pourcentage de Digitalisation de chaque Enseignant des Départements respectifs; AGORA, LPTM et LT2D de 2017 à 2019.
+1. Pourcentage de Digitalisation d'une Université en fonction du département sur huit années.
+2. Pourcentage de Digitalisation d'un Département d'une Université sur la même période que précèdemment.
+3. Pourcentage de Digitalisation de chaque Enseignant d'un Département sur une période de quatres années.
+
+La réalisation des études peut être retrouver avec les liens ci-dessous: \
+[Lien des données artificielles.](https://github.com/Educational-Analytics/Teaching-Analytics/blob/1b70c30f8483a30083d25b46898308d4a48415ed/Digitalization/Example/Data/Digitalization.csv) \
+[Algorithme Python permettant de réaliser les études.](https://github.com/Educational-Analytics/Teaching-Analytics/blob/1b70c30f8483a30083d25b46898308d4a48415ed/Digitalization/Example/Programs/Digitalization.py) \
+[Algorithme Python permettant de réaliser les visualisations des études.](https://github.com/Educational-Analytics/Teaching-Analytics/blob/1b70c30f8483a30083d25b46898308d4a48415ed/Digitalization/Example/Programs/Digitalization_VIZ.py)
 
 #### Échelle Universitaire
 
-La réalisation de cette partie peut être retrouver ci-dessous: \
-[Factice Data Link](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/Data/Digitalization_perYear.csv) \
-[Algorithme Python permettant de réaliser l'Étude](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/University_Digitalization.py)
+La première étude se concentre sur l'échelle d'une Université (factice) qui nous permet d'obtenir la figure suivante qui représente une «Heatmap» des pourcentages de digitalization de chaque département d'une université pendant huit années allant de 2013 à 2020:
 
-L'analyse du pourcentage de digitalisation de chaque cours à l'échelle universitaire nous permet d'obtenir la figure suivante:
+factice-data: Hybridation au sein d'une Université
+![factice-data: Pourcentage de Digitalisation pour chaque département d'une Université en fonction de l'année](https://raw.githubusercontent.com/Hype-13/Teaching-Analytics/main/Digitalization/Example/Figures/Heatmap%20of%20the%20Digitalization%20for%20the%20Factice%20University%20Departments%20from%202013%20to%202020.png)
 
-![factice-data: Pourcentage de Digitalisation d'une Université en fonction de la durée de chaque cours](https://raw.githubusercontent.com/Educational-Analytics/Teaching-Analytics/main/Digitalization/Example/Figures/Displot%20of%20the%20Digitalization%20per%20Interval%20of%20Course%20Duration.png)
-
-Le graphique ci-dessus montre la fréquence des pourcentages de digitalisation de chaque cours en fonction de la durée de chaque cours. Cependant, cette analyse n'est pas assez ciblé n'offre que très peu d'interprétation.
+La figure ci-dessus nous permet d'identifier une amélioration de la digitalization après chaque année plus ou moins importante dans chaque département. On remarque qu'entre 2013 et 2020, l'utilisation de ressources en ligne a doublé avec 25% en moyenne entre 2013 à plus de 50% en 2020.
+Il semble qu'au niveau universitaire l'utilisation de ressources en ligne est une possible piste concernant le futur de l'éducation. Cependant l'échelle de cette étude n'offre pas un assez bon ciblage est ne permet pas de comprendre la raison de de cette augmentation au cours des années de l'utilisation des ressources.
 
 #### Échelle Départementale
 
-Un ciblage plus important sur chaque département d'une université est possible. La réalisation de cette partie peut être retrouver ci-dessous: \
-[GitHub Factice Data Link](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/Data/Digitalization_perDepartment.csv) \
-[Algorithme Python permettant de réaliser l'Étude](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/Departments_Digitalization.py)
+Un ciblage plus important est celui d'un département d'une université. Dans cette seconde étude qui se concentre sur l'échelle d'un Département d'une université (factice) nous  obtenons la figure suivante qui représente un «Boxplot», la distribution des pourcentages de digitalization d'un département (Management) d'une université pendant huit années allant de 2013 à 2020:
 
-L'analyse du pourcentage de digitalisation de chaque département d'une université nous permets d'obtenir la figure suivante:
+factice-data: Hybridation au sein d'un Département
+![factice-data: Distribution du Pourcentage de Digitalisation d'un département d'une Université en fonction de l'année](https://raw.githubusercontent.com/Hype-13/Teaching-Analytics/main/Digitalization/Example/Figures/Boxplot%20of%20the%20Digitalization%20for%20the%20Factice%20University%20Department%20of%20Management%20from%202013%20to%202010.png)
 
-![factice-data: Pourcentage de Digitalisation de chaque Département d'une Université de 2017 à 2019](https://raw.githubusercontent.com/Educational-Analytics/Teaching-Analytics/main/Digitalization/Example/Figures/Barplots%20of%20the%20Digitalization%20per%20Department%20from%202017%20to%202019.png)
-
-Le graphique ci-dessus montre le pourcentage de digitalisation de chaque département d'une université à travers trois ans (2017 à 2019). Nous pouvons observer une différence de digitalisation à travers les années de chaque départements. Cependant les pourcentages reste similaire à quelques départements, ansi, nous manquons encore d'information pour donner une interprétation intéressante.
+La figure ci-dessus nous permet de comprendre l'amélioration de l'utilisation de ressources en ligne en fonction des années. On remarque notamment la répartition du pourcentage de digitalisation de chaque cours. Nous pouvons observer une une croissance de 5% chaque année avec en 2020 la plus haute distribution et une mediane à 50% de digitalisation soit la moitié des cours qui utilisent des ressources en ligne.
+L'échelle départementale est plus précise que celle universitaire est nous permet donc de comprendre la répartition de l'utilisation de ressources en ligne. Toutefois, nous pouvons encore avoir un ciblage plus précis.
 
 #### Échelle Individuelle
 
-Un ciblage encore plus important que précèdemment est un ciblage indivuduel concernant chaque enseignant d'un département. La réalisation de cette partie peut être retrouver ci-dessous: \
-[GitHub Factice Data Link](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/Data/Digitalization_perDep_perTeacher.csv) \
-[Algorithme Python permettant de réaliser l'Étude](https://github.com/Educational-Analytics/Teaching-Analytics/blob/47243d087d80f7d009bb79a001c7b1586037d8ae/Digitalization/Example/Teacher_Digitalization.py)
+Le ciblage le plus important concernant l'effectif d'une Université est l'enseignant d'un département. Dans cette dernière étude, nous obtenons la figure suivante qui représente le pourcentage de digitalisation de chaque enseignant d'un département (Management) pendant quatres années de forte digitalisation allant de 2017 à 2020.
 
 L'analyse de la digitalisation de chaque enseignant d'un département nous permet d'obtenir la figure suivante:
 
 factice-data: Hybridation par Enseignant
-![factice-data: Pourcentage de Digitalisation de chaque Enseignant des Départements respectifs; AGORA, LPTM et LT2D de 2017 à 2019](https://raw.githubusercontent.com/Educational-Analytics/Teaching-Analytics/main/Digitalization/Example/Figures/Barplot%20of%20the%20Digitalization%20per%20Teacher%20of%20Department%20from%202017%20to%202019.png)
+![factice-data: Pourcentage de Digitalisation de chaque Enseignant des Départements respectifs; AGORA, LPTM et LT2D de 2017 à 2019](https://raw.githubusercontent.com/Hype-13/Teaching-Analytics/main/Digitalization/Example/Figures/Barplots%20of%20the%20Digitalization%20for%20the%20Factice%20University%20Department%20of%20Management%20from%202017%20to%202019.png)
 
-Le graphique ci-dessus montre l'évolution du pourcentage de digitalisation de chaque enseignant de trois départements universitaire (respectivement AGORA, LPTM, LT2D) de 2017 à 2019. Cette visualisation est la plus précise est nous permet de comprendre avec le graphique précèdent l'évolution au sein d'un département l'utilisation de ressources en ligne.
+Le graphique ci-dessus nous permet de comprendre l'amélioration de l'utilisation de ressources d'un département à travers les enseignants de celui-ci. On remarque que certain enseignant possède un niveau de digitalisation plus élévé que d'autres.
 
 ## Bibliographie
