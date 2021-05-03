@@ -1,0 +1,8 @@
+
+Some Improvements:
+
+--> More Departments 
+--> Modify the increase of Digitalization per Year depending on the Courses (Sociology /=/ History /=/ Art /=/ Handmade)
+--> Create a list of course for each Department (Information Theory, Game Theory, Second Degree Equations, ...)
+
+
