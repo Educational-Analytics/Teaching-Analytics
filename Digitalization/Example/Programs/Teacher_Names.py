@@ -67,6 +67,6 @@ Small_df = Common_df.sort_values(by = 'Name', ascending = True)
 #############
 
 #Save the dataframe into a CSV file
-Large_df.to_csv('Digitalization/Example/Data/Random_200k_Names.csv')
-Common_df.to_csv('Digitalization/Example/Data/Random_Common_Names.csv')
-Small_df.to_csv('Digitalization/Example/Data/Random_Small_Names.csv')
+Large_df.to_csv('Digitalization/Example/Data/Names/Random_200k_Names.csv')
+Common_df.to_csv('Digitalization/Example/Data/Names/Random_Common_Names.csv')
+Small_df.to_csv('Digitalization/Example/Data/Names/Random_Small_Names.csv')

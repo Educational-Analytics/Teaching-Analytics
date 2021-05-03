@@ -102,7 +102,7 @@ print('Year Interval:', temp_Years, '\n')
 temp_NumbTRP = []
 num_teachers = 0
 for depts in temp_Depts:
-    ran_ppl = random.randint(5, 15)  #Random number that represents the number of teachers in the current department.
+    ran_ppl = random.randint(5, 8)  #Random number that represents the number of teachers in the current department.
     num_teachers += ran_ppl
     temp_NumbTRP.append(ran_ppl)
 
