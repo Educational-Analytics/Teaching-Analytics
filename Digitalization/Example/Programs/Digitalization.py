@@ -114,8 +114,8 @@ print('Number of Teachers per Department', temp_NumbTRP, '\n')
 # Build the factice Teaching-research Personnel (name, identification) and Taught Courses (duration, identification) #
 ######################################################################################################################
 
-#Import a CSV file containing the most common names from the US (sample of 6,000).
-Random_ComName = pd.read_csv('Digitalization/Example/Data/Names/Random_Common_Names.csv').reset_index() #Import the CSV containing some common names
+#Import a CSV file containing the most common names from France (sample of 3.378).
+Random_ComName = pd.read_csv('Digitalization/Example/Data/Names/French_Names_Lgh3378.csv').reset_index() #Import the CSV containing some common names
 
 #Initial Teaching-research Personnel Information.
 PRAG_Hour = 384 #Average Minimal (Hours of teaching) - PRAG.
@@ -146,7 +146,7 @@ for teachers in temp_NumbTRP: #Loop that take the number of teachers per departm
     dep += 1  #Increase the dep corresponding the index of the lists to implement.
     for i in range(0, teachers): #Loop that take all the teachers for the current department.
         teacher_ID += 1 #Increase the teacher_ID
-        rand_name = random.randint(0, len(Random_ComName['Name'])-1) #Select randomly a name from the database of most common names.
+        rand_name = random.randint(0, len(Random_ComName['Last_Name'])-1) #Select randomly a name from the database of most common names.
         rand_num = random.random() #Define a random number to find the type of teacher (PRAG/PRCE).
         if (0 <= rand_num <= Prop_PRAG_on_PRCE):
             temp = 0 #Set the temporary variable to compute the total hours worked by a teacher
@@ -170,7 +170,7 @@ for teachers in temp_NumbTRP: #Loop that take the number of teachers per departm
                         lst_Course_ID.append(course_ID)
                         lst_Courses_Duration.append(course_Duration)
                         lst_Teacher_ID.append(teacher_ID)
-                        lst_Teacher_Name.append(Random_ComName['Name'][rand_name])
+                        lst_Teacher_Name.append(Random_ComName['Last_Name'][rand_name])
                         lst_Depts.append(temp_Depts[dep-1])
                         lst_NumbTeachers.append(temp_NumbTRP[dep-1])
                         lst_Digit_Ratio.append(round(ratio,2))  
@@ -205,7 +205,7 @@ for teachers in temp_NumbTRP: #Loop that take the number of teachers per departm
                         lst_Course_ID.append(course_ID)
                         lst_Courses_Duration.append(course_Duration)
                         lst_Teacher_ID.append(teacher_ID)
-                        lst_Teacher_Name.append(Random_ComName['Name'][rand_name])
+                        lst_Teacher_Name.append(Random_ComName['Last_Name'][rand_name])
                         lst_Depts.append(temp_Depts[dep-1])
                         lst_NumbTeachers.append(temp_NumbTRP[dep-1])
                         lst_Digit_Ratio.append(round(ratio,2))  
