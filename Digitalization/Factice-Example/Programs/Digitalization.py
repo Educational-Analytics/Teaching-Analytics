@@ -9,7 +9,18 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os
 
+################
+#Find the Path #
+################
+
+dir_path = os.path.dirname(__file__) #Find the directory path of the current python «FolderCreation» file.
+keywords = ['Digitalization', 'Factice-Example'] #Determine the keywords that will take the folder position.
+folder_name = 'Data' #Name of the Data folder.
+
+glob_path = '/'.join(dir_path.split('/')[(dir_path.split('/').index(keywords[0])):(dir_path.split('/').index(keywords[1]) + 1)])  #Find the General Path
+path_data = glob_path + '/' + folder_name + '/'  #Path of the Data Folder
 
 #####################################################
 # Initialize a pseudorandom number generator (seed) #
@@ -115,7 +126,7 @@ print('Number of Teachers per Department', temp_NumbTRP, '\n')
 ######################################################################################################################
 
 #Import a CSV file containing the most common names from France (sample of 3.378).
-Random_ComName = pd.read_csv('Digitalization/Example/Data/Names/French_Names_Lgh3378.csv').reset_index() #Import the CSV containing some common names
+Random_ComName = pd.read_csv(path_data + 'Names/French_Names_Lgh3378.csv').reset_index() #Import the CSV containing some common names
 
 #Initial Teaching-research Personnel Information.
 PRAG_Hour = 384 #Average Minimal (Hours of teaching) - PRAG.
@@ -250,9 +261,9 @@ Digitalization['Digitalization'] = np.select(conditions_digit, type_digit)
 
 print(Digitalization.head(10))
 
-# Sauvegarder le dataframe en CSV
-Digitalization = Digitalization.sort_values(by = ['Year', 'Teacher_ID', 'Course_ID'], ascending = True)
-Digitalization.to_csv('Digitalization/Example/Data/Digitalization.csv')
+#Save the Dataframe into a CSV File
+Digitalization = Digitalization.sort_values(by = ['Year', 'Teacher_ID', 'Course_ID'], ascending = True).set_index('Teacher_ID')
+Digitalization.to_csv(path_data + 'Digitalization.csv')
 
 #########################
 # Data Preparation DONE #

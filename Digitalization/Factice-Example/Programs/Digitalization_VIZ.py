@@ -9,6 +9,20 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os
+
+###################################
+#Define the Path and Folders Name #
+###################################
+
+dir_path = os.path.dirname(__file__) #Find the directory path of the current python «FolderCreation» file.
+folder_names = ['Data', 'Data-Viz', 'Figures'] #Determine the name of the sub folders for the factice example.
+keywords = ['Digitalization', 'Factice-Example'] #Determine the keywords that will take the folder position.
+
+glob_path = '/'.join(dir_path.split('/')[(dir_path.split('/').index(keywords[0])):(dir_path.split('/').index(keywords[1]) + 1)])  #Find the General Path
+path_Data = glob_path + '/' + folder_names[0] + '/'  #Path of the Data Folder
+path_DataViz = path_Data + folder_names[1] + '/'  #Path of the DataViz Folder
+path_Figures = glob_path + '/' + folder_names[2] + '/' #Path of the Figures Folder
 
 
 #####################################################
@@ -43,7 +57,7 @@ def show_values_on_bars(axs):
 # Import the required Data file #
 #################################
 
-Digitalization = pd.read_csv('Digitalization\Example\Data\Digitalization.csv').reset_index()
+Digitalization = pd.read_csv(path_Data + 'Digitalization.csv')
 
 #Select a departments to build a figure
 ran_dep = random.randint(0, len(Digitalization['Department'].unique())-1)
@@ -81,11 +95,15 @@ fig.subplots_adjust(right=0.91)
 
 
 #Save Figure
-fig.savefig("Digitalization/Example/Figures/Boxplot of the Digitalization for the Factice University Departments from 2013 to 2020")
+fig.savefig(path_Figures + "Boxplot of the Digitalization for the Factice University Departments from 2013 to 2020")
+
+#Save CSV
+Digitalization_Departs.to_csv(path_DataViz + 'Digit_Depts_Years.csv')
 
 #Display the Figure
 plt.show()
 """
+
 
 ###################################################################################################
 # (HEATMAP) Percentage of Digitalization for the Factice University Departments from 2013 to 2020 #
@@ -112,7 +130,10 @@ fig.suptitle("Percentage of Digitalization for the Factice University Department
 fig.tight_layout()
 
 #Save Figure
-fig.savefig("Digitalization/Example/Figures/Heatmap of the Digitalization for the Factice University Departments from 2013 to 2020")
+fig.savefig(path_Figures + "Heatmap of the Digitalization for the Factice University Departments from 2013 to 2020")
+
+#Save CSV
+Digitalization_Depts.to_csv(path_DataViz + 'Pivot_Digit_Depts_Years.csv')
 
 #Display the Figure
 plt.show()
@@ -143,7 +164,11 @@ fig.tight_layout()
 fig.subplots_adjust(right=0.91)
 
 #Save Figure
-fig.savefig("Digitalization/Example/Figures/Boxplot of the Digitalization for the Factice University Department of " + str(dep) + " from 2013 to 2020")
+fig.savefig(path_Figures + "Boxplot of the Digitalization for the Factice University Department of " + str(dep) + " from 2013 to 2020")
+
+#Save CSV
+Digitalization_Dep = Digitalization_Dep.sort_values(by = ['Year', 'Teacher_ID'], ascending = True).set_index('Teacher_ID')
+Digitalization_Dep.to_csv(path_DataViz + 'Digit_' + str(dep) + '_Years.csv')
 
 #Display the Figure
 plt.show()
@@ -215,7 +240,7 @@ fig.subplots_adjust(top=0.9,
                     wspace=1.0)
 
 #Save Figure
-fig.savefig("Digitalization/Example/Figures/Barplots of the Digitalization for the Factice University Departments from 2017 to 2019")
+fig.savefig(path_Figures + "Barplots of the Digitalization for the Factice University Departments from 2017 to 2019")
 
 #Display
 plt.show()
@@ -288,7 +313,11 @@ fig.subplots_adjust(top=0.9,
                     wspace=1.0)
 
 #Save Figure
-fig.savefig("Digitalization/Example/Figures/Barplots of the Digitalization for the Factice University Department of " + str(dep) + " from 2017 to 2019")
+fig.savefig(path_Figures + "Barplots of the Digitalization for the Factice University Department of " + str(dep) + " from 2017 to 2019")
+
+#Save CSV
+Digitalization_Teach = Digitalization_Teach.sort_values(by = ['Year', 'Teacher_Name'], ascending = True).set_index('Teacher_Name')
+Digitalization_Teach.to_csv(path_DataViz + 'Digit_' + str(dep) + '_Teachers_Name.csv')
 
 #Display
 plt.show()

@@ -7,25 +7,34 @@ from math import *
 import numpy as np
 import pandas as pd
 import random
-from random import seed
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os 
 
-#Set a seed to keep the same values randomly defined after each execution.
-seed( 2000 )
 
-#################################
-# Import the required Data file #
-#################################
+################
+#Find the Path #
+################
 
-#Import the dataframe
-Course_PerYear = pd.read_csv('Digitalization/Example/Data/Digitalization.csv')
+dir_path = os.path.dirname(__file__) #Find the directory path of the current python «FolderCreation» file.
+keywords = ['Ressources', 'Factice-Example'] #Determine the keywords that will take the folder position.
+folder_name = 'Data' #Name of the Data folder.
 
-#Drop the first column of the dataframe (empty)
-Course_PerYear = Course_PerYear.iloc[: , 1:]
+glob_path = '/'.join(dir_path.split('/')[(dir_path.split('/').index(keywords[0])):(dir_path.split('/').index(keywords[1]) + 1)])  #Find the General Path
+path_data = glob_path + '/' + folder_name + '/'  #Path of the Data Folder
 
-###
-# Function
+
+#####################################################
+# Initialize a pseudorandom number generator (seed) #
+#####################################################
+
+#Define a seed to preserve the same values randomly obtained after each execution.
+random.seed( 2000 ) #The seed does not need to be randomize
+
+
+######################
+# Class and Function #
+######################
 
 def Video_Times(dv, nv, array_video, ins):
     if (dv == 0 or nv == 0):
@@ -90,6 +99,24 @@ def Exam_Times(de, ne, array_exam, ins):
 
     return(array_e)
 
+
+def Prep_Seq(rng1, rng2, string):
+    temp_seq = []
+    rng = rng1 - rng2
+    for l in range(rng):
+        temp_seq.append(string)
+    return(temp_seq)
+
+
+#################################
+# Import the required Data file #
+#################################
+
+#Import the dataframe
+Course_PerYear = pd.read_csv(path_data + 'Digitalization.csv')
+
+#Drop the first column of the dataframe (empty)
+Course_PerYear = Course_PerYear.iloc[: , 1:]
 
 ######################################
 # Factice Ressources Additional Data #
@@ -280,89 +307,159 @@ Course_PerYear['Number_Exam_4H'] = [array_exam[i][3] for i in range(0, len(array
 #print(Course_PerYear[['Course_ID', 'Year', 'Duration_Quiz', 'Number_Quiz', 'Number_Quiz_1H', 'Number_Quiz_2H']].sort_values(by = ['Course_ID', 'Year'], ascending = True).head(10))
 #print(Course_PerYear[['Course_ID', 'Year', 'Duration_Exam', 'Number_Exam', 'Number_Exam_1H', 'Number_Exam_2H', 'Number_Exam_3H', 'Number_Exam_4H']].sort_values(by = ['Course_ID', 'Year'], ascending = True).head(10))
 
-Course_PerYear.to_csv('Ressources/Example/Data/Ressources.csv')
 
-
-"""
 ####################################
 # Factice Ressources Sequence Data #
 ####################################
+
+#Import the dataframe
 Sequence_Course = Course_PerYear
 
-#Basic Sequence Lists
-bas_seq = []         #Basic List containing the sequence of each course
-bas_seq_joint = []   #Basic List containing the sequence joint of each course
+#Advanced/Basic Sequence Lists
+basic_SeqJoint = []   #Basic List containing the sequence joint of each course
+advanced_SeqJoint = []   #Advanced List containing the sequence joint of each course
 
-#Advanced Sequence Lists
-adv_seq = []         #Advanced List containing the sequence of each course
-adv_seq_joint = []   #Advanced List containing the sequence joint of each course
-
+#Temporary ID:
+temp_ID = []
+seqts = []
 #Loop 
-for course in range(len(Sequence_Course)):
-    bas_seq_temp = []
-    adv_seq_temp = []
-    for vid in range(Sequence_Course['Number_Video'].iloc[course]):
-        bas_seq_temp.append('Vid')
-    for vid1H in range(Sequence_Course['Number_Video_1H'].iloc[course]):
-        adv_seq_temp.append('Vid1H')
-    for vid2H in range(Sequence_Course['Number_Video_2H'].iloc[course]):
-        adv_seq_temp.append('Vid2H')
-    for vid3H in range(Sequence_Course['Number_Video_3H'].iloc[course]):
-        adv_seq_temp.append('Vid3H')
-    for vid4H in range(Sequence_Course['Number_Video_4H'].iloc[course]):
-        adv_seq_temp.append('Vid4H')
+for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Course_ID']):
 
-    for quiz in range(Sequence_Course['Number_Quiz'].iloc[course]):
-        bas_seq_temp.append('Quiz')
-    for quiz1H in range(Sequence_Course['Number_Quiz_1H'].iloc[course]):
-        adv_seq_temp.append('Quiz1H')
-    for quiz2H in range(Sequence_Course['Number_Quiz_2H'].iloc[course]):
-        adv_seq_temp.append('Quiz2H')
+    if course_ID in temp_ID:
+        ins = [courses for courses in range(0, len(temp_ID)) if temp_ID[courses] == course_ID] #Find the index of the identical ID as the current «course» selected ID.    
+        basic_SeqJoint_INS = [basic_SeqJoint[ins[-1]]]
+        advanced_SeqJoint_INS = [advanced_SeqJoint[ins[-1]]]
 
-    for exam in range(Sequence_Course['Number_Exam'].iloc[course]):
-        bas_seq_temp.append('Exam')
-    for exam1H in range(Sequence_Course['Number_Exam_1H'].iloc[course]):
-        adv_seq_temp.append('Exam1H')
-    for exam2H in range(Sequence_Course['Number_Exam_2H'].iloc[course]):
-        adv_seq_temp.append('Exam2H')
-    for exam3H in range(Sequence_Course['Number_Exam_3H'].iloc[course]):
-        adv_seq_temp.append('Exam3H')
-    for exam4H in range(Sequence_Course['Number_Exam_4H'].iloc[course]):
-        adv_seq_temp.append('Exam4H')
+        #Video
+        rng_2_vid = Sequence_Course['Number_Video'].iloc[ins[-1]]
+        rng_2_vid_1H = Sequence_Course['Number_Video_1H'].iloc[ins[-1]]
+        rng_2_vid_2H = Sequence_Course['Number_Video_2H'].iloc[ins[-1]]
+        rng_2_vid_3H = Sequence_Course['Number_Video_3H'].iloc[ins[-1]]
+        rng_2_vid_4H = Sequence_Course['Number_Video_4H'].iloc[ins[-1]]
+
+        #Quizz
+        rng_2_quizz = Sequence_Course['Number_Quiz'].iloc[ins[-1]]
+        rng_2_quizz_1H = Sequence_Course['Number_Quiz_1H'].iloc[ins[-1]]
+        rng_2_quizz_2H = Sequence_Course['Number_Quiz_2H'].iloc[ins[-1]]
+
+        #Exam
+        rng_2_exam = Sequence_Course['Number_Exam'].iloc[ins[-1]]
+        rng_2_exam_1H = Sequence_Course['Number_Exam_1H'].iloc[ins[-1]]
+        rng_2_exam_2H = Sequence_Course['Number_Exam_2H'].iloc[ins[-1]]
+        rng_2_exam_3H = Sequence_Course['Number_Exam_3H'].iloc[ins[-1]]
+        rng_2_exam_4H = Sequence_Course['Number_Exam_4H'].iloc[ins[-1]]
+
+    else: 
+        rng_2_vid = rng_2_vid_1H = rng_2_vid_2H = rng_2_vid_3H = rng_2_vid_4H = 0
+        rng_2_quizz = rng_2_quizz_1H = rng_2_quizz_2H = 0
+        rng_2_exam = rng_2_exam_1H = rng_2_exam_2H = rng_2_exam_3H = rng_2_exam_4H = 0
+
+    #Video
+    basic_VidTemp = Prep_Seq(Sequence_Course['Number_Video'].iloc[seq], rng_2_vid, 'Vid')
+    advanced_VidTemp_1H = Prep_Seq(Sequence_Course['Number_Video_1H'].iloc[seq], rng_2_vid_1H, 'Vid1H')
+    advanced_VidTemp_2H = Prep_Seq(Sequence_Course['Number_Video_2H'].iloc[seq], rng_2_vid_2H, 'Vid2H')
+    advanced_VidTemp_3H = Prep_Seq(Sequence_Course['Number_Video_3H'].iloc[seq], rng_2_vid_3H, 'Vid3H')
+    advanced_VidTemp_4H = Prep_Seq(Sequence_Course['Number_Video_4H'].iloc[seq], rng_2_vid_4H, 'Vid4H')
+
+    #Quizz
+    basic_QuizzTemp = Prep_Seq(Sequence_Course['Number_Quiz'].iloc[seq], rng_2_quizz, 'Quizz')
+    advanced_QuizzTemp_1H = Prep_Seq(Sequence_Course['Number_Quiz_1H'].iloc[seq], rng_2_quizz_1H, 'Quizz1H')
+    advanced_QuizzTemp_2H = Prep_Seq(Sequence_Course['Number_Quiz_2H'].iloc[seq], rng_2_quizz_2H, 'Quizz2H')
+
+    #Exam
+    basic_ExamTemp = Prep_Seq(Sequence_Course['Number_Exam'].iloc[seq], rng_2_exam, 'Exam')
+    advanced_ExamTemp_1H = Prep_Seq(Sequence_Course['Number_Exam_1H'].iloc[seq], rng_2_exam_1H, 'Exam1H')
+    advanced_ExamTemp_2H = Prep_Seq(Sequence_Course['Number_Exam_2H'].iloc[seq], rng_2_exam_2H, 'Exam2H')
+    advanced_ExamTemp_3H = Prep_Seq(Sequence_Course['Number_Exam_3H'].iloc[seq], rng_2_exam_3H, 'Exam3H')
+    advanced_ExamTemp_4H = Prep_Seq(Sequence_Course['Number_Exam_4H'].iloc[seq], rng_2_exam_4H, 'Exam4H')
+ 
+
+    if course_ID in temp_ID: 
+        #Basic List
+        basic_SeqTemp = basic_VidTemp + basic_QuizzTemp + basic_ExamTemp
+        random.shuffle(basic_SeqTemp)
+        basic_Seq_tempJoint = '-'.join(basic_SeqJoint_INS + basic_SeqTemp)
+        basic_SeqJoint.append(basic_Seq_tempJoint)
+
+        
+        
+        #Advanced List
+        advanced_Vid = advanced_VidTemp_1H + advanced_VidTemp_2H + advanced_VidTemp_3H + advanced_VidTemp_4H
+        advanced_Quizz = advanced_QuizzTemp_1H + advanced_QuizzTemp_2H
+        advanced_Exam = advanced_ExamTemp_1H + advanced_ExamTemp_2H + advanced_ExamTemp_3H + advanced_ExamTemp_4H
+        advanced_SeqTemp_Initial = advanced_Vid + advanced_Quizz + advanced_Exam
+
+        advanced_SeqTemp = []
+        for bsc_seq in basic_SeqTemp:
+            if bsc_seq == 'Vid':
+                ran_vid = random.randint(0, len(advanced_Vid)-1)
+                advanced_SeqTemp.append(advanced_Vid[ran_vid])
+                advanced_Vid.pop(ran_vid)
+
+            if bsc_seq == 'Quizz':
+                ran_quizz = random.randint(0, len(advanced_Quizz)-1)
+                advanced_SeqTemp.append(advanced_Quizz[ran_quizz])
+                advanced_Quizz.pop(ran_quizz)
+
+            if bsc_seq == 'Exam':
+                ran_exam = random.randint(0, len(advanced_Exam)-1)
+                advanced_SeqTemp.append(advanced_Exam[ran_exam])
+                advanced_Exam.pop(ran_exam)
+
+        advanced_Seq_tempJoint = '-'.join(advanced_SeqJoint_INS + advanced_SeqTemp)
+        advanced_SeqJoint.append(advanced_Seq_tempJoint)
+    
+
+    else:
+        #Basic List
+        basic_SeqTemp = basic_VidTemp + basic_QuizzTemp + basic_ExamTemp
+        random.shuffle(basic_SeqTemp)
+        basic_Seq_tempJoint = '-'.join(basic_SeqTemp)
+        basic_SeqJoint.append(basic_Seq_tempJoint)
+        
+        #Advanced List
+        advanced_Vid = advanced_VidTemp_1H + advanced_VidTemp_2H + advanced_VidTemp_3H + advanced_VidTemp_4H
+        advanced_Quizz = advanced_QuizzTemp_1H + advanced_QuizzTemp_2H
+        advanced_Exam = advanced_ExamTemp_1H + advanced_ExamTemp_2H + advanced_ExamTemp_3H + advanced_ExamTemp_4H
+        advanced_SeqTemp_Initial = advanced_Vid + advanced_Quizz + advanced_Exam
+        
+        advanced_SeqTemp = []
+        for bsc_seq in basic_SeqTemp:
+            if bsc_seq == 'Vid':
+                ran_vid = random.randint(0, len(advanced_Vid)-1)
+                advanced_SeqTemp.append(advanced_Vid[ran_vid])
+                advanced_Vid.pop(ran_vid)
+
+            if bsc_seq == 'Quizz':
+                ran_quizz = random.randint(0, len(advanced_Quizz)-1)
+                advanced_SeqTemp.append(advanced_Quizz[ran_quizz])
+                advanced_Quizz.pop(ran_quizz)
+
+            if bsc_seq == 'Exam':
+                ran_exam = random.randint(0, len(advanced_Exam)-1)
+                advanced_SeqTemp.append(advanced_Exam[ran_exam])
+                advanced_Exam.pop(ran_exam)
+
+        advanced_Seq_tempJoint = '-'.join(advanced_SeqTemp)
+        advanced_SeqJoint.append(advanced_Seq_tempJoint)
+
+    temp_ID.append(course_ID)
+    seqts.append(seq)
 
 
-    random.shuffle(bas_seq_temp)
-    bas_seq_temp_joint = '-'.join(bas_seq_temp)
-    bas_seq.append(bas_seq_temp)
-    bas_seq_joint.append(bas_seq_temp_joint)
-
-    random.shuffle(adv_seq_temp)
-    adv_seq_temp_joint = '-'.join(adv_seq_temp)
-    adv_seq.append(adv_seq_temp)
-    adv_seq_joint.append(adv_seq_temp_joint)
-
-Sequence_Course['Basic_Sequence'] = bas_seq_joint
-Sequence_Course['Advanced_Sequence'] = adv_seq_joint
+Sequence_Course['Basic_Sequence'] = basic_SeqJoint
+Sequence_Course['Advanced_Sequence'] = advanced_SeqJoint
 
 col = ['Course_ID', 'Year', 'Course_Duration', 'Course_Digit', 'Number_Ressources', 'Number_Video', 'Number_Quiz', 'Number_Exam', 'Basic_Sequence', 'Advanced_Sequence']
 Sequences = Sequence_Course[col]
 
-#############
-# Save Data #
-#############
-
-#Save the dataframe into a CSV file
-Sequence_Course.to_csv('Ressources/Example/Data/Ressources_Sequences.csv')
-
-#Save the dataframe into a CSV file
-Sequences.to_csv('Ressources/Example/Data/Sequences.csv')
 
 #######################
 # Preparing Sequences #
 #######################
 
-Sequence_8_30 = Sequences[(Sequences['Course_Digit'].between(8, 30))]
-Sequences_8_30 = Sequence_8_30[['Course_ID', 'Year', 'Course_Digit', 'Number_Ressources', 'Basic_Sequence', 'Advanced_Sequence']]
+#Sequence_8_30 = Sequences[(Sequences['Course_Digit'].between(8, 30))]
+#Sequences_8_30 = Sequence_8_30[['Course_ID', 'Year', 'Course_Digit', 'Number_Ressources', 'Basic_Sequence', 'Advanced_Sequence']]
 
 #Fast Way
 list_Course_ID = []
@@ -373,15 +470,15 @@ list_Count = []
 list_BasicSeq = []
 list_AdvancedSeq = []
 
-for num in range(len(Sequences_8_30)):
+for num in range(len(Sequences)):
     count = 1
-    list_basic = Sequences_8_30.iloc[num]['Basic_Sequence'].split("-")
-    list_advanced = Sequences_8_30.iloc[num]['Advanced_Sequence'].split("-")
+    list_basic = Sequences.iloc[num]['Basic_Sequence'].split("-")
+    list_advanced = Sequences.iloc[num]['Advanced_Sequence'].split("-")
     for basic,advanced in zip(list_basic, list_advanced):
-        list_Course_ID.append(Sequences_8_30.iloc[num]['Course_ID'])
-        list_Course_Year.append(Sequences_8_30.iloc[num]['Year'])
-        list_Digit_Duration.append(Sequence_8_30.iloc[num]['Course_Digit'])
-        list_Ressources.append(Sequences_8_30.iloc[num]['Number_Ressources'])
+        list_Course_ID.append(Sequences.iloc[num]['Course_ID'])
+        list_Course_Year.append(Sequences.iloc[num]['Year'])
+        list_Digit_Duration.append(Sequences.iloc[num]['Course_Digit'])
+        list_Ressources.append(Sequences.iloc[num]['Number_Ressources'])
         list_Count.append(count) 
         list_BasicSeq.append(basic)
         list_AdvancedSeq.append(advanced)
@@ -395,7 +492,8 @@ Prepared_Sequence = pd.DataFrame({'Course_ID': list_Course_ID,
               'Ressources_Type_Basic': list_BasicSeq,
               'Ressources_Type_Advanced': list_AdvancedSeq,
 })
-"""
+
+
 #Esthetical Way
 """
 Prepared_Sequence = pd.DataFrame(columns=['Course_ID', 'Year', 'Course_Digit_Duration', 'Ressources_Amount', 'Ressources_Rank', 'Ressources_Type_Basic', 'Ressources_Type_Advanced'])
@@ -414,11 +512,23 @@ for num in range(len(Sequences_8_30)):
             'Ressources_Type': advanced}, ignore_index=True)
         count += 1
 """
-"""
+
 #############
 # Save Data #
 #############
 
-#Save the dataframe into a CSV file
-Prepared_Sequence.to_csv('Ressources/Example/Data/Prepared_Sequences.csv')
-"""
+#Save the «Prepared_Sequence» into a CSV File.
+Prepared_Sequence.to_csv(path_data + 'Prepared_Sequences.csv')
+
+#Save the «Course_PerYear» into a CSV File.
+Course_PerYear.to_csv(path_data + 'Ressources.csv')
+
+#Save the «Sequence_Course» into a CSV file.
+Sequence_Course.to_csv(path_data + 'Ressources_Sequences.csv')
+
+#Save the «Sequences» into a CSV file.
+Sequences.to_csv(path_data + 'Sequences.csv')
+
+#########################
+# Data Preparation DONE #
+#########################

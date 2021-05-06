@@ -12,6 +12,20 @@ import re
 from pathlib import Path
 import timeit
 import requests
+import os
+
+
+###################################
+#Define the Path and Folders Name #
+###################################
+
+dir_path = os.path.dirname(__file__) #Find the directory path of the current python «FolderCreation» file.
+keywords = ['Digitalization', 'Factice-Example'] #Determine the keywords that will take the folder position.
+folder_names = ['Data', 'Data-Names'] #Name of the Data folder.
+
+glob_path = '/'.join(dir_path.split('/')[(dir_path.split('/').index(keywords[0])):(dir_path.split('/').index(keywords[1]) + 1)])  #Find the General Path
+path_DataName = glob_path + '/' + folder_names[0] + '/' + folder_names[1] + '/' #Path of the Data Folder
+
 
 ##########################
 # SCRAPPING French Names #
@@ -60,4 +74,4 @@ print(French_Names.head(10))
 #############
 
 #Save the dataframe into a CSV file
-French_Names.to_csv('Digitalization/Example/Data/Names/French_Names_Lgh' + str(len(French_Names)) + '.csv')
+French_Names.to_csv(path_DataName + 'French_Names_Lgh' + str(len(French_Names)) + '.csv')
