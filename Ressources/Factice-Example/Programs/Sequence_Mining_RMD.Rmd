@@ -18,9 +18,9 @@ sequences <- read_csv(file ='../Data/Prepared_Sequences.csv')
 sequences <- select(sequences, -'X1')
 head(sequences)
 ```
+
 ```{r}
 hist(sequences$Ressources_Amount)
-hist(sequences$Course_ID)
 ```
 
 
@@ -50,6 +50,7 @@ head(mvad.seq, 10)
 
 seqiplot(mvad.seq, border = NA, withlegend = "right", tlim = 1:20, space=0.1)
 ```
+
 ```{r}
 seq_dbt_2017 <- seq_dbt %>% filter(Year == 2017)
 seq_dbt_2017

@@ -107,16 +107,16 @@ L'étude factice est divisé en trois partie.
 3. Pourcentage de Digitalisation de chaque Enseignant d'un Département sur une période de quatres années.
 
 La réalisation des études peut être retrouver avec les liens ci-dessous: \
-[Lien des données artificielles.](https://github.com/Educational-Analytics/Teaching-Analytics/blob/1b70c30f8483a30083d25b46898308d4a48415ed/Digitalization/Example/Data/Digitalization.csv) \
-[Algorithme Python permettant de réaliser les études.](https://github.com/Educational-Analytics/Teaching-Analytics/blob/1b70c30f8483a30083d25b46898308d4a48415ed/Digitalization/Example/Programs/Digitalization.py) \
-[Algorithme Python permettant de réaliser les visualisations des études.](https://github.com/Educational-Analytics/Teaching-Analytics/blob/1b70c30f8483a30083d25b46898308d4a48415ed/Digitalization/Example/Programs/Digitalization_VIZ.py)
+[Lien des données artificielles.](https://github.com/Educational-Analytics/Teaching-Analytics/blob/9db2a863be7f5144462433a97fce2189ce9978d0/Digitalization/Factice-Example/Data/Digitalization.csv) \
+[Algorithme Python permettant de réaliser les études.](https://github.com/Educational-Analytics/Teaching-Analytics/blob/9db2a863be7f5144462433a97fce2189ce9978d0/Digitalization/Factice-Example/Programs/Digitalization.py) \
+[Algorithme Python permettant de réaliser les visualisations des études.](https://github.com/Educational-Analytics/Teaching-Analytics/blob/9db2a863be7f5144462433a97fce2189ce9978d0/Digitalization/Factice-Example/Programs/Digitalization_VIZ.py)
 
 #### Échelle Universitaire
 
 La première étude se concentre sur l'échelle d'une Université (factice) qui nous permet d'obtenir la figure suivante qui représente une «Heatmap» des pourcentages de digitalization de chaque département d'une université pendant huit années allant de 2013 à 2020:
 
 factice-data: Hybridation au sein d'une Université
-![factice-data: Pourcentage de Digitalisation pour chaque département d'une Université en fonction de l'année](https://raw.githubusercontent.com/Hype-13/Teaching-Analytics/main/Digitalization/Example/Figures/Heatmap%20of%20the%20Digitalization%20for%20the%20Factice%20University%20Departments%20from%202013%20to%202020.png)
+![factice-data: Pourcentage de Digitalisation pour chaque département d'une Université en fonction de l'année](https://raw.githubusercontent.com/Hype-13/Teaching-Analytics/main/Digitalization/Factice-Example/Figures/Heatmap%20of%20the%20Digitalization%20for%20the%20Factice%20University%20Departments%20from%202013%20to%202020.png)
 
 La figure ci-dessus nous permet d'identifier une amélioration de la digitalization après chaque année plus ou moins importante dans chaque département. On remarque qu'entre 2013 et 2020, l'utilisation de ressources en ligne a doublé avec 25% en moyenne entre 2013 à plus de 50% en 2020.
 Il semble qu'au niveau universitaire l'utilisation de ressources en ligne est une possible piste concernant le futur de l'éducation. Cependant l'échelle de cette étude n'offre pas un assez bon ciblage est ne permet pas de comprendre la raison de de cette augmentation au cours des années de l'utilisation des ressources.
@@ -126,8 +126,7 @@ Il semble qu'au niveau universitaire l'utilisation de ressources en ligne est un
 Un ciblage plus important est celui d'un département d'une université. Dans cette seconde étude qui se concentre sur l'échelle d'un Département d'une université (factice) nous  obtenons la figure suivante qui représente un «Boxplot», la distribution des pourcentages de digitalization d'un département (Management) d'une université pendant huit années allant de 2013 à 2020:
 
 factice-data: Hybridation au sein d'un Département
-![factice-data: Distribution du Pourcentage de Digitalisation d'un département d'une Université en fonction de l'année](https://raw.githubusercontent.com/Hype-13/Teaching-Analytics/main/Digitalization/Example/Figures/Boxplot%20of%20the%20Digitalization%20for%20the%20Factice%20University%20Department%20of%20Management%20from%202013%20to%202020.png)
-
+![factice-data: Distribution du Pourcentage de Digitalisation d'un département d'une Université en fonction de l'année](https://raw.githubusercontent.com/Hype-13/Teaching-Analytics/main/Digitalization/Factice-Example/Figures/Boxplot%20of%20the%20Digitalization%20for%20the%20Factice%20University%20Department%20of%20Management%20from%202013%20to%202020.png)
 La figure ci-dessus nous permet de comprendre l'amélioration de l'utilisation de ressources en ligne en fonction des années. On remarque notamment la répartition du pourcentage de digitalisation de chaque cours. Nous pouvons observer une une croissance de 5% chaque année avec en 2020 la plus haute distribution et une mediane à 50% de digitalisation soit la moitié des cours qui utilisent des ressources en ligne.
 L'échelle départementale est plus précise que celle universitaire est nous permet donc de comprendre la répartition de l'utilisation de ressources en ligne. Toutefois, nous pouvons encore avoir un ciblage plus précis.
 
@@ -138,7 +137,7 @@ Le ciblage le plus important concernant l'effectif d'une Université est l'ensei
 L'analyse de la digitalisation de chaque enseignant d'un département nous permet d'obtenir la figure suivante:
 
 factice-data: Hybridation par Enseignant
-![factice-data: Pourcentage de Digitalisation de chaque Enseignant des Départements respectifs; AGORA, LPTM et LT2D de 2017 à 2019](https://raw.githubusercontent.com/Hype-13/Teaching-Analytics/main/Digitalization/Example/Figures/Barplots%20of%20the%20Digitalization%20for%20the%20Factice%20University%20Department%20of%20Management%20from%202017%20to%202019.png)
+![factice-data: Pourcentage de Digitalisation de chaque Enseignant des Départements respectifs; AGORA, LPTM et LT2D de 2017 à 2019](https://raw.githubusercontent.com/Hype-13/Teaching-Analytics/main/Digitalization/Factice-Example/Figures/Barplots%20of%20the%20Digitalization%20for%20the%20Factice%20University%20Department%20of%20Management%20from%202017%20to%202019.png)
 
 Le graphique ci-dessus nous permet de comprendre l'amélioration de l'utilisation de ressources d'un département à travers les enseignants de celui-ci. On remarque que certain enseignant possède un niveau de digitalisation plus élévé que d'autres.
 
