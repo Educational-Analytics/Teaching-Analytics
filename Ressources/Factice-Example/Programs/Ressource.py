@@ -355,30 +355,34 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
         rng_2_exam = rng_2_exam_1H = rng_2_exam_2H = rng_2_exam_3H = rng_2_exam_4H = 0
 
     #Video
-    basic_VidTemp = Prep_Seq(Sequence_Course['Number_Video'].iloc[seq], rng_2_vid, 'Vid')
-    advanced_VidTemp_1H = Prep_Seq(Sequence_Course['Number_Video_1H'].iloc[seq], rng_2_vid_1H, 'Vid1H')
-    advanced_VidTemp_2H = Prep_Seq(Sequence_Course['Number_Video_2H'].iloc[seq], rng_2_vid_2H, 'Vid2H')
-    advanced_VidTemp_3H = Prep_Seq(Sequence_Course['Number_Video_3H'].iloc[seq], rng_2_vid_3H, 'Vid3H')
-    advanced_VidTemp_4H = Prep_Seq(Sequence_Course['Number_Video_4H'].iloc[seq], rng_2_vid_4H, 'Vid4H')
+    basic_VidTemp = Prep_Seq(Sequence_Course['Number_Video'].iloc[seq], rng_2_vid, 'Video')
+    advanced_VidTemp_1H = Prep_Seq(Sequence_Course['Number_Video_1H'].iloc[seq], rng_2_vid_1H, 'Video Duration: 1H')
+    advanced_VidTemp_2H = Prep_Seq(Sequence_Course['Number_Video_2H'].iloc[seq], rng_2_vid_2H, 'Video Duration: 2H')
+    advanced_VidTemp_3H = Prep_Seq(Sequence_Course['Number_Video_3H'].iloc[seq], rng_2_vid_3H, 'Video Duration: 3H')
+    advanced_VidTemp_4H = Prep_Seq(Sequence_Course['Number_Video_4H'].iloc[seq], rng_2_vid_4H, 'Video Duration: 4H')
 
     #Quizz
     basic_QuizzTemp = Prep_Seq(Sequence_Course['Number_Quiz'].iloc[seq], rng_2_quizz, 'Quizz')
-    advanced_QuizzTemp_1H = Prep_Seq(Sequence_Course['Number_Quiz_1H'].iloc[seq], rng_2_quizz_1H, 'Quizz1H')
-    advanced_QuizzTemp_2H = Prep_Seq(Sequence_Course['Number_Quiz_2H'].iloc[seq], rng_2_quizz_2H, 'Quizz2H')
+    advanced_QuizzTemp_1H = Prep_Seq(Sequence_Course['Number_Quiz_1H'].iloc[seq], rng_2_quizz_1H, 'Quizz Duration: 1H')
+    advanced_QuizzTemp_2H = Prep_Seq(Sequence_Course['Number_Quiz_2H'].iloc[seq], rng_2_quizz_2H, 'Quizz Duration: 2H')
 
     #Exam
     basic_ExamTemp = Prep_Seq(Sequence_Course['Number_Exam'].iloc[seq], rng_2_exam, 'Exam')
-    advanced_ExamTemp_1H = Prep_Seq(Sequence_Course['Number_Exam_1H'].iloc[seq], rng_2_exam_1H, 'Exam1H')
-    advanced_ExamTemp_2H = Prep_Seq(Sequence_Course['Number_Exam_2H'].iloc[seq], rng_2_exam_2H, 'Exam2H')
-    advanced_ExamTemp_3H = Prep_Seq(Sequence_Course['Number_Exam_3H'].iloc[seq], rng_2_exam_3H, 'Exam3H')
-    advanced_ExamTemp_4H = Prep_Seq(Sequence_Course['Number_Exam_4H'].iloc[seq], rng_2_exam_4H, 'Exam4H')
+    advanced_ExamTemp_1H = Prep_Seq(Sequence_Course['Number_Exam_1H'].iloc[seq], rng_2_exam_1H, 'Exam Duration: 1H')
+    advanced_ExamTemp_2H = Prep_Seq(Sequence_Course['Number_Exam_2H'].iloc[seq], rng_2_exam_2H, 'Exam Duration: 2H')
+    advanced_ExamTemp_3H = Prep_Seq(Sequence_Course['Number_Exam_3H'].iloc[seq], rng_2_exam_3H, 'Exam Duration: 3H')
+    advanced_ExamTemp_4H = Prep_Seq(Sequence_Course['Number_Exam_4H'].iloc[seq], rng_2_exam_4H, 'Exam Duration: 4H')
  
 
     if course_ID in temp_ID: 
         #Basic List
         basic_SeqTemp = basic_VidTemp + basic_QuizzTemp + basic_ExamTemp
         random.shuffle(basic_SeqTemp)
-        basic_Seq_tempJoint = '-'.join(basic_SeqJoint_INS + basic_SeqTemp)
+        if basic_SeqJoint_INS == ['']:
+            basic_Seq_tempJoint = '-'.join(basic_SeqTemp)
+        else:
+            basic_Seq_tempJoint = '-'.join(basic_SeqJoint_INS + basic_SeqTemp)
+            
         basic_SeqJoint.append(basic_Seq_tempJoint)
 
         
@@ -391,7 +395,7 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
 
         advanced_SeqTemp = []
         for bsc_seq in basic_SeqTemp:
-            if bsc_seq == 'Vid':
+            if bsc_seq == 'Video':
                 ran_vid = random.randint(0, len(advanced_Vid)-1)
                 advanced_SeqTemp.append(advanced_Vid[ran_vid])
                 advanced_Vid.pop(ran_vid)
@@ -406,7 +410,11 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
                 advanced_SeqTemp.append(advanced_Exam[ran_exam])
                 advanced_Exam.pop(ran_exam)
 
-        advanced_Seq_tempJoint = '-'.join(advanced_SeqJoint_INS + advanced_SeqTemp)
+        if advanced_SeqJoint_INS == [''] :
+            advanced_Seq_tempJoint = '-'.join(advanced_SeqTemp)
+        else:
+            advanced_Seq_tempJoint = '-'.join(advanced_SeqJoint_INS + advanced_SeqTemp)
+        
         advanced_SeqJoint.append(advanced_Seq_tempJoint)
     
 
@@ -425,7 +433,7 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
         
         advanced_SeqTemp = []
         for bsc_seq in basic_SeqTemp:
-            if bsc_seq == 'Vid':
+            if bsc_seq == 'Video':
                 ran_vid = random.randint(0, len(advanced_Vid)-1)
                 advanced_SeqTemp.append(advanced_Vid[ran_vid])
                 advanced_Vid.pop(ran_vid)
@@ -439,7 +447,8 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
                 ran_exam = random.randint(0, len(advanced_Exam)-1)
                 advanced_SeqTemp.append(advanced_Exam[ran_exam])
                 advanced_Exam.pop(ran_exam)
-
+         
+        advanced_Seq_tempJoint = advanced_SeqTemp
         advanced_Seq_tempJoint = '-'.join(advanced_SeqTemp)
         advanced_SeqJoint.append(advanced_Seq_tempJoint)
 
@@ -464,6 +473,7 @@ Sequences = Sequence_Course[col]
 #Fast Way
 list_Course_ID = []
 list_Course_Year = [] 
+list_Duration = []
 list_Digit_Duration = []
 list_Ressources = []
 list_Count = []
@@ -477,6 +487,7 @@ for num in range(len(Sequences)):
     for basic,advanced in zip(list_basic, list_advanced):
         list_Course_ID.append(Sequences.iloc[num]['Course_ID'])
         list_Course_Year.append(Sequences.iloc[num]['Year'])
+        list_Duration.append(Sequences.iloc[num]['Course_Duration'])
         list_Digit_Duration.append(Sequences.iloc[num]['Course_Digit'])
         list_Ressources.append(Sequences.iloc[num]['Number_Ressources'])
         list_Count.append(count) 
@@ -486,6 +497,7 @@ for num in range(len(Sequences)):
 
 Prepared_Sequence = pd.DataFrame({'Course_ID': list_Course_ID,
               'Year': list_Course_Year,
+              'Course_Duration': list_Duration,
               'Course_Digit_Duration': list_Digit_Duration,
               'Ressources_Amount': list_Ressources,
               'Ressources_Rank': list_Count,

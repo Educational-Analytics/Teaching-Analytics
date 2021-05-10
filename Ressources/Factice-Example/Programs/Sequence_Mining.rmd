@@ -1,0 +1,83 @@
+---
+title: "Teaching Analytics"
+author: "ROUX Dorian"
+output: html_document
+---
+
+```{r}
+#Import libraries
+library('readr')
+library('dplyr')
+library('TraMineR')
+library("tidyr")
+library("RColorBrewer")
+```
+
+```{r}
+sequences <- read_csv(file ='../Data/Ressources_Sequences.csv')
+sequences <- select(sequences, -c(1))
+head(sequences)
+```
+
+
+```{r}
+prep_sequences <- read_csv(file ='../Data/Prepared_sequences.csv')
+prep_sequences <- select(prep_sequences, -c(1))
+head(prep_sequences)
+```
+
+```{r}
+set.seed( 12 ) # random number will generate from 1800
+
+ran_courseID <- sample.int(max(sequences['Course_ID']), 1)
+
+seq_course <- prep_sequences %>% filter(Course_ID == ran_courseID) 
+seq_course
+
+
+seq_course_Basic <- select(seq_course, -'Ressources_Type_Advanced')
+seq_course_Advanced <- select(seq_course, -'Ressources_Type_Basic')
+
+seq_bc <- spread(seq_course_Basic, Ressources_Rank,Ressources_Type_Basic)
+seq_bc
+
+seq_avd <- spread(seq_course_Advanced, Ressources_Rank,Ressources_Type_Advanced)
+seq_avd
+
+
+mvad.seq_bc <- seqdef(seq_bc[, -c(1:5)])
+head(mvad.seq_bc, 10)
+
+mvad.seq_avd <- seqdef(seq_avd[, -c(1:5)])
+head(mvad.seq_avd, 10)
+
+#seqiplot(mvad.seq, border = NA, withlegend = "right", tlim = 1:20, space=0.1)
+
+png(file="../Figures/Basic Sequence N°450.png", heigh = 500, width = 1000)
+seq_bas <- seqiplot(mvad.seq_bc, with.legend='right', ytlab=seq_bc$Year, ylas=1, cex.legend=1, ncol=1, ylab = "Years", xlab = "Ressources", main='Basic Sequence of the Online Ressources for the course N°450 over the Years')
+dev.off()
+
+png(file="../Figures/Advanced Sequence N°450.png", heigh = 500, width = 1000)
+seq_avd <- seqiplot(mvad.seq_avd, with.legend='right', ytlab=seq_avd$Year, ylas=1, cex.legend=1, ncol=1, ylab = "Years", xlab = "Ressources", main='Advanced Sequence of the Online Ressources for the course N°450 over the Years')
+dev.off()
+```
+
+
+```{r}
+seq_dbt_2019 <- prep_sequences %>% filter(Year == 2019)
+seq_course_Basic <- select(seq_dbt_2019, -'Ressources_Type_Advanced')
+seq_bc1 <- spread(seq_course_Basic, Ressources_Rank,Ressources_Type_Basic)
+
+def <- seqdef(seq_bc1[, -c(1:5)])
+mvad.seq <- seqdef(def[, c(1:10)])
+
+par(mfrow = c(1, 2))
+test <- seqiplot(mvad.seq, with.legend='right', ylas=1, cex.legend=1, ncol=1, ylab = "Course_ID", xlab = "Ressources", main='')
+
+```
+
+
+
+
+```{r}
+seq_dbt_2016
