@@ -137,7 +137,7 @@ Le ciblage le plus important concernant l'effectif d'une Université est l'ensei
 L'analyse de la digitalisation de chaque enseignant d'un département nous permet d'obtenir la figure suivante:
 
 factice-data: Hybridation par Enseignant
-![factice-data: Pourcentage de Digitalisation de chaque Enseignant des Départements respectifs; AGORA, LPTM et LT2D de 2017 à 2019](https://raw.githubusercontent.com/Hype-13/Teaching-Analytics/main/Digitalization/Factice-Example/Figures/Barplots%20of%20the%20Digitalization%20for%20the%20Factice%20University%20Department%20of%20Management%20from%202017%20to%202019.png)
+![factice-data: Pourcentage de Digitalisation de chaque Enseignant des Départements respectifs; AGORA, LPTM et LT2D de 2017 à 2019](https://raw.githubusercontent.com/Hype-13/Teaching-Analytics/main/Digitalization/Factice-Example/Figures/Barplots%20of%20the%20Digitalization%20for%20the%20Factice%20University%20Department%20of%20Management%20from%202017%20to%202020.png)
 
 Le graphique ci-dessus nous permet de comprendre l'amélioration de l'utilisation de ressources d'un département à travers les enseignants de celui-ci. On remarque que certain enseignant possède un niveau de digitalisation plus élévé que d'autres.
 
