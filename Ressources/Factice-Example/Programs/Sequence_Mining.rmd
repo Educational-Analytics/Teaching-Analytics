@@ -53,31 +53,29 @@ head(mvad.seq_avd, 10)
 
 #seqiplot(mvad.seq, border = NA, withlegend = "right", tlim = 1:20, space=0.1)
 
-png(file="../Figures/Basic Sequence N°450.png", heigh = 500, width = 1000)
+#png(file="../Figures/Basic Sequence N°450.png", heigh = 500, width = 1000)
 seq_bas <- seqiplot(mvad.seq_bc, with.legend='right', ytlab=seq_bc$Year, ylas=1, cex.legend=1, ncol=1, ylab = "Years", xlab = "Ressources", main='Basic Sequence of the Online Ressources for the course N°450 over the Years')
-dev.off()
+#dev.off()
 
-png(file="../Figures/Advanced Sequence N°450.png", heigh = 500, width = 1000)
+#png(file="../Figures/Advanced Sequence N°450.png", heigh = 500, width = 1000)
 seq_avd <- seqiplot(mvad.seq_avd, with.legend='right', ytlab=seq_avd$Year, ylas=1, cex.legend=1, ncol=1, ylab = "Years", xlab = "Ressources", main='Advanced Sequence of the Online Ressources for the course N°450 over the Years')
-dev.off()
+#dev.off()
+
+
 ```
 
 
 ```{r}
-seq_dbt_2019 <- prep_sequences %>% filter(Year == 2019)
-seq_course_Basic <- select(seq_dbt_2019, -'Ressources_Type_Advanced')
-seq_bc1 <- spread(seq_course_Basic, Ressources_Rank,Ressources_Type_Basic)
+for (year in unique(prep_sequences['Year'])){
+  seq_dbt <- prep_sequences %>% filter(Year == 2013)
+  seq_course_Basic <- select(seq_dbt, -'Ressources_Type_Advanced')
+  seq_course_Basic[is.na(seq_course_Basic)]<-'None'
 
-def <- seqdef(seq_bc1[, -c(1:5)])
-mvad.seq <- seqdef(def[, c(1:10)])
-
-par(mfrow = c(1, 2))
-test <- seqiplot(mvad.seq, with.legend='right', ylas=1, cex.legend=1, ncol=1, ylab = "Course_ID", xlab = "Ressources", main='')
+  seq_basic <- spread(seq_course_Basic, Ressources_Rank,Ressources_Type_Basic)
+seq_basic
+  mvad.seq <- seqdef(seq_basic[, c(1:10)])
+  seqiplot(mvad.seq, with.legend='right', ylas=1, cex.legend=1, ncol=1, ylab = "Course_ID", xlab = "Ressources", main='')
+}
 
 ```
 
-
-
-
-```{r}
-seq_dbt_2016

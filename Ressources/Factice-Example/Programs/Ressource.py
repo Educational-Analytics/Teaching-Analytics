@@ -57,9 +57,9 @@ def Video_Times(dv, nv, array_video, ins):
     return(array_v)
 
 
-def Quizz_Times(dq, nq, array_quizz, ins):
+def QCM_Times(dq, nq, array_QCM, ins):
     if (dq == 0 or nq == 0):
-        array_q = array_quizz[ins[-1]]
+        array_q = array_QCM[ins[-1]]
     else:
         array = []
         for i in range(0, nq+1):
@@ -69,12 +69,12 @@ def Quizz_Times(dq, nq, array_quizz, ins):
                         if dq == (1*i + 2*j) and nq == (i + j):
                             array.append([i,j])
         if len(array) == 1:
-            array_q = [array[0][0] + array_quizz[ins[-1]][0], array[0][1] + array_quizz[ins[-1]][1]]
+            array_q = [array[0][0] + array_QCM[ins[-1]][0], array[0][1] + array_QCM[ins[-1]][1]]
         elif len(array) == 0:
-            array_q = array_quizz[ins[-1]]
+            array_q = array_QCM[ins[-1]]
         else:
             ran = random.randint(0, len(array)-1)
-            array_q = [array[ran][0] + array_quizz[ins[-1]][0], array[ran][1] + array_quizz[ins[-1]][1]]
+            array_q = [array[ran][0] + array_QCM[ins[-1]][0], array[ran][1] + array_QCM[ins[-1]][1]]
     return(array_q)
 
 
@@ -107,7 +107,47 @@ def Prep_Seq(rng1, rng2, string):
         temp_seq.append(string)
     return(temp_seq)
 
+def basic_pos(array):
+    index_exam = [i for i in range(len(array)) if array[i] == 'Exam' ]   #Find the index of the identical ID as the current «course» selected ID.    
+    if len(index_exam) == 0:
+        return array
+        
+    if len(index_exam) == 1:
+        nw_position = len(array) -1
+        old_position = index_exam[0]
+        value_exchange = array[nw_position]
+        array[nw_position] = 'Exam'
+        array[old_position] = value_exchange
+    elif len(index_exam) > 1:
+        for index, i in zip(index_exam, range(1, len(index_exam)+1)):
+            nw_position = round(((len(array) - 1)*i)/len(index_exam))
+            old_position = index
+            value_exchange = array[nw_position]
+            array[nw_position] = 'Exam'
+            array[old_position] = value_exchange
+    
+    return array
 
+def advanced_pos(array):
+    index_exam = [i for i in range(len(array)) if array[i] in ['Exam Duration: 1H', 'Exam Duration: 2H', 'Exam Duration: 3H', 'Exam Duration: 4H'] ]   #Find the index of the identical ID as the current «course» selected ID.    
+    if len(index_exam) == 0:
+        return array
+        
+    if len(index_exam) == 1:
+        nw_position = len(array) -1
+        old_position = index_exam[0]
+        value_exchange = array[nw_position]
+        array[nw_position] = array[old_position]
+        array[old_position] = value_exchange
+    elif len(index_exam) > 1:
+        for index, i in zip(index_exam, range(1, len(index_exam)+1)):
+            nw_position = round(((len(array) - 1)*i)/len(index_exam))
+            old_position = index
+            value_exchange = array[nw_position]
+            array[nw_position] = array[old_position]
+            array[old_position] = value_exchange
+    
+    return array
 #################################
 # Import the required Data file #
 #################################
@@ -131,7 +171,7 @@ list_nb_rq = []
 list_nb_re = []
 
 array_video = [] 
-array_quizz = []
+array_QCM = []
 array_exam = []
 
 temp_ID = []
@@ -150,27 +190,28 @@ for (ress, course_ID) in zip(Course_PerYear['Course_Digit'], Course_PerYear['Cou
                 list_nb_re.append(list_nb_re[ins[-1]])
 
                 array_video.append(array_video[ins[-1]])
-                array_quizz.append(array_quizz[ins[-1]])
+                array_QCM.append(array_QCM[ins[-1]])
                 array_exam.append(array_exam[ins[-1]])
 
             else:
                 while nw_ress > 0:
                     random_vid = round(random.uniform(0, nw_ress*0.75))
-                    random_quiz = round(random.uniform(0, nw_ress*0.60))
-                    random_exam = round(random.uniform(0, 4))
-                    nw_ress = nw_ress - (random_vid + random_quiz + random_exam) 
+                    random_QCM = round(random.uniform(0, nw_ress*0.60))
+                    random_exam = round(random.uniform(0, 1))
+           
+                    nw_ress = nw_ress - (random_vid + random_QCM + random_exam) 
                     if nw_ress != 0:
-                        nw_ress = nw_ress + random_vid + random_quiz + random_exam
-                    elif random_quiz <= random_exam:
-                        nw_ress = nw_ress + random_vid + random_quiz + random_exam
+                        nw_ress = nw_ress + random_vid + random_QCM + random_exam
+                    elif random_QCM <= random_exam:
+                        nw_ress = nw_ress + random_vid + random_QCM + random_exam
                     elif random_vid < random_exam:
-                        nw_ress = nw_ress + random_vid + random_quiz + random_exam
+                        nw_ress = nw_ress + random_vid + random_QCM + random_exam
                     elif nw_ress == 0:
                         list_rv.append(list_rv[ins[-1]] + random_vid)
-                        list_rq.append(list_rq[ins[-1]] + random_quiz)
+                        list_rq.append(list_rq[ins[-1]] + random_QCM)
                         list_re.append(list_re[ins[-1]] + random_exam)
                         list_nb_rv.append(list_nb_rv[ins[-1]] + round(random.randint(ceil(random_vid/4), random_vid)))
-                        list_nb_rq.append(list_nb_rq[ins[-1]] + round(random.randint(ceil(random_quiz/2), random_quiz)))
+                        list_nb_rq.append(list_nb_rq[ins[-1]] + round(random.randint(ceil(random_QCM/2), random_QCM)))
                         list_nb_re.append(list_nb_re[ins[-1]] + round(random.randint(ceil(random_exam/4), random_exam)))
 
                         dv = list_rv[-1] - list_rv[ins[-1]]
@@ -179,7 +220,7 @@ for (ress, course_ID) in zip(Course_PerYear['Course_Digit'], Course_PerYear['Cou
 
                         dq = list_rq[-1] - list_rq[ins[-1]]
                         nq = list_nb_rq[-1] - list_nb_rq[ins[-1]]
-                        array_quizz.append(Quizz_Times(dq, nq, array_quizz, ins))
+                        array_QCM.append(QCM_Times(dq, nq, array_QCM, ins))
 
                         de = list_re[-1] - list_re[ins[-1]]
                         ne = list_nb_re[-1] - list_nb_re[ins[-1]]
@@ -188,22 +229,28 @@ for (ress, course_ID) in zip(Course_PerYear['Course_Digit'], Course_PerYear['Cou
         else:
             while ress > 0:
                 random_vid = round(random.uniform(0, ress*0.75))
-                random_quiz = round(random.uniform(0, ress*0.60))
-                random_exam = round(random.uniform(0, 4))
-                ress = ress - (random_vid + random_quiz + random_exam) 
+                random_QCM = round(random.uniform(0, ress*0.60))
+                if ress <= 10:
+                    random_exam = round(random.uniform(0, 1))
+                elif (ress > 10) and (ress <= 20):
+                    random_exam = round(random.uniform(0, 2))
+                else:
+                    random_exam = round(random.uniform(0, 4))
+
+                ress = ress - (random_vid + random_QCM + random_exam) 
                 if ress != 0:
-                    ress = ress + random_vid + random_quiz + random_exam
-                elif random_quiz <= random_exam:
-                    ress = ress + random_vid + random_quiz + random_exam
+                    ress = ress + random_vid + random_QCM + random_exam
+                elif random_QCM <= random_exam:
+                    ress = ress + random_vid + random_QCM + random_exam
                 elif random_vid < random_exam:
-                    ress = ress + random_vid + random_quiz + random_exam
+                    ress = ress + random_vid + random_QCM + random_exam
                 elif ress == 0:
                     list_rv.append(random_vid)
-                    list_rq.append(random_quiz)
+                    list_rq.append(random_QCM)
                     list_re.append(random_exam)
 
                     list_nb_rv.append(round(random.randint(ceil(random_vid/4), random_vid)))      
-                    list_nb_rq.append(round(random.randint(ceil(random_quiz/2), random_quiz)))
+                    list_nb_rq.append(round(random.randint(ceil(random_QCM/2), random_QCM)))
                     list_nb_re.append(round(random.randint(ceil(random_exam/4), random_exam)))
 
                     dv = list_rv[-1]
@@ -229,7 +276,7 @@ for (ress, course_ID) in zip(Course_PerYear['Course_Digit'], Course_PerYear['Cou
                     dq = list_rq[-1]
                     nq = list_nb_rq[-1]
                     if (dq == 0 or nq == 0):
-                        array_quizz.append([0,0])
+                        array_QCM.append([0,0])
                     else:
                         array = []
                         for i in range(0, nq+1):
@@ -237,12 +284,12 @@ for (ress, course_ID) in zip(Course_PerYear['Course_Digit'], Course_PerYear['Cou
                                 if dq == (1*i + 2*j) and nq == (i + j):
                                     array.append([i,j])
                         if len(array) == 1:
-                            array_quizz.append(array[0])
+                            array_QCM.append(array[0])
                         elif len(array) == 0:
-                            array_quizz.append([0,0])
+                            array_QCM.append([0,0])
                         else:
                             ran = random.randint(0, len(array)-1)
-                            array_quizz.append(array[ran])
+                            array_QCM.append(array[ran])
                   
                     de = list_re[-1]
                     ne = list_nb_re[-1]
@@ -272,7 +319,7 @@ for (ress, course_ID) in zip(Course_PerYear['Course_Digit'], Course_PerYear['Cou
         list_nb_rq.append(0)
         list_nb_re.append(0)
         array_video.append([0,0,0,0])
-        array_quizz.append([0,0])
+        array_QCM.append([0,0])
         array_exam.append([0,0,0,0])
 
 
@@ -280,10 +327,10 @@ for (ress, course_ID) in zip(Course_PerYear['Course_Digit'], Course_PerYear['Cou
 
 
 Course_PerYear['Duration_Video'] = list_rv
-Course_PerYear['Duration_Quiz'] = list_rq
+Course_PerYear['Duration_QCM'] = list_rq
 Course_PerYear['Duration_Exam'] = list_re
 Course_PerYear['Number_Video'] = list_nb_rv
-Course_PerYear['Number_Quiz'] = list_nb_rq
+Course_PerYear['Number_QCM'] = list_nb_rq
 Course_PerYear['Number_Exam'] = list_nb_re
 Course_PerYear['Number_Ressources'] =  [list_nb_rv[i] + list_nb_rq[i] + list_nb_re[i] for i in range(len(list_nb_re))]
 
@@ -293,8 +340,8 @@ Course_PerYear['Number_Video_2H'] = [array_video[i][1] for i in range(0, len(arr
 Course_PerYear['Number_Video_3H'] = [array_video[i][2] for i in range(0, len(array_video))]
 Course_PerYear['Number_Video_4H'] = [array_video[i][3] for i in range(0, len(array_video))]
 
-Course_PerYear['Number_Quiz_1H'] = [array_quizz[i][0] for i in range(0, len(array_quizz))]
-Course_PerYear['Number_Quiz_2H'] = [array_quizz[i][1] for i in range(0, len(array_quizz))]
+Course_PerYear['Number_QCM_1H'] = [array_QCM[i][0] for i in range(0, len(array_QCM))]
+Course_PerYear['Number_QCM_2H'] = [array_QCM[i][1] for i in range(0, len(array_QCM))]
 
 
 Course_PerYear['Number_Exam_1H'] = [array_exam[i][0] for i in range(0, len(array_exam))]
@@ -304,7 +351,7 @@ Course_PerYear['Number_Exam_4H'] = [array_exam[i][3] for i in range(0, len(array
 
 
 #print(Course_PerYear[['Course_ID', 'Year', 'Duration_Video', 'Number_Video', 'Number_Video_1H', 'Number_Video_2H', 'Number_Video_3H', 'Number_Video_4H']].sort_values(by = ['Course_ID', 'Year'], ascending = True).head(10))
-#print(Course_PerYear[['Course_ID', 'Year', 'Duration_Quiz', 'Number_Quiz', 'Number_Quiz_1H', 'Number_Quiz_2H']].sort_values(by = ['Course_ID', 'Year'], ascending = True).head(10))
+#print(Course_PerYear[['Course_ID', 'Year', 'Duration_QCM', 'Number_QCM', 'Number_QCM_1H', 'Number_QCM_2H']].sort_values(by = ['Course_ID', 'Year'], ascending = True).head(10))
 #print(Course_PerYear[['Course_ID', 'Year', 'Duration_Exam', 'Number_Exam', 'Number_Exam_1H', 'Number_Exam_2H', 'Number_Exam_3H', 'Number_Exam_4H']].sort_values(by = ['Course_ID', 'Year'], ascending = True).head(10))
 
 
@@ -337,10 +384,10 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
         rng_2_vid_3H = Sequence_Course['Number_Video_3H'].iloc[ins[-1]]
         rng_2_vid_4H = Sequence_Course['Number_Video_4H'].iloc[ins[-1]]
 
-        #Quizz
-        rng_2_quizz = Sequence_Course['Number_Quiz'].iloc[ins[-1]]
-        rng_2_quizz_1H = Sequence_Course['Number_Quiz_1H'].iloc[ins[-1]]
-        rng_2_quizz_2H = Sequence_Course['Number_Quiz_2H'].iloc[ins[-1]]
+        #QCM
+        rng_2_QCM = Sequence_Course['Number_QCM'].iloc[ins[-1]]
+        rng_2_QCM_1H = Sequence_Course['Number_QCM_1H'].iloc[ins[-1]]
+        rng_2_QCM_2H = Sequence_Course['Number_QCM_2H'].iloc[ins[-1]]
 
         #Exam
         rng_2_exam = Sequence_Course['Number_Exam'].iloc[ins[-1]]
@@ -351,7 +398,7 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
 
     else: 
         rng_2_vid = rng_2_vid_1H = rng_2_vid_2H = rng_2_vid_3H = rng_2_vid_4H = 0
-        rng_2_quizz = rng_2_quizz_1H = rng_2_quizz_2H = 0
+        rng_2_QCM = rng_2_QCM_1H = rng_2_QCM_2H = 0
         rng_2_exam = rng_2_exam_1H = rng_2_exam_2H = rng_2_exam_3H = rng_2_exam_4H = 0
 
     #Video
@@ -361,10 +408,10 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
     advanced_VidTemp_3H = Prep_Seq(Sequence_Course['Number_Video_3H'].iloc[seq], rng_2_vid_3H, 'Video Duration: 3H')
     advanced_VidTemp_4H = Prep_Seq(Sequence_Course['Number_Video_4H'].iloc[seq], rng_2_vid_4H, 'Video Duration: 4H')
 
-    #Quizz
-    basic_QuizzTemp = Prep_Seq(Sequence_Course['Number_Quiz'].iloc[seq], rng_2_quizz, 'Quizz')
-    advanced_QuizzTemp_1H = Prep_Seq(Sequence_Course['Number_Quiz_1H'].iloc[seq], rng_2_quizz_1H, 'Quizz Duration: 1H')
-    advanced_QuizzTemp_2H = Prep_Seq(Sequence_Course['Number_Quiz_2H'].iloc[seq], rng_2_quizz_2H, 'Quizz Duration: 2H')
+    #QCM
+    basic_QCMTemp = Prep_Seq(Sequence_Course['Number_QCM'].iloc[seq], rng_2_QCM, 'QCM')
+    advanced_QCMTemp_1H = Prep_Seq(Sequence_Course['Number_QCM_1H'].iloc[seq], rng_2_QCM_1H, 'QCM Duration: 1H')
+    advanced_QCMTemp_2H = Prep_Seq(Sequence_Course['Number_QCM_2H'].iloc[seq], rng_2_QCM_2H, 'QCM Duration: 2H')
 
     #Exam
     basic_ExamTemp = Prep_Seq(Sequence_Course['Number_Exam'].iloc[seq], rng_2_exam, 'Exam')
@@ -376,12 +423,15 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
 
     if course_ID in temp_ID: 
         #Basic List
-        basic_SeqTemp = basic_VidTemp + basic_QuizzTemp + basic_ExamTemp
+        basic_SeqTemp = basic_VidTemp + basic_QCMTemp + basic_ExamTemp
         random.shuffle(basic_SeqTemp)
+        basic_SeqTemp = basic_pos(basic_SeqTemp)
+
         if basic_SeqJoint_INS == ['']:
             basic_Seq_tempJoint = '-'.join(basic_SeqTemp)
         else:
-            basic_Seq_tempJoint = '-'.join(basic_SeqJoint_INS + basic_SeqTemp)
+            basic_temp = basic_pos(basic_SeqJoint_INS[0].split('-') + basic_SeqTemp)
+            basic_Seq_tempJoint = '-'.join(basic_temp)
             
         basic_SeqJoint.append(basic_Seq_tempJoint)
 
@@ -389,9 +439,9 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
         
         #Advanced List
         advanced_Vid = advanced_VidTemp_1H + advanced_VidTemp_2H + advanced_VidTemp_3H + advanced_VidTemp_4H
-        advanced_Quizz = advanced_QuizzTemp_1H + advanced_QuizzTemp_2H
+        advanced_QCM = advanced_QCMTemp_1H + advanced_QCMTemp_2H
         advanced_Exam = advanced_ExamTemp_1H + advanced_ExamTemp_2H + advanced_ExamTemp_3H + advanced_ExamTemp_4H
-        advanced_SeqTemp_Initial = advanced_Vid + advanced_Quizz + advanced_Exam
+        advanced_SeqTemp_Initial = advanced_Vid + advanced_QCM + advanced_Exam
 
         advanced_SeqTemp = []
         for bsc_seq in basic_SeqTemp:
@@ -400,10 +450,10 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
                 advanced_SeqTemp.append(advanced_Vid[ran_vid])
                 advanced_Vid.pop(ran_vid)
 
-            if bsc_seq == 'Quizz':
-                ran_quizz = random.randint(0, len(advanced_Quizz)-1)
-                advanced_SeqTemp.append(advanced_Quizz[ran_quizz])
-                advanced_Quizz.pop(ran_quizz)
+            if bsc_seq == 'QCM':
+                ran_QCM = random.randint(0, len(advanced_QCM)-1)
+                advanced_SeqTemp.append(advanced_QCM[ran_QCM])
+                advanced_QCM.pop(ran_QCM)
 
             if bsc_seq == 'Exam':
                 ran_exam = random.randint(0, len(advanced_Exam)-1)
@@ -413,23 +463,25 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
         if advanced_SeqJoint_INS == [''] :
             advanced_Seq_tempJoint = '-'.join(advanced_SeqTemp)
         else:
-            advanced_Seq_tempJoint = '-'.join(advanced_SeqJoint_INS + advanced_SeqTemp)
+            advanced_temp = advanced_pos(advanced_SeqJoint_INS[0].split('-') + advanced_SeqTemp)
+            advanced_Seq_tempJoint = '-'.join(advanced_temp)
         
         advanced_SeqJoint.append(advanced_Seq_tempJoint)
-    
+ 
 
     else:
         #Basic List
-        basic_SeqTemp = basic_VidTemp + basic_QuizzTemp + basic_ExamTemp
+        basic_SeqTemp = basic_VidTemp + basic_QCMTemp + basic_ExamTemp
         random.shuffle(basic_SeqTemp)
+        basic_SeqTemp = basic_pos(basic_SeqTemp)
         basic_Seq_tempJoint = '-'.join(basic_SeqTemp)
         basic_SeqJoint.append(basic_Seq_tempJoint)
         
         #Advanced List
         advanced_Vid = advanced_VidTemp_1H + advanced_VidTemp_2H + advanced_VidTemp_3H + advanced_VidTemp_4H
-        advanced_Quizz = advanced_QuizzTemp_1H + advanced_QuizzTemp_2H
+        advanced_QCM = advanced_QCMTemp_1H + advanced_QCMTemp_2H
         advanced_Exam = advanced_ExamTemp_1H + advanced_ExamTemp_2H + advanced_ExamTemp_3H + advanced_ExamTemp_4H
-        advanced_SeqTemp_Initial = advanced_Vid + advanced_Quizz + advanced_Exam
+        advanced_SeqTemp_Initial = advanced_Vid + advanced_QCM + advanced_Exam
         
         advanced_SeqTemp = []
         for bsc_seq in basic_SeqTemp:
@@ -438,10 +490,10 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
                 advanced_SeqTemp.append(advanced_Vid[ran_vid])
                 advanced_Vid.pop(ran_vid)
 
-            if bsc_seq == 'Quizz':
-                ran_quizz = random.randint(0, len(advanced_Quizz)-1)
-                advanced_SeqTemp.append(advanced_Quizz[ran_quizz])
-                advanced_Quizz.pop(ran_quizz)
+            if bsc_seq == 'QCM':
+                ran_QCM = random.randint(0, len(advanced_QCM)-1)
+                advanced_SeqTemp.append(advanced_QCM[ran_QCM])
+                advanced_QCM.pop(ran_QCM)
 
             if bsc_seq == 'Exam':
                 ran_exam = random.randint(0, len(advanced_Exam)-1)
@@ -459,7 +511,7 @@ for seq, course_ID in zip(range(0, len(Sequence_Course)), Sequence_Course['Cours
 Sequence_Course['Basic_Sequence'] = basic_SeqJoint
 Sequence_Course['Advanced_Sequence'] = advanced_SeqJoint
 
-col = ['Course_ID', 'Year', 'Course_Duration', 'Course_Digit', 'Number_Ressources', 'Number_Video', 'Number_Quiz', 'Number_Exam', 'Basic_Sequence', 'Advanced_Sequence']
+col = ['Course_ID', 'Year', 'Course_Duration', 'Course_Digit', 'Number_Ressources', 'Number_Video', 'Number_QCM', 'Number_Exam', 'Basic_Sequence', 'Advanced_Sequence']
 Sequences = Sequence_Course[col]
 
 

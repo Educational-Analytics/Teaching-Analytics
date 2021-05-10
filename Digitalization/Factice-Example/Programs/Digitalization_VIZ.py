@@ -42,7 +42,7 @@ def show_values_on_bars(axs):
     def _show_on_single_plot(ax):        
         for p in ax.patches:
             _x = p.get_x() + p.get_width() / 2
-            _y = p.get_y() + p.get_height() + 5
+            _y = p.get_y() + p.get_height() + 1
             value = '{:.0f}'.format(p.get_height())
             ax.text(_x, _y, value, ha="center") 
 
@@ -108,7 +108,7 @@ plt.show()
 ###################################################################################################
 # (HEATMAP) Percentage of Digitalization for the Factice University Departments from 2013 to 2020 #
 ###################################################################################################
-
+"""
 Digitalization_Depts = Digitalization.groupby(['Department', 'Year'])['Digit_Percentage'].mean().reset_index()
 Digitalization_Depts['Digit_Percentage'] = round(Digitalization_Depts['Digit_Percentage']).astype(int)
 Digitalization_Depts = Digitalization_Depts.pivot("Department", "Year", "Digit_Percentage")
@@ -122,11 +122,15 @@ fig, ax = plt.subplots(1, 1, figsize=(16, 9), sharey=True)
 
 #Axis
 ax = sns.heatmap(Digitalization_Depts, annot= True, fmt="d", linewidths=.5, cmap = 'Spectral')
-ax.set_xlabel("Years", size=13)
-ax.set_ylabel("Departments", size=13)
+ax.set_xlabel("Année", size=16)
+ax.set_ylabel("Départements de l'Université Factice", size=16)
+plt.setp(ax.get_xticklabels(), fontsize=14)
+plt.setp(ax.get_yticklabels(), fontsize=14)
 
 #Last Setting
-fig.suptitle("Percentage of Digitalization for the Factice University Departments from 2013 to 2020", ha = 'center', size=16, fontweight='bold')
+#fig.suptitle("Percentage of Digitalization for the Factice University Departments from 2013 to 2020", ha = 'center', size=16, fontweight='bold')
+fig.suptitle("Pourcentage de Digitalisation pour chaque Département de l'Université Factice de 2013 à 2020", ha = 'center', size=18)
+
 fig.tight_layout()
 
 #Save Figure
@@ -154,14 +158,16 @@ fig, ax = plt.subplots(1, 1, figsize=(16, 9), sharey=True)
 
 #Axis
 ax = sns.boxplot(x="Year", y="Digit_Percentage", hue = "Year", dodge = False, data=Digitalization_Dep, palette = 'Spectral')
-ax.set_xlabel("Years", size=13)
-ax.set_ylabel("Digitalization (in percent [%])", size=13)
-ax.legend(loc='center', bbox_to_anchor=(1.05, 0.5), shadow=True, title = 'Years')
+ax.set_xlabel("Année", size=16)
+ax.set_xticklabels(Digitalization_Dep['Year'].unique(), fontsize=16)
+ax.set_ylabel("Digitalisation (en pourcentage [%])", size=16)
+#ax.legend(loc='center', bbox_to_anchor=(1.05, 0.5), shadow=True, title = 'Année')
+ax.get_legend().remove()
 
 #Last Setting
-fig.suptitle("Distribution of the Digitalization Percentage for the Factice University Department of " + str(dep) + " from 2013 to 2020", ha = 'center', size=16, fontweight='bold')
+#fig.suptitle("Distribution of the Digitalization Percentage for the Factice University Department of " + str(dep) + " from 2013 to 2020", ha = 'center', size=18)
+fig.suptitle("Répartition du Pourcentage de Digitalisation pour le Département de " + str(dep) + " de l'Université Factice de 2013 à 2020", ha = 'center', size=18)
 fig.tight_layout()
-fig.subplots_adjust(right=0.91)
 
 #Save Figure
 fig.savefig(path_Figures + "Boxplot of the Digitalization for the Factice University Department of " + str(dep) + " from 2013 to 2020")
@@ -173,7 +179,7 @@ Digitalization_Dep.to_csv(path_DataViz + 'Digit_' + str(dep) + '_Years.csv')
 #Display the Figure
 plt.show()
 
-
+"""
 ###################################################################################################
 # (BARPLOT) Percentage of Digitalization for the Factice University Departments from 2017 to 2020 #
 ###################################################################################################
@@ -251,17 +257,53 @@ plt.show()
 #####################################################################################################
 
 Digitalization_Teach = Digitalization[Digitalization['Department'] == dep]
+Digitalization_Teach = Digitalization_Teach[Digitalization_Teach['Year'] >= 2017]
 Digitalization_Teach = Digitalization_Teach.groupby(['Teacher_Name', 'Year'])['Digit_Percentage'].mean().reset_index()
 Digitalization_Teach['Digit_Percentage'] = round(Digitalization_Teach['Digit_Percentage']).astype(int)
 
+#Build the figure
+sns.set() # Setting seaborn as default style even if use only matplotlib
+sns.set_style("white")
+
+#Set the size of the figures 
+fig, ax = plt.subplots(1, 1, figsize=(16, 9), sharey=True)
+
+#Axis
+sns.barplot(x ="Teacher_Name", y = 'Digit_Percentage', data = Digitalization_Teach, hue = "Year")
+ax.set_xlabel("Nom des Enseignants", size=13)
+ax.set_ylabel("Digitalization (%)", size=13)
+ax.legend(loc='center', bbox_to_anchor=(1.05, 0.5), shadow=True, title = 'Année')
+show_values_on_bars(ax)
+
+#Last Setting
+plt.ylim([0, 100]) #Set the y-axis lim
+plt.setp(ax.get_xticklabels(), fontsize=14)
+plt.setp(ax.get_yticklabels(), fontsize=14)
+fig.suptitle("Pourcentage de Digitalisation de chaque Enseignant du Département de " + str(dep) + " de 2017 à 2020", ha = 'center', size=18)
+fig.subplots_adjust(top=0.925,
+                    bottom=0.075,
+                    left=0.060,
+                    right=0.9,
+                    hspace=1.0,
+                    wspace=1.0)
+
+#Save Figure
+fig.savefig(path_Figures + "Barplots of the Digitalization for the Factice University Department of " + str(dep) + " from 2017 to 2020")
+
+#Display
+plt.show()
+
+
+#########################################################################################################
+# BIS (BARPLOT) Percentage of Digitalization for the Teachers of a Department of the Factice University #        
+#########################################################################################################
+
+"""
 Digitalization_Teach_2017 = Digitalization_Teach[Digitalization_Teach['Year'] == 2017]
 Digitalization_Teach_2018 = Digitalization_Teach[Digitalization_Teach['Year'] == 2018]
 Digitalization_Teach_2019 = Digitalization_Teach[Digitalization_Teach['Year'] == 2019]
 Digitalization_Teach_2020 = Digitalization_Teach[Digitalization_Teach['Year'] == 2020]
 
-#Build the figure
-sns.set() # Setting seaborn as default style even if use only matplotlib
-sns.set_style("white")
 
 #Set the size of the figures 
 fig, ax = plt.subplots(4, 1, figsize=(16, 9), sharey=True)
@@ -321,3 +363,4 @@ Digitalization_Teach.to_csv(path_DataViz + 'Digit_' + str(dep) + '_Teachers_Name
 
 #Display
 plt.show()
+"""
