@@ -1,6 +1,30 @@
 
-Some Improvements:
+MORE:
 
+http://www.ijede.ca/index.php/jde/article/download/1052/1703?inline=1
+
+
+DONE
+
+--> Positionner les Examens pour chaque cours
+--> Renommer les Quizz en QCM
+--> Renommer X-axis Graph Sequence (Rang de la Séquence Pédagogique)
+--> Boxplot in French and Axis resized
+--> Barplot increase the heights of the bars and grouped/stack them 
+--> Faire un notion
+--> Trello
+--> Create Sequence with the whole ressources.
+--> Résoudre le mystérieux problème des ID bannis ---> Améliorer la précision des conditions de passage.
+--> Bibliographie sur Evernote - Google Scholar + Zotero
+
+TO DO
+
+--> Le temps que les profs passent à améliorer leur cours
+--> RESEARCHGATE
+--> clustering
+
+
+Improvement
 
 --> More Departments 
 --> Modify the increase of Digitalization per Year depending on the Courses (Sociology /=/ History /=/ Art /=/ Handmade)
