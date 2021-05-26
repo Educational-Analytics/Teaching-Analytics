@@ -5,7 +5,7 @@ output: html_document
 ---
 
 ```{r}
-#Import libraries
+#Import the Libraries.
 library('readr')
 library('dplyr')
 library('TraMineR')
@@ -14,68 +14,127 @@ library("RColorBrewer")
 ```
 
 ```{r}
-sequences <- read_csv(file ='../Data/Ressources_Sequences.csv')
-sequences <- select(sequences, -c(1))
-head(sequences)
-```
-
-
-```{r}
-prep_sequences <- read_csv(file ='../Data/Prepared_sequences.csv')
-prep_sequences <- select(prep_sequences, -c(1))
-head(prep_sequences)
+#Import the Dataframe.
+prep_Sequences <- read_csv(file ='../Data/Prepared_Sequences.csv') #Import the required CSV.
+prep_Sequences <- select(prep_Sequences, -c(1)) #Remove the first column that represents the index.
+head(prep_Sequences, 10) #Display the ten first rows.
 ```
 
 ```{r}
-set.seed( 12 ) # random number will generate from 1800
-
-ran_courseID <- sample.int(max(sequences['Course_ID']), 1)
-
-seq_course <- prep_sequences %>% filter(Course_ID == ran_courseID) 
-seq_course
-
-
-seq_course_Basic <- select(seq_course, -'Ressources_Type_Advanced')
-seq_course_Advanced <- select(seq_course, -'Ressources_Type_Basic')
-
-seq_bc <- spread(seq_course_Basic, Ressources_Rank,Ressources_Type_Basic)
-seq_bc
-
-seq_avd <- spread(seq_course_Advanced, Ressources_Rank,Ressources_Type_Advanced)
-seq_avd
-
-
-mvad.seq_bc <- seqdef(seq_bc[, -c(1:5)])
-head(mvad.seq_bc, 10)
-
-mvad.seq_avd <- seqdef(seq_avd[, -c(1:5)])
-head(mvad.seq_avd, 10)
-
-#seqiplot(mvad.seq, border = NA, withlegend = "right", tlim = 1:20, space=0.1)
-
-#png(file="../Figures/Basic Sequence N°450.png", heigh = 500, width = 1000)
-seq_bas <- seqiplot(mvad.seq_bc, with.legend='right', ytlab=seq_bc$Year, ylas=1, cex.legend=1, ncol=1, ylab = "Years", xlab = "Ressources", main='Basic Sequence of the Online Ressources for the course N°450 over the Years')
-#dev.off()
-
-#png(file="../Figures/Advanced Sequence N°450.png", heigh = 500, width = 1000)
-seq_avd <- seqiplot(mvad.seq_avd, with.legend='right', ytlab=seq_avd$Year, ylas=1, cex.legend=1, ncol=1, ylab = "Years", xlab = "Ressources", main='Advanced Sequence of the Online Ressources for the course N°450 over the Years')
-#dev.off()
-
-
+#Save a a Spread Dataframe.
+seq_Spread <- spread(prep_Sequences, Ressources_Rank,Ressources_Type_Basic) #Spread the previous Dataframe.
+write.csv(seq_Spread,'../Data/Spead_Sequences.csv', row.names = FALSE) #Save the Spread Dataframe into a CSV file
 ```
 
+```{r}
+#Rename the Sequence Type
+Seq <- prep_Sequences
+Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'Lecture'] <- 'en Présentiel: Leçon' 
+Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'Exercise'] <- 'en Présentiel: Exercices' 
+Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'Examen'] <- 'en Présentiel: Examen'  
+Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'QCM'] <- 'en Ligne: Questionnaire' 
+Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'Video'] <- 'en Ligne: Vidéo'   
+Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'Test'] <- 'en Ligne: Examen'
+```
 
 ```{r}
-for (year in unique(prep_sequences['Year'])){
-  seq_dbt <- prep_sequences %>% filter(Year == 2013)
-  seq_course_Basic <- select(seq_dbt, -'Ressources_Type_Advanced')
-  seq_course_Basic[is.na(seq_course_Basic)]<-'None'
+#Filter the Sequence Data
 
-  seq_basic <- spread(seq_course_Basic, Ressources_Rank,Ressources_Type_Basic)
-seq_basic
-  mvad.seq <- seqdef(seq_basic[, c(1:10)])
-  seqiplot(mvad.seq, with.legend='right', ylas=1, cex.legend=1, ncol=1, ylab = "Course_ID", xlab = "Ressources", main='')
-}
+seq_Spread_848 <- Seq %>% filter(Course_ID == 848)
+seq_Spread_848 <- spread(seq_Spread_848, Ressources_Rank,Ressources_Type_Basic)
+mvad.Seq_848 <- seqdef(seq_Spread_848[, -c(1:6)])
 
+
+#Build the Sequences Plot and Save them.
+
+png(file="../Figures/Basic Sequence N°848.png", heigh = 600, width = 1200)
+par(mar=c(6,6,3,2) + 0.1)
+col = c('#ff4646', '#ff8585', '#ffb396', '#4B7BF5', '#79A9F5', '#C2E2F5')
+seq_bas <- seqiplot(mvad.Seq_848, with.legend='right', cpal = col, ytlab=seq_Spread_848$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.2, cex.legend=1.2, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang dans la Séquence Pédagogique", main = '')
+title(main=list('Séquences Pédagogiques pour le module «848» de Sociologie de 2013 à 2020',  cex = 1.5,
+                  font = 1))
+dev.off()
+```
+
+```{r}
+#Filter the Sequence Data
+
+seq_Spread_843_848_852 <- Seq %>% filter(Course_ID %in% c(843, 848, 852)) %>% filter(Ressources_Amount >= 10)
+unique(seq_Spread_843_848_852['Course_ID'])
+
+seq_Spread_843 <- spread(seq_Spread_843_848_852 %>% filter(Course_ID == 843), Ressources_Rank,Ressources_Type_Basic)
+seq_Spread_848 <- spread(seq_Spread_843_848_852 %>% filter(Course_ID == 848), Ressources_Rank,Ressources_Type_Basic)
+seq_Spread_852 <- spread(seq_Spread_843_848_852 %>% filter(Course_ID == 852), Ressources_Rank,Ressources_Type_Basic)
+
+mvad.Seq_843 <- seqdef(seq_Spread_843[, -c(1:6)])
+mvad.Seq_848 <- seqdef(seq_Spread_848[, -c(1:6)])
+mvad.Seq_852 <- seqdef(seq_Spread_852[, -c(1:6)])
+
+
+#Build the Sequences Plot and Save them.
+
+col_843 = c('#ff4646', '#ff8585', '#ffb396', '#4B7BF5', '#79A9F5', '#C2E2F5')
+col_848 = c('#ff4646', '#ff8585', '#ffb396', '#4B7BF5', '#79A9F5', '#C2E2F5')
+col_852 = c('#ff8585', '#4B7BF5','#79A9F5', '#C2E2F5')
+
+png(file="../Figures/Sequence_SameTeacher_843_848_852.png", heigh =800, width = 1200)
+par(mfrow=c(2,2),mar=c(5,5,2,5)+0.1, oma=c(0,0,5,0))
+
+seqiplot(mvad.Seq_843,with.legend = FALSE, cpal = col_843, ytlab=seq_Spread_843$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang dans la Séquence Pédagogique", main = '')
+title(main=list('Séquences Pédagogiques pour le module «843» de Sociologie de 2013 à 2020',  cex = 1.5, font = 1))
+
+seqiplot(mvad.Seq_848,with.legend = FALSE, cpal = col_848, ytlab=seq_Spread_848$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang dans la Séquence Pédagogique", main = '')
+title(main=list('Séquences Pédagogiques pour le module «848» de Sociologie de 2013 à 2020',  cex = 1.5, font = 1))
+
+seqiplot(mvad.Seq_852,with.legend = FALSE, cpal = col_852, ytlab=seq_Spread_852$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang dans la Séquence Pédagogique", main = '')
+title(main=list('Séquences Pédagogiques pour le module «852» de Sociologie de 2013 à 2020',  cex = 1.5, font = 1))
+
+seqlegend(mvad.seq_843, cpal = col, cex = 1.8, position = 'center')
+
+mtext("Séquences Pédagogiques pour les modules «843», «848» et «852» de Sociologie enseignés par Mme MOULIN de 2013 à 2020", outer=TRUE,  cex=1.5, line=1)
+
+dev.off()
+```
+
+```{r}
+#Filter the Sequence Data
+seq_Spread_804_823_827 <- Seq %>% filter(Course_ID %in% c(804, 823, 827)) %>% filter(Ressources_Amount >= 10)
+unique(seq_Spread_804_823_827['Course_ID'])
+
+seq_Spread_804 <- spread(seq_Spread_804_823_827 %>% filter(Course_ID == 804), Ressources_Rank,Ressources_Type_Basic)
+seq_Spread_823 <- spread(seq_Spread_804_823_827 %>% filter(Course_ID == 823), Ressources_Rank,Ressources_Type_Basic)
+seq_Spread_827 <- spread(seq_Spread_804_823_827 %>% filter(Course_ID == 827), Ressources_Rank,Ressources_Type_Basic)
+
+seq_Spread_827$'7'[seq_Spread_827$'7' == 'en Présentiel: Examen'] <- 'en Ligne: Examen'             
+seq_Spread_827$'13'[seq_Spread_827$'13' == 'en Ligne: Examen'] <- 'en Présentiel: Examen'             
+
+mvad.Seq_804 <- seqdef(seq_Spread_804[, -c(1:6)])
+mvad.Seq_823 <- seqdef(seq_Spread_823[, -c(1:6)])
+mvad.Seq_827 <- seqdef(seq_Spread_827[, -c(1:6)])
+
+
+#Build the Sequences Plot and Save them.
+
+col_804 = c('#ff8585','#ffb396', '#4B7BF5', '#79A9F5', '#C2E2F5')
+col_823 = c('#ffb396', '#4B7BF5', '#79A9F5', '#C2E2F5')
+col_827 = c('#ff4646', '#ff8585', '#ffb396', '#4B7BF5', '#79A9F5', '#C2E2F5')
+
+png(file="../Figures/Sequence_SameDomain_804_823_827.png", heigh =800, width = 1200)
+par(mfrow=c(2,2),mar=c(5,5,2,5)+0.1, oma=c(0,0,5,0))
+
+seqiplot(mvad.Seq_804,with.legend = FALSE, cpal = col_804, ytlab=seq_Spread_804$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang dans la Séquence Pédagogique", main = '')
+title(main=list('Séquences Pédagogiques pour le module «804» de Sociologie de 2013 à 2020',  cex = 1.5, font = 1))
+
+seqiplot(mvad.Seq_823,with.legend = FALSE, cpal = col_823, ytlab=seq_Spread_823$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang dans la Séquence Pédagogique", main = '')
+title(main=list('Séquences Pédagogiques pour le module «823» de Sociologie de 2013 à 2020',  cex = 1.5, font = 1))
+
+seqiplot(mvad.Seq_827,with.legend = FALSE, cpal = col_827, ytlab=seq_Spread_827$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang dans la Séquence Pédagogique", main = '')
+title(main=list('Séquences Pédagogiques pour le module «827» de Sociologie de 2013 à 2020',  cex = 1.5, font = 1))
+
+seqlegend(mvad.Seq_827, cpal = col_827, cex = 1.8, position = 'center')
+
+mtext("Séquences Pédagogiques allant de 2013 à 2020 pour les modules de Sociologie respectivement \n «804» enseigné par Mr DEROY , «823» enseigné par Mr FUGÈRE et «827» enseigné par Mme BERNOT", outer=TRUE,  cex=1.5, line=1)
+
+dev.off()
 ```
 

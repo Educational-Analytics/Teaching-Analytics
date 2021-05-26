@@ -42,7 +42,7 @@ random.seed( 1050 ) #The seed does not need to be randomize
 # Import the required Data file #
 #################################
 
-Ressources = pd.read_csv(path_Data + 'Ressources_Sequences.csv')
+Ressources = pd.read_csv(path_Data + 'Ressources_Sequence.csv')
 
 
 ##################
@@ -57,7 +57,7 @@ Ressources = pd.read_csv(path_Data + 'Ressources_Sequences.csv')
 fig, ax = plt.subplots(1, 1, figsize=(10, 5), sharey=True)
 
 #Build the figure
-ax = plt.hist(Ressources['Number_Ressources'], color = 'black', edgecolor = 'white')
+ax = plt.hist(Ressources['Course_Ressources'], color = 'black', edgecolor = 'white')
 
 #Axis 
 plt.xlabel('Number of Ressources', size = 12)

@@ -4,7 +4,7 @@
 
 #Import the required packages
 import random
-import math
+from math import *
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -54,7 +54,7 @@ def Digit_Ratio(CourseID, lst_CoursesID, Lst_Ratio):
         #Create a while loop to compute the ratio/percentage of digitalization.
         while (inside == True): 
             if Lst_Ratio[ins[-1]] == 0:
-                ratio = round(random.uniform(0.05,0.35),2)
+                ratio = round(random.uniform(0.1,0.35),2)
             else:
                 ratio = Lst_Ratio[ins[-1]] * round(random.uniform(1,1.25),2) #Compute the new ratio from the previous one.
             
@@ -126,7 +126,7 @@ print('Number of Teachers per Department', temp_NumbTRP, '\n')
 ######################################################################################################################
 
 #Import a CSV file containing the most common names from France (sample of 3.378).
-Random_ComName = pd.read_csv(path_data + 'Names/French_Names_Lgh3378.csv').reset_index() #Import the CSV containing some common names
+Random_ComName = pd.read_csv(path_data + 'Data-Names/French_Names_Lgh3378.csv').reset_index() #Import the CSV containing some common names
 
 #Initial Teaching-research Personnel Information.
 PRAG_Hour = 384 #Average Minimal (Hours of teaching) - PRAG.
@@ -175,24 +175,42 @@ for teachers in temp_NumbTRP: #Loop that take the number of teachers per departm
                 if temp + course_Duration <= PRAG_Hour*1.05: #Verify that the possible number of courses teached is lower than the amount of hours to teach.
                     for year in temp_Years: #Loop to implement all the years.
                         ratio = Digit_Ratio(course_ID, lst_Course_ID, lst_Digit_Ratio) #Find the ratio of digitalization
+                        if year == temp_Years[0]:
+                             #Append the lists
+                            lst_Years.append(year) 
+                            lst_Course_ID.append(course_ID)
+                            lst_Courses_Duration.append(course_Duration)
+                            lst_Teacher_ID.append(teacher_ID)
+                            lst_Teacher_Name.append(Random_ComName['Last_Name'][rand_name])
+                            lst_Depts.append(temp_Depts[dep-1])
+                            lst_NumbTeachers.append(temp_NumbTRP[dep-1])
+                            lst_Digit_Ratio.append(round(ratio,2))  
+                            lst_Digit_Percent.append(int(ratio * 100))
+                            lst_Courses_Digit.append(ceil(course_Duration * ratio))
+                            lst_Courses_Present.append(int(course_Duration - ceil(course_Duration * ratio)))
+                        
+                        else:
+                            #Append the lists
+                            lst_Years.append(year) 
+                            lst_Course_ID.append(course_ID)
+                            lst_Courses_Duration.append(course_Duration)
+                            lst_Teacher_ID.append(teacher_ID)
+                            lst_Teacher_Name.append(Random_ComName['Last_Name'][rand_name])
+                            lst_Depts.append(temp_Depts[dep-1])
+                            lst_NumbTeachers.append(temp_NumbTRP[dep-1])
+                                    
+                            if lst_Digit_Ratio[-1] == round(ratio,2):
+                                lst_Courses_Digit.append(lst_Courses_Digit[-1])
+                                lst_Courses_Present.append(lst_Courses_Present[-1])
+                            else:
+                                lst_Courses_Digit.append(ceil(course_Duration * ratio))
+                                lst_Courses_Present.append(int(course_Duration - ceil(course_Duration * ratio)))
 
-                        #Append the lists
-                        lst_Years.append(year) 
-                        lst_Course_ID.append(course_ID)
-                        lst_Courses_Duration.append(course_Duration)
-                        lst_Teacher_ID.append(teacher_ID)
-                        lst_Teacher_Name.append(Random_ComName['Last_Name'][rand_name])
-                        lst_Depts.append(temp_Depts[dep-1])
-                        lst_NumbTeachers.append(temp_NumbTRP[dep-1])
-                        lst_Digit_Ratio.append(round(ratio,2))  
-                        lst_Digit_Percent.append(int(ratio * 100))   
-                        lst_Courses_Digit.append(round(course_Duration * ratio))
-                        lst_Courses_Present.append(round(course_Duration - (course_Duration * ratio)))
-
+                            lst_Digit_Ratio.append(round(ratio,2))  
+                            lst_Digit_Percent.append(int(ratio * 100))         
 
                     course_ID += 1 #Increase the course_ID
                     temp += course_Duration #Add the course_duration to the temporary variable
-
                 
         if (Prop_PRAG_on_PRCE <= rand_num <= 1) :
             temp = 0 #Set the temporary variable to compute the total hours worked by a teacher
@@ -210,20 +228,39 @@ for teachers in temp_NumbTRP: #Loop that take the number of teachers per departm
                 if temp + course_Duration <= PRCE_Hour*1.05: #Verify that the possible number of courses teached is lower than the amount of hours to teach.
                     for year in temp_Years: #Loop to implement all the years.
                         ratio = Digit_Ratio(course_ID, lst_Course_ID, lst_Digit_Ratio) #Find the ratio of digitalization
+                        if year == 2013:
+                             #Append the lists
+                            lst_Years.append(year) 
+                            lst_Course_ID.append(course_ID)
+                            lst_Courses_Duration.append(course_Duration)
+                            lst_Teacher_ID.append(teacher_ID)
+                            lst_Teacher_Name.append(Random_ComName['Last_Name'][rand_name])
+                            lst_Depts.append(temp_Depts[dep-1])
+                            lst_NumbTeachers.append(temp_NumbTRP[dep-1])
+                            lst_Digit_Ratio.append(round(ratio,2))  
+                            lst_Digit_Percent.append(int(ratio * 100))
+                            lst_Courses_Digit.append(ceil(course_Duration * ratio))
+                            lst_Courses_Present.append((course_Duration - ceil(course_Duration * ratio)))
+                        
+                        else:
+                            #Append the lists
+                            lst_Years.append(year) 
+                            lst_Course_ID.append(course_ID)
+                            lst_Courses_Duration.append(course_Duration)
+                            lst_Teacher_ID.append(teacher_ID)
+                            lst_Teacher_Name.append(Random_ComName['Last_Name'][rand_name])
+                            lst_Depts.append(temp_Depts[dep-1])
+                            lst_NumbTeachers.append(temp_NumbTRP[dep-1])
+                                    
+                            if lst_Digit_Ratio[-1] == round(ratio,2):
+                                lst_Courses_Digit.append(lst_Courses_Digit[-1])
+                                lst_Courses_Present.append(lst_Courses_Present[-1])
+                            else:
+                                lst_Courses_Digit.append(ceil(course_Duration * ratio))
+                                lst_Courses_Present.append(int(course_Duration - ceil(course_Duration * ratio)))
 
-                        #Append the lists
-                        lst_Years.append(year) 
-                        lst_Course_ID.append(course_ID)
-                        lst_Courses_Duration.append(course_Duration)
-                        lst_Teacher_ID.append(teacher_ID)
-                        lst_Teacher_Name.append(Random_ComName['Last_Name'][rand_name])
-                        lst_Depts.append(temp_Depts[dep-1])
-                        lst_NumbTeachers.append(temp_NumbTRP[dep-1])
-                        lst_Digit_Ratio.append(round(ratio,2))  
-                        lst_Digit_Percent.append(int(ratio * 100))   
-                        lst_Courses_Digit.append(round(course_Duration * ratio))
-                        lst_Courses_Present.append(round(course_Duration - (course_Duration * ratio)))
-
+                            lst_Digit_Ratio.append(round(ratio,2))  
+                            lst_Digit_Percent.append(int(ratio * 100))         
 
                     course_ID += 1 #Increase the course_ID
                     temp += course_Duration #Add the course_duration to the temporary variable

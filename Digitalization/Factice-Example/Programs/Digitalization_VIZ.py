@@ -270,16 +270,16 @@ fig, ax = plt.subplots(1, 1, figsize=(16, 9), sharey=True)
 
 #Axis
 sns.barplot(x ="Teacher_Name", y = 'Digit_Percentage', data = Digitalization_Teach, hue = "Year")
-ax.set_xlabel("Nom des Enseignants", size=13)
-ax.set_ylabel("Digitalization (%)", size=13)
+ax.set_xlabel("Nom des Enseignants", size=16)
+ax.set_ylabel("Digitalisation (en pourcentage [%])", size=16)
 ax.legend(loc='center', bbox_to_anchor=(1.05, 0.5), shadow=True, title = 'Année')
 show_values_on_bars(ax)
 
 #Last Setting
-plt.ylim([0, 100]) #Set the y-axis lim
+plt.ylim([0, 75]) #Set the y-axis lim
 plt.setp(ax.get_xticklabels(), fontsize=14)
 plt.setp(ax.get_yticklabels(), fontsize=14)
-fig.suptitle("Pourcentage de Digitalisation de chaque Enseignant du Département de " + str(dep) + " de 2017 à 2020", ha = 'center', size=18)
+fig.suptitle("Pourcentage de Digitalisation des Ressources de chaque Enseignant du Département de " + str(dep) + " de 2017 à 2020", ha = 'center', size=18)
 fig.subplots_adjust(top=0.925,
                     bottom=0.075,
                     left=0.060,
