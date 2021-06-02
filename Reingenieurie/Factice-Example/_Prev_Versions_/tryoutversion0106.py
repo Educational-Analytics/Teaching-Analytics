@@ -2,9 +2,40 @@ import random
 import numpy as np
 from math import *
 
+"""
+test = 1
+test2 = 2
+c1a = [test == 0, test == 1, test == 2]
+c1b = [test2 == 0, test2 == 1, test2 == 2]
+c2 = [0, 1, 2]
+conditions_predict1 = np.select(c1a, c2)
+conditions_predict2 = np.select(c1b, c2)
+conditions_predict = [conditions_predict1, conditions_predict2]
+print(conditions_predict)
 
+c3 = [[0,1], [0,2], [0,3], [0,4], [0,5], []]
 
+#Slip, guess, B
+def test(type, level):
+     #Define some conditions and associated values to determine the slip, guess per Quiz
+    conditions_sgb = [type == 'QCU' and level == 'Trop Facile', type == 'QCU' and level == 'Facile', type == 'QCU' and level == 'Adapte', type == 'QCU' and level == 'Difficile', type == 'QCU' and level == 'Trop Difficile',
+                      type == 'QCM' and level == 'Trop Facile', type == 'QCM' and level == 'Facile', type == 'QCM' and level == 'Adapte', type == 'QCM' and  level == 'Difficile', type == 'QCM' and  level == 'Trop Difficile',
+                      type == 'QROC' and level == 'Trop Facile', type == 'QROC' and level == 'Facile', type == 'QROC' and level == 'Adapte', type == 'QROC' and  level == 'Difficile', type == 'QROC' and  level == 'Trop Difficile',
+                      type == 'QO' and level == 'Trop Facile', type == 'QO' and level == 'Facile', type == 'QO' and level == 'Adapte', type == 'QO' and  level == 'Difficile', type == 'QO' and  level == 'Trop Difficile']
+    choice_sgb = [ [round(random.uniform(0, 0.10), 2), round(random.uniform(0.90, 1), 2)], [round(random.uniform(0, 0.20), 2), round(random.uniform(0.75, 0.90), 2)], [round(random.uniform(0, 0.30), 2), round(random.uniform(0.40, 0.70), 2)], [round(random.uniform(0, 0.40), 2), round(random.uniform(0.30, 0.40), 2)], [round(random.uniform(0, 0.75), 2), round(random.uniform(0.20, 0.30), 2)],
+                   [round(random.uniform(0, 0.10), 2), round(random.uniform(0.80, 1), 2)], [round(random.uniform(0, 0.20), 2), round(random.uniform(0.70, 0.80), 2)], [round(random.uniform(0, 0.30), 2), round(random.uniform(0.40, 0.70), 2)], [round(random.uniform(0, 0.50), 2), round(random.uniform(0.30, 0.40), 2)], [round(random.uniform(0, 0.75), 2), round(random.uniform(0.20, 0.30), 2)],
+                   [round(random.uniform(0, 0.10), 2), round(random.uniform(0.50, 1), 2)], [round(random.uniform(0, 0.20), 2), round(random.uniform(0.40, 0.75), 2)], [round(random.uniform(0.20, 0.50), 2), round(random.uniform(0.25, 0.40), 2)], [round(random.uniform(0.50, 0.75), 2), round(random.uniform(0.15, 0.25), 2)], [round(random.uniform(0.75, 1), 2), round(random.uniform(0, 0.15), 2)],
+                   [round(random.uniform(0, 0.10), 2), round(random.uniform(0.50, 1), 2)], [round(random.uniform(0, 0.20), 2), round(random.uniform(0.30, 0.75), 2)], [round(random.uniform(0.20, 0.75), 2), round(random.uniform(0.15, 0.30), 2)], [round(random.uniform(0.75, 0.90), 2), round(random.uniform(0, 0.15), 2)], [round(random.uniform(0.90, 1), 2), round(random.uniform(0, 0.10), 2)],
 
+    ]
+    true_ratio = 2
+    slip, guess= np.select(conditions_sgb, choice_sgb), true_ratio
+    return slip, guess, b
+red = test('QO', 'Trop Difficile')
+print(red)
+"""
+
+"""
 def QCU_PrdCct_level(type, level_array, rand_num):
     conditions_type = [type == 'QCU', type == 'QCM', type == 'QROC', type == 'QO'] #Define the conditions.
     choices_type = [
@@ -29,7 +60,7 @@ pred_level = ['Trop Facile'] + ['Facile']  + ['Adapte']  + ['Difficile'] +  ['Tr
 predict, correct = QCU_PrdCct_level('QCU', pred_level, 0.76)
 print(predict, correct)
 
-
+"""
 
 """
 attempts = 12
