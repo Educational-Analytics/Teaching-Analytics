@@ -1,0 +1,168 @@
+---
+title: "Teaching Analytics"
+author: "ROUX Dorian"
+output: html_document
+---
+
+```{r}
+#Import the Libraries.
+library('readr')
+library('dplyr')
+library("tidyr")
+library("RColorBrewer")
+library('TraMineR')
+```
+
+```{r}
+#Import the Dataframe.
+prep_Sequences <- read_csv(file ='../Data/Quizzes.csv') #Import the required CSV.
+prep_Sequences <- select(prep_Sequences, -c(1)) #Remove the first column that represents the index.
+head(prep_Sequences, 10) #Display the ten first rows.
+```
+
+```{r}
+#Save a a Spread Dataframe.
+seq_Spread <- spread(prep_Sequences, Rank, Correct_Difficulty) #Spread the previous Dataframe.
+write.csv(seq_Spread,'../Data/Spead_Sequences.csv', row.names = FALSE) #Save the Spread Dataframe into a CSV file
+```
+
+```{r}
+prep_Sequences_8 <- prep_Sequences %>% filter(Departement == 'Informatique', Chapter_ID == 8)
+prep_Sequences_8_Correct <- prep_Sequences_8 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
+seq_Spread_8_Correct <- spread(prep_Sequences_8_Correct, Quizz_ID, Correct_Difficulty)
+mvad.Chapt8_Correct <- seqdef(seq_Spread_8_Correct[, -c(1:2)])
+
+col_correct = c('#0BFF00', '#E2ABAB', '#ABCBE2', '#FF0000', '#0000FF')
+
+png(file="../Figures/SeqCorrect_Chap8_Info.png", heigh = 600, width = 1200)
+par(mar=c(5,5,0,2)+0.1, oma=c(0,0,4,0))
+layout(matrix(c(1, 1, 1, 1,2), ncol=5, byrow=TRUE))
+seqiplot(mvad.Chapt8_Correct, with.legend=FALSE, cpal = col_correct, ytlab=seq_Spread_8_Correct$Year, ylas=0, cex.lab = 2.2, cex.axis = 2, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+
+seqlegend(mvad.Chapt8_Correct, cpal = col_correct, cex =2.5, position = 'center')
+mtext("Séquences du niveau de difficulté réel de chaque Quiz pour le chapitre «8» d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
+dev.off()
+```
+
+```{r}
+prep_Sequences_8 <- prep_Sequences %>% filter(Departement == 'Informatique', Chapter_ID == 8)
+
+prep_Sequences_8_Correct <- prep_Sequences_8 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
+seq_Spread_8_Correct <- spread(prep_Sequences_8_Correct, Quizz_ID, Correct_Difficulty)
+mvad.Chapt8_Correct <- seqdef(seq_Spread_8_Correct[, -c(1:2)])
+
+prep_Sequences_8_Prediction <- prep_Sequences_8 %>% select(Quizz_ID, Year, Chapter_ID, Predict_Difficulty)
+seq_Spread_8_Prediction <- spread(prep_Sequences_8_Prediction, Quizz_ID, Predict_Difficulty)
+mvad.Chapt8_Prediction <- seqdef(seq_Spread_8_Prediction[, -c(1:2)])
+
+col_correct_prediction = c('#0BFF00', '#E2ABAB', '#ABCBE2', '#FF0000', '#0000FF')
+
+png(file="../Figures/SeqCorrectPredict_Chap8_Informatique.png", heigh = 600, width = 1200)
+layout(matrix(c(1, 1, 3, 3, 2), ncol=5, byrow=TRUE))
+par(mar=c(5,5,3,5)+0.1, oma=c(0,0,5,0))
+
+seqiplot(mvad.Chapt8_Prediction, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Spread_8_Prediction$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = '')
+title(main=list("Séquences des niveaux de difficulté des quiz prédit par l'enseignant \n pour le chapitre «8» d'Informatique de 2015 à 2020",  cex = 1.5, font = 1))
+
+seqlegend(mvad.Chapt8_Correct, cpal = col_correct, cex =2, position = 'center')
+
+seqiplot(mvad.Chapt8_Correct, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Spread_8_Correct$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+title(main=list("Séquences des niveaux de difficulté des quiz correct \n pour le chapitre «8» d'Informatique de 2015 à 2020",  cex = 1.5, font = 1))
+mtext("Séquences du niveau de difficulté prédit et réel de chaque Quiz pour le chapitre «8» d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
+
+dev.off()
+```
+
+```{r}
+prep_Sequences_13 <- prep_Sequences %>% filter(Departement == 'Mathematique', Chapter_ID == 13)
+
+prep_Sequences_13$Correct_Difficulty[prep_Sequences_13$Correct_Difficulty == 'Trop Facile'] <- 'Trop Facile - Réussite : 85% à 100%' 
+prep_Sequences_13$Correct_Difficulty[prep_Sequences_13$Correct_Difficulty == 'Facile'] <- 'Facile - Réussite : 75 à 85%' 
+prep_Sequences_13$Correct_Difficulty[prep_Sequences_13$Correct_Difficulty == 'Adapte'] <- 'Adapte - Réussite : 60 à 75%' 
+prep_Sequences_13$Correct_Difficulty[prep_Sequences_13$Correct_Difficulty == 'Difficile'] <- 'Difficile - Réussite : 25 à 60%' 
+prep_Sequences_13$Correct_Difficulty[prep_Sequences_13$Correct_Difficulty == 'Trop Difficile'] <- 'Trop Difficile - Réussite : 0 à 25%' 
+
+prep_Sequences_13$Predict_Difficulty[prep_Sequences_13$Predict_Difficulty == 'Trop Facile'] <- 'Trop Facile - Réussite : 85% à 100%' 
+prep_Sequences_13$Predict_Difficulty[prep_Sequences_13$Predict_Difficulty == 'Facile'] <- 'Facile - Réussite : 75 à 85%' 
+prep_Sequences_13$Predict_Difficulty[prep_Sequences_13$Predict_Difficulty == 'Adapte'] <- 'Adapte - Réussite : 60 à 75%' 
+prep_Sequences_13$Predict_Difficulty[prep_Sequences_13$Predict_Difficulty == 'Difficile'] <- 'Difficile - Réussite : 25 à 60%' 
+prep_Sequences_13$Predict_Difficulty[prep_Sequences_13$Predict_Difficulty == 'Trop Difficile'] <- 'Trop Difficile - Réussite : 0 à 25%' 
+
+
+prep_Sequences_13_Type <- prep_Sequences_13 %>% select(Quizz_ID, Year, Chapter_ID, Quizz_Type)
+seq_Spread_13_Type <- spread(prep_Sequences_13_Type, Quizz_ID, Quizz_Type)
+mvad.Chapt13_Type <- seqdef(seq_Spread_13_Type[, -c(1:2)])
+
+prep_Sequences_13_Correct <- prep_Sequences_13 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
+seq_Spread_13_Correct <- spread(prep_Sequences_13_Correct, Quizz_ID, Correct_Difficulty)
+mvad.Chapt13_Correct <- seqdef(seq_Spread_13_Correct[, -c(1:2)])
+
+prep_Sequences_13_Prediction <- prep_Sequences_13 %>% select(Quizz_ID, Year, Chapter_ID, Predict_Difficulty)
+seq_Spread_13_Prediction <- spread(prep_Sequences_13_Prediction, Quizz_ID, Predict_Difficulty)
+mvad.Chapt13_Prediction <- seqdef(seq_Spread_13_Prediction[, -c(1:2)])
+
+col_correct_prediction = c('#0BFF00', '#E2ABAB', '#ABCBE2', '#FF0000', '#0000FF')
+col_type = c('#E5A5A5', '#BFE5A5', '#A5C3E5')
+
+png(file="../Figures/SeqTypeCorrectPredict_Chap13_InformatiqueBIS.png", heigh = 600, width = 1200)
+layout(matrix(c(1,1,1,1,1,1,2,2,3,3,3,4,4,4,5,5), ncol=8, byrow=TRUE))
+par(mar=c(5,5,3,5)+0.1, oma=c(0,0,5,0))
+
+seqiplot(mvad.Chapt13_Type, with.legend=FALSE, cpal = col_type, ytlab=seq_Spread_13_Type$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = '')
+title(main=list("Séquences des type de chaque quiz \n pour le chapitre «13» d'Informatique de 2015 à 2020",  cex = 1.5, font = 1))
+
+seqlegend(mvad.Chapt13_Type, cpal = col_type, cex =2, position = 'center')
+
+seqiplot(mvad.Chapt13_Prediction, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Spread_13_Prediction$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = '')
+title(main=list("Séquences des niveaux de difficulté des quiz prédit par l'enseignant \n pour le chapitre «13» d'Informatique de 2015 à 2020",  cex = 1.5, font = 1))
+
+seqiplot(mvad.Chapt13_Correct, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Spread_13_Correct$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+title(main=list("Séquences des niveaux de difficulté des quiz correct \n pour le chapitre «13» d'Informatique de 2015 à 2020",  cex = 1.5, font = 1))
+mtext("Séquences du niveau de difficulté prédit et réel de chaque Quiz pour le chapitre «13» d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
+
+seqlegend(mvad.Chapt13_Correct, cpal = col_correct, cex = 1.4, position = 'center')
+
+
+dev.off()
+```
+
+
+```{r}
+#Filter the Sequence Data
+
+prep_Sequences_15 <- prep_Sequences %>% filter(Departement == 'Informatique', Chapter_ID == 15)
+
+prep_Sequences_15_Type <- prep_Sequences_15 %>% select(Quizz_ID, Year, Chapter_ID, Quizz_Type)
+seq_Spread_15_Type <- spread(prep_Sequences_15_Type, Quizz_ID, Quizz_Type)
+mvad.Chapt15_Type <- seqdef(seq_Spread_15_Type[, -c(1:2)])
+
+prep_Sequences_15_Prediction <- prep_Sequences_15 %>% select(Quizz_ID, Year, Chapter_ID, Predict_Difficulty)
+seq_Spread_15_Prediction <- spread(prep_Sequences_15_Prediction, Quizz_ID, Predict_Difficulty)
+mvad.Chapt15_Prediction <- seqdef(seq_Spread_15_Prediction[, -c(1:2)])
+
+prep_Sequences_15_Correct <- prep_Sequences_15 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
+seq_Spread_15_Correct <- spread(prep_Sequences_15_Correct, Quizz_ID, Correct_Difficulty)
+mvad.Chapt15_Correct <- seqdef(seq_Spread_15_Correct[, -c(1:2)])
+
+#Build the Sequences Plot and Save them.
+
+png(file="../Figures/Test.png", heigh = 600, width = 1200)
+par(mfrow=c(2,3),mar=c(5,5,2,5)+0.1, oma=c(0,0,5,0))
+col_type = c('#E5A5A5', '#BFE5A5', '#A5C3E5')
+col_pred = c('#FF0000', '#0000FF', '#00FF00', '#FFED00')
+col_correct = c('#FF0000', '#C100FF', '#0000FF', '#00FF00', '#FFED00')
+
+seqiplot(mvad.Chapt15_Prediction, with.legend=FALSE, cpal = col_pred, ytlab=seq_Spread_15_Prediction$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, cex.legend=1.2, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = 'Predicted')
+
+seqiplot(mvad.Chapt15_Correct, with.legend=FALSE, cpal = col_correct, ytlab=seq_Spread_15_Correct$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, cex.legend=1.2, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = 'Correct')
+
+seqlegend(mvad.Chapt15_Correct, cpal = col_correct, cex = 1.8, position = 'center')
+
+seqiplot(mvad.Chapt15_Type, with.legend=FALSE, cpal = col_type, ytlab=seq_Spread_15_Type$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, cex.legend=1.2, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = 'Type')
+
+seqlegend(mvad.Chapt15_Type, cpal = col_type, cex = 1.8, position = 'center')
+
+mtext("Séquences Pédagogiques", outer=TRUE,  cex=1.5, line=1)
+
+dev.off()
+```

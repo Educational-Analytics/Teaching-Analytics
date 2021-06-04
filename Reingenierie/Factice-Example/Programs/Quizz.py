@@ -12,7 +12,7 @@ from math import *
 
 #Define the path to the Data Folder (to save the DataFrame in the correct location).
 dir_path = os.path.dirname(__file__) #Find the directory path of the current python «FolderCreation» file.
-keywords = ['Reingenieurie', 'Factice-Example'] #Determine the keywords that will take the folder position.
+keywords = ['Reingenierie', 'Factice-Example'] #Determine the keywords that will take the folder position.
 folder_name = 'Data' #Name of the Data folder.
 glob_path = '/'.join(dir_path.split('/')[(dir_path.split('/').index(keywords[0])):(dir_path.split('/').index(keywords[1]) + 1)])  #Find the General Path.
 path_data = glob_path + '/' + folder_name + '/'  #Path of the Data Folder.
@@ -133,8 +133,19 @@ number_Quizzes = random.randint(100, 1000) #Create a variable to represent the n
 print('Number of Quizzes:', number_Quizzes) #Display the number of Quizzes.
 
 
-#Define the list of departements
-depts_type = ['Economie', 'Histoire', 'Droit', 'Management', 'Art', 'Sociologie', 'Mathematique', 'Ingenieurie', 'Philosophie', 'Informatique', 'Langues'] #Define a list of Departements
+#Define the list of departements and their modules
+depts_type = ['Art', 'Droit', 'Economie', 'Histoire', 'Informatique', 'Ingenierie', 'Langues', 'Management', 'Mathematique', 'Philosophie', 'Sociologie'] #Define a list of Departements
+modules = [[], #Art
+           [], #Droit
+           ["Introduction a l'economie", "Ressources Humaines", "Consommation"], #Economie
+           [], #Histoire
+           [], #Informatique
+           [], #Ingenierie
+           [], #Langues
+           [], #Management
+           ["Fonction Affine", "Second Degré"], #Mathematique
+           [], #Philosophie
+           [],] #Sociologie
 num_depts = random.randint(ceil(number_Quizzes/150), ceil(number_Quizzes/100)) #Randomly select the number of Departements
 temp_Depts = random.sample(depts_type, num_depts) #Randomly select the Departements
 print('Number of Departement(s):', num_depts) #Display the number of Departements.
@@ -178,12 +189,13 @@ for year in temp_Years: #Iterate for each year from the "temp_Years" list
     quiz_ID = 1 #Define the initial state of the Quizz ID (= 1)
     for num_quiz, index in zip(lst_quizz_depts, range(0, len(lst_quizz_depts))): #Make a loop taking all quizzes for each departement.
         num = 0 #Defined a variable used to compute the number of quizzes.
-        chap_ID = 1 #Defined the initial sate of the Chapter ID (= 1)
-
+        chap_ID = 1 #Defined the initial sate of the Chapter ID (= 1).
         while num != num_quiz:
             ins_chap = [quiz for quiz in range(0, len(lst_quiz_ID)) if lst_quiz_ID[quiz] == quiz_ID] if quiz_ID in lst_quiz_ID else []
             chap_ID = lst_chapt_ID[ins_chap[-1]] if quiz_ID in lst_quiz_ID else chap_ID
             chapter_quiz = lst_quiz_chapt[ins_chap[-1]] if quiz_ID in lst_quiz_ID else random.choice(chap_percent)
+            condition = [temp_Depts[index] == 'Art', temp_Depts[index] == 'Droit', temp_Depts[index] == 'Economie', temp_Depts[index] == 'Histoire', temp_Depts[index] == 'Informatique', temp_Depts[index] == 'Ingenierie', temp_Depts[index] == 'Langues', temp_Depts[index] == 'Management', temp_Depts[index] == 'Mathematique', temp_Depts[index] == 'Philosophie', temp_Depts[index] == 'Sociologie']
+            for module in modules[np.select(condition, [i for i in range(0, len(condition))])]:
             if num + chapter_quiz <= num_quiz:
                 rank = 0
                 for chap in range(0, chapter_quiz):
@@ -245,7 +257,7 @@ Quizzes_db = pd.DataFrame({'Quizz_ID': lst_quiz_ID,
                            'Year': lst_year,
                            'Departement': lst_depts,
                            'Chapter_ID': lst_chapt_ID,
-                           #'Quiz_perChapter': lst_quiz_chapt,
+                           'Quiz_perChapter': lst_quiz_chapt,
                            'Rank_onChapter': lst_rank,
                            'Quizz_Type': lst_quiz_type, 
                            'B': lst_b,

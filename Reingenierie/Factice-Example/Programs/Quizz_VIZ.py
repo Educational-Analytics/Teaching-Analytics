@@ -8,15 +8,16 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 from numpy import median
+import seaborn 
 from seaborn import palettes
-
+from wordcloud import WordCloud
 ###################################
 #Define the Path and Folders Name #
 ###################################
 
 dir_path = os.path.dirname(__file__) #Find the directory path of the current python «FolderCreation» file.
 folder_names = ['Data', 'Data-Viz', 'Figures'] #Determine the name of the sub folders for the factice example.
-keywords = ['Reingenieurie', 'Factice-Example'] #Determine the keywords that will take the folder position.
+keywords = ['Reingenierie', 'Factice-Example'] #Determine the keywords that will take the folder position.
 
 glob_path = '/'.join(dir_path.split('/')[(dir_path.split('/').index(keywords[0])):(dir_path.split('/').index(keywords[1]) + 1)])  #Find the General Path
 path_Data = glob_path + '/' + folder_names[0] + '/'  #Path of the Data Folder
@@ -29,7 +30,7 @@ path_Figures = glob_path + '/' + folder_names[2] + '/' #Path of the Figures Fold
 #####################################################
 
 #Define a seed to preserve the same values randomly obtained after each execution.
-random.seed( 1050 ) #The seed does not need to be randomize.
+random.seed( 2215 ) #The seed does not need to be randomize.
 
 ######################
 # Class and Function #
@@ -56,6 +57,7 @@ def show_values_on_bars(axs):
 #################################
 
 Quizz = pd.read_csv(path_Data + 'Quizzes.csv')
+print(Quizz.head(5))
 
 
 ##################
@@ -63,28 +65,157 @@ Quizz = pd.read_csv(path_Data + 'Quizzes.csv')
 ##################
 
 
+
 #####################
 # Additional Values #
 #####################
 
-#Create a list of conditions to define the Niveau of digitalization.
-conditions = [
-    (Quizz['B'] > 0.80),
-    (Quizz['B'] > 0.50) & (Quizz['B'] <= 0.80),
-    (Quizz['B'] > 0.20) & (Quizz['B'] <= 0.50),
-    (Quizz['B'] <= 0.20),
-]
 
-#Create a list of values to assign to each condition from the above list
-types = ['Difficile', 'Moyen-Difficile', 'Moyen-Facile', 'Facile']
+############################################################################################
+# (HEATMAP) Percentage of Success for the Factice University Departments from 2015 to 2020 #
+############################################################################################
+"""
+Quizz_Depts = Quizz.groupby(['Departement', 'Year'])['TruePrct_Succes'].mean().reset_index()
+Quizz_Depts['TruePrct_Succes'] = round(Quizz_Depts['TruePrct_Succes']).astype(int)
+Quizz_Depts = Quizz_Depts.pivot("Departement", "Year", "TruePrct_Succes")
 
-#Implement the Niveau of digitalization on the dataframe
-Quizz['Niveau'] = np.select(conditions, types)
-Quizz = Quizz.sort_values(by = 'B', ascending = True)
+#Build the figure
+sns.set() # Setting seaborn as default style even if use only matplotlib
+sns.set_style("white")
+
+#Set the size of the figures 
+fig, ax = plt.subplots(1, 1, figsize=(16, 9), sharey=True)
+
+#Axis
+ax = sns.heatmap(Quizz_Depts, annot= True, fmt="d", linewidths=.5, cmap = 'Spectral')
+ax.set_xlabel("Année", size=16)
+ax.set_ylabel("Départements de l'Université Factice", size=16)
+plt.setp(ax.get_xticklabels(), fontsize=14)
+plt.setp(ax.get_yticklabels(), fontsize=14, rotation = 0)
+
+#Last Setting
+fig.suptitle("Pourcentage de Success des Quiz pour chaque Département de l'Université Factice de 2015 à 2020", ha = 'center', size=18)
+
+fig.tight_layout()
+
+#Save Figure
+#fig.savefig(path_Figures + "Heatmap of the Quizz Success Percentage for the Factice University Departments from 2015 to 2020")
+
+#Save CSV
+#Quizz_Depts.to_csv(path_DataViz + 'Pivot_Quiz_Depts_Years.csv')
+
+#Display the Figure
+plt.show()
+"""
+
+###############################################################################
+# (HEATMAP) Percentage of Success for a Factice Departments from 2015 to 2020 #
+###############################################################################
+"""
+Depts = random.choice(Quizz['Departement'])
+Quizz_Depts = Quizz[Quizz['Departement'] == Depts]
+Quizz_Depts = Quizz_Depts.groupby(['Chapter_ID', 'Year'])['TruePrct_Succes'].mean().reset_index()
+Quizz_Depts['TruePrct_Succes'] = round(Quizz_Depts['TruePrct_Succes']).astype(int)
+Quizz_Depts = Quizz_Depts.pivot("Chapter_ID", "Year", "TruePrct_Succes")
+
+#Build the figure
+sns.set() # Setting seaborn as default style even if use only matplotlib
+sns.set_style("white")
+
+#Set the size of the figures 
+fig, ax = plt.subplots(1, 1, figsize=(16, 9), sharey=True)
+
+#Axis
+ax = sns.heatmap(Quizz_Depts, annot= True, fmt="d", linewidths=.5, cmap = 'Spectral')
+ax.set_xlabel("Année", size=16)
+ax.set_ylabel("Départements de l'Université Factice", size=16)
+plt.setp(ax.get_xticklabels(), fontsize=14)
+plt.setp(ax.get_yticklabels(), fontsize=14, rotation = 0)
+
+#Last Setting
+fig.suptitle("Pourcentage de Success des Quiz pour chaque chapitre du Département " + Depts + " de l'Université Factice de 2015 à 2020", ha = 'center', size=18)
+
+fig.tight_layout()
+
+#Save Figure
+fig.savefig(path_Figures + "Heatmap of the Quizz Success Percentage of each Chapter for the Departments of" + Depts + "from 2015 to 2020")
+
+#Save CSV
+Quizz_Depts.to_csv(path_DataViz + 'Pivot_QuizChapter_Depts_Years.csv')
+
+#Display the Figure
+plt.show()
+"""
+
+###############################################################################
+#  #
+###############################################################################
+
+"""
+Depts = random.choice(Quizz['Departement'])
+Quizz_Depts = Quizz[Quizz['Departement'] == Depts]
+Chapts = random.choice(Quizz_Depts['Chapter_ID'])
+Quizz_ChapDepts =  Quizz_Depts[Quizz_Depts['Chapter_ID'] == Chapts]
+Quizz_ChapDepts = Quizz_ChapDepts.groupby('Quizz_ID')['Avg_Attempts'].mean().reset_index()
 
 
-print(Quizz.head(5))
+# Create a circle at the center of the plot
+my_circle = plt.Circle( (0,0), 0.7, color='white')
 
+label_quiz = ['Quiz ' + str(quiz_ID) for quiz_ID in Quizz_ChapDepts['Quizz_ID']]
+
+def absolute_value(val):
+    a  = np.round(val/100.*Quizz_ChapDepts['Avg_Attempts'].sum(), 2)
+    return a
+
+# Give color names
+plt.pie(Quizz_ChapDepts['Avg_Attempts'], labels=label_quiz, autopct= absolute_value, wedgeprops = { 'linewidth' : 7, 'edgecolor' : 'white' }    )
+p = plt.gcf()
+p.gca().add_artist(my_circle)
+
+# Show the graph
+plt.show()
+
+"""
+###############################################################################
+#  #
+###############################################################################
+"""
+Quiz_ID = random.choice(Quizz['Quizz_ID'])
+Quizz_Identif = Quizz[Quizz['Quizz_ID'] == Quiz_ID]
+
+
+# Create a circle at the center of the plot
+my_circle = plt.Circle( (0,0), 0.7, color='white')
+
+def absolute_value(val):
+    a  = np.round(val/100.*Quizz_Identif['Avg_Attempts'].sum(), 2)
+    return a
+
+# Give color names
+plt.pie(Quizz_Identif['Avg_Attempts'], labels=Quizz_Identif['Year'], autopct= absolute_value, wedgeprops = { 'linewidth' : 7, 'edgecolor' : 'white' }    )
+p = plt.gcf()
+p.gca().add_artist(my_circle)
+
+# Show the graph
+plt.show()
+"""
+
+#############
+# Wordcloud #
+#############
+
+"""text = " ".join([Predic for Predic in Quizz['Quizz_Type']])
+print(text)
+
+# Create the wordcloud object
+wordcloud = WordCloud(width=480, height=480, max_words=3).generate(text)
+
+# Display the generated image:
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis("off")
+plt.margins(x=0, y=0)
+plt.show()"""
 ###########################################################################################
 # Répartition du Nombre de Tentatives en function du Niveau de Difficultés de chaque Quiz #
 ###########################################################################################
@@ -233,7 +364,7 @@ plt.show()
 ##############################################################
 # Difficulté et Nombre de Tentative d'un échantillon de Quiz #
 ##############################################################
-
+"""
 lst_randID = np.arange(1, 26, 1)
 Quizz_randID = Quizz[Quizz.Quizz_ID.isin(lst_randID)].sort_values(by = "Quizz_ID", ascending = True)
 print(len(Quizz_randID))
@@ -265,3 +396,6 @@ fig.savefig(path_Figures + "Difficulté et Nombre de Tentative d'un échantillon
 
 #Display
 plt.show()
+"""
+
+
