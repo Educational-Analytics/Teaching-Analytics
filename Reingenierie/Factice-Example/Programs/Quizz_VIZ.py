@@ -10,7 +10,7 @@ import os
 from numpy import median
 import seaborn 
 from seaborn import palettes
-from wordcloud import WordCloud
+
 ###################################
 #Define the Path and Folders Name #
 ###################################
@@ -71,38 +71,52 @@ print(Quizz.head(5))
 #####################
 
 
-############################################################################################
-# (HEATMAP) Percentage of Success for the Factice University Departments from 2015 to 2020 #
-############################################################################################
+############################################################################
+# (HEATMAP) Success Percentage of Quizzes per Department from 2015 to 2020 #
+############################################################################
 """
-Quizz_Depts = Quizz.groupby(['Departement', 'Year'])['TruePrct_Succes'].mean().reset_index()
-Quizz_Depts['TruePrct_Succes'] = round(Quizz_Depts['TruePrct_Succes']).astype(int)
-Quizz_Depts = Quizz_Depts.pivot("Departement", "Year", "TruePrct_Succes")
+Quizz_Depts = Quizz.groupby(['Departement', 'Year'])['Success_Prct'].mean().reset_index()
+Quizz_Depts['Success_Prct'] = round(Quizz_Depts['Success_Prct']).astype(int)
+Quizz_Depts_pivot = Quizz_Depts.pivot("Departement", "Year", "Success_Prct")
 
 #Build the figure
 sns.set() # Setting seaborn as default style even if use only matplotlib
 sns.set_style("white")
 
 #Set the size of the figures 
-fig, ax = plt.subplots(1, 1, figsize=(16, 9), sharey=True)
+fig, ax = plt.subplots(1, 1, figsize=(16, 10), sharey=True)
 
 #Axis
-ax = sns.heatmap(Quizz_Depts, annot= True, fmt="d", linewidths=.5, cmap = 'Spectral')
+cbar_kws = {"orientation":"vertical", 
+            "shrink":1,
+            'extend':'both', 
+            'ticks': np.arange(Quizz_Depts['Success_Prct'].min(), Quizz_Depts['Success_Prct'].max(), 3),
+           } # color bar keyword arguments
+
+#Axis
+ax = sns.heatmap(Quizz_Depts_pivot, annot= True, fmt="d", linewidths=1, cmap="Spectral", cbar_kws=cbar_kws, annot_kws={'size': 15})
 ax.set_xlabel("Année", size=16)
 ax.set_ylabel("Départements de l'Université Factice", size=16)
 plt.setp(ax.get_xticklabels(), fontsize=14)
 plt.setp(ax.get_yticklabels(), fontsize=14, rotation = 0)
 
 #Last Setting
-fig.suptitle("Pourcentage de Success des Quiz pour chaque Département de l'Université Factice de 2015 à 2020", ha = 'center', size=18)
+fig.suptitle("Pourcentage de Success aux Quiz de chaque Département de l'Université Factice de 2015 à 2020", ha = 'center', size=18)
 
-fig.tight_layout()
+fig.subplots_adjust(
+top=0.9,
+bottom=0.1,
+left=0.2,
+right=1,
+hspace=0.2,
+wspace=0.2
+)
 
 #Save Figure
-#fig.savefig(path_Figures + "Heatmap of the Quizz Success Percentage for the Factice University Departments from 2015 to 2020")
+# fig.savefig(path_Figures + "1° Heatmap of the Quizz Success Percentage for the Factice University Departments from 2015 to 2020")
 
 #Save CSV
-#Quizz_Depts.to_csv(path_DataViz + 'Pivot_Quiz_Depts_Years.csv')
+Quizz_Depts.to_csv(path_DataViz + 'Pivot_Quiz_Depts_Years.csv')
 
 #Display the Figure
 plt.show()
@@ -114,9 +128,10 @@ plt.show()
 """
 Depts = random.choice(Quizz['Departement'])
 Quizz_Depts = Quizz[Quizz['Departement'] == Depts]
-Quizz_Depts = Quizz_Depts.groupby(['Chapter_ID', 'Year'])['TruePrct_Succes'].mean().reset_index()
-Quizz_Depts['TruePrct_Succes'] = round(Quizz_Depts['TruePrct_Succes']).astype(int)
-Quizz_Depts = Quizz_Depts.pivot("Chapter_ID", "Year", "TruePrct_Succes")
+Quizz_Depts = Quizz_Depts.groupby(['Module', 'Year'])['Success_Prct'].mean().reset_index()
+Quizz_Depts['Success_Prct'] = round(Quizz_Depts['Success_Prct']).astype(int)
+Quizz_Depts_pivot = Quizz_Depts.pivot("Module", "Year", "Success_Prct")
+
 
 #Build the figure
 sns.set() # Setting seaborn as default style even if use only matplotlib
@@ -126,24 +141,161 @@ sns.set_style("white")
 fig, ax = plt.subplots(1, 1, figsize=(16, 9), sharey=True)
 
 #Axis
-ax = sns.heatmap(Quizz_Depts, annot= True, fmt="d", linewidths=.5, cmap = 'Spectral')
+cbar_kws = {"orientation":"vertical", 
+            "shrink":1,
+            'extend':'both', 
+            'ticks': np.arange(Quizz_Depts['Success_Prct'].min(), Quizz_Depts['Success_Prct'].max(), 3),
+           } # color bar keyword arguments
+
+ax = sns.heatmap(Quizz_Depts_pivot, annot= True, fmt="d", linewidths=1, cmap="Spectral", cbar_kws=cbar_kws, annot_kws={'size': 15})
 ax.set_xlabel("Année", size=16)
-ax.set_ylabel("Départements de l'Université Factice", size=16)
+ax.set_ylabel("Module du Departement de " + Depts, size=16)
 plt.setp(ax.get_xticklabels(), fontsize=14)
-plt.setp(ax.get_yticklabels(), fontsize=14, rotation = 0)
+plt.setp(ax.get_yticklabels(), fontsize=12, rotation = 0)
 
 #Last Setting
-fig.suptitle("Pourcentage de Success des Quiz pour chaque chapitre du Département " + Depts + " de l'Université Factice de 2015 à 2020", ha = 'center', size=18)
+fig.suptitle("Pourcentage de Réussite aux Quiz de certains modules du Département d'" + Depts + " de 2015 à 2020", ha = 'center', size=18)
+fig.subplots_adjust(top=0.92, bottom=0.075, left=0.2, right=1, hspace=0.2, wspace=0.2)
 
-fig.tight_layout()
 
 #Save Figure
-fig.savefig(path_Figures + "Heatmap of the Quizz Success Percentage of each Chapter for the Departments of" + Depts + "from 2015 to 2020")
+fig.savefig(path_Figures + "2° Heatmap of the Quizz Success Percentage of each Module for the Departments of " + Depts + " from 2015 to 2020")
 
 #Save CSV
-Quizz_Depts.to_csv(path_DataViz + 'Pivot_QuizChapter_Depts_Years.csv')
+Quizz_Depts.to_csv(path_DataViz + 'Pivot_QuizModule' + Depts + '_Years.csv')
 
 #Display the Figure
+plt.show()
+"""
+
+##########################################################################################
+# (HEATMAP) Percentage of Success for module of the Department of Math from 2015 to 2020 #
+##########################################################################################
+"""
+Depts = 'Mathematique'
+Quizz_Depts = Quizz[Quizz['Departement'] == Depts]
+Quizz_Depts = Quizz_Depts.groupby(['Module', 'Year'])['Success_Prct'].mean().reset_index()
+Quizz_Depts['Success_Prct'] = round(Quizz_Depts['Success_Prct']).astype(int)
+Quizz_Depts_pivot = Quizz_Depts.pivot("Module", "Year", "Success_Prct")
+
+
+#Build the figure
+sns.set() # Setting seaborn as default style even if use only matplotlib
+sns.set_style("white")
+
+#Set the size of the figures 
+fig, ax = plt.subplots(1, 1, figsize=(16, 9), sharey=True)
+
+#Axis
+cbar_kws = {"orientation":"vertical", 
+            "shrink":1,
+            'extend':'both', 
+            'ticks': np.arange(Quizz_Depts['Success_Prct'].min(), Quizz_Depts['Success_Prct'].max(), 3),
+           } # color bar keyword arguments
+
+ax = sns.heatmap(Quizz_Depts_pivot, annot= True, fmt="d", linewidths=1, cmap="Spectral", cbar_kws=cbar_kws, annot_kws={'size': 15})
+ax.set_xlabel("Année", size=16)
+ax.set_ylabel("Module du Departement de " + Depts, size=16)
+plt.setp(ax.get_xticklabels(), fontsize=14)
+plt.setp(ax.get_yticklabels(), fontsize=12, rotation = 0)
+
+#Last Setting
+fig.suptitle("Pourcentage de Réussite aux Quiz de certains modules du Département de " + Depts + " de 2015 à 2020", ha = 'center', size=18)
+fig.subplots_adjust(top=0.92, bottom=0.075, left=0.25, right=1, hspace=0.2, wspace=0.2)
+
+
+#Save Figure
+fig.savefig(path_Figures + "3° Heatmap of the Quizz Success Percentage of each Module for the Departments of " + Depts + " from 2015 to 2020")
+
+#Save CSV
+Quizz_Depts.to_csv(path_DataViz + 'Pivot_QuizModule_' + Depts + '_Years.csv')
+
+#Display the Figure
+plt.show()
+"""
+
+############################################################################################
+# (HEATMAP) Percentage of Success for chapters of the Department of Math from 2015 to 2020 #
+############################################################################################
+"""
+Depts = 'Mathematique'
+Quizz_Depts = Quizz[Quizz['Departement'] == Depts]
+Quizz_Depts = Quizz_Depts.groupby(['Chapter', 'Year'])['Success_Prct'].mean().reset_index()
+Quizz_Depts['Success_Prct'] = round(Quizz_Depts['Success_Prct']).astype(int)
+Quizz_Depts_pivot = Quizz_Depts.pivot("Chapter", "Year", "Success_Prct")
+
+
+#Build the figure
+sns.set() # Setting seaborn as default style even if use only matplotlib
+sns.set_style("white")
+
+#Set the size of the figures 
+fig, ax = plt.subplots(1, 1, figsize=(16, 9), sharey=True)
+
+#Axis
+cbar_kws = {"orientation":"vertical", 
+            "shrink":1,
+            'extend':'both', 
+            'ticks': np.arange(Quizz_Depts['Success_Prct'].min(), Quizz_Depts['Success_Prct'].max(), 3),
+           } # color bar keyword arguments
+
+ax = sns.heatmap(Quizz_Depts_pivot, annot= True, fmt="d", linewidths=1, cmap="Spectral", cbar_kws=cbar_kws)
+ax.set_xlabel("Année", size=16)
+ax.set_ylabel("Chapitre du Departement de " + Depts, size=16)
+plt.setp(ax.get_xticklabels(), fontsize=14)
+plt.setp(ax.get_yticklabels(), fontsize=10, rotation = 0)
+
+#Last Setting
+fig.suptitle("Pourcentage de Réussite aux Quiz de certains chapitres du Département de " + Depts + " de 2015 à 2020", ha = 'center', size=18)
+fig.subplots_adjust(top=0.92, bottom=0.075, left=0.45, right=1, hspace=0.2, wspace=0.2)
+
+
+#Save Figure
+fig.savefig(path_Figures + "4° Heatmap of the Quizz Success Percentage of each Chapter for the Departments of " + Depts + " from 2015 to 2020")
+
+#Save CSV
+Quizz_Depts.to_csv(path_DataViz + 'Pivot_QuizChapter_' + Depts + '_Years.csv')
+
+#Display the Figure
+plt.show()
+"""
+
+###############################################################################
+# Barplot of the Slip/Guess depending on the Type and Difficulty of each Quiz #
+###############################################################################
+"""
+#Build the figure
+sns.set() # Setting seaborn as default style even if use only matplotlib
+sns.set_style("white")
+
+#Set the size of the figures 
+fig, ax = plt.subplots(1, 2, figsize=(16, 9), sharey=True)
+
+Quizz['Correct_Difficulty_Rank'] = Quizz['Correct_Difficulty'].replace(['Facile', 'Moyen', 'Difficile'],[0, 1, 2])
+Quizz['Quizz_Type_Rank'] = Quizz['Quizz_Type'].replace(['QCU', 'QCM', 'QROC', 'QO'],[0, 1, 2, 3])
+Quizz = Quizz.sort_values(by = ['Correct_Difficulty_Rank', 'Quizz_Type_Rank'], ascending = True)
+
+sns.barplot(x="Quizz_Type", y="Guess", hue = 'Correct_Difficulty', data=Quizz, palette="Spectral", ax = ax[0], capsize=.2)
+ax[0].set_title("Répartition du 'Guess' \n en fonction du Type et du Niveau de Difficulty des Quiz", size=14)
+ax[0].set_xlabel("Type des Quiz", size=13)
+ax[0].set_ylabel("Répartition", size=15)
+ax[0].get_legend().remove()
+
+sns.barplot(x="Quizz_Type", y="Slip",  hue = 'Correct_Difficulty', data=Quizz, palette="Spectral", ax = ax[1], capsize=.2)
+ax[1].set_title("Répartition du 'Slip' \n en fonction du Type et du Niveau de Difficulty des Quiz", size=14)
+ax[1].set_xlabel("Type des Quiz", size=13)
+ax[1].set_ylabel("", size=15)   
+
+ax[1].legend(loc='center', bbox_to_anchor=(1.10, 0.5), shadow=True, title = 'Difficulté')
+
+plt.ylim([0, 1])
+fig.suptitle("Répartition du 'Guess' et du 'Slip' en fonction du Type et du Niveau de Difficulty des Quiz", ha = 'center', size=16)
+fig.subplots_adjust(top=0.875, bottom=0.07, left=0.05, right=0.915, hspace=0.2, wspace=0.05)
+
+#Save Figure
+fig.savefig(path_Figures + "5° Barplot of the Distribution of Slip_Guess depending on the Type and Difficulty of each Quiz")
+
+#Display the plots
 plt.show()
 """
 
