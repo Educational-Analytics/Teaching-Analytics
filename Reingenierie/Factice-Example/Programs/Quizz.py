@@ -98,9 +98,11 @@ def TyLvL_PrdCct(dep):
     level_choice = ['Difficile', 'Moyen', 'Facile'] #Define the values corresponding to the level.
     predict_successratio = random.random()
 
-    condition_csr = [dep == 'Mathematique', dep != 'Mathematique']
-    choice_csr = [round(random.uniform(0, 0.7), 2), random.random() if random.uniform(0, 1) >= 0.45 else predict_successratio]
-    correct_successratio = np.select(condition_csr, choice_csr)
+    if dep == 'Mathematique':
+        correct_successratio = round(random.uniform(0, 0.7), 2)
+    else:
+        correct_successratio = random.random()
+
 
     conditions_predict = [0 <= predict_successratio <= 0.35, 0.35 < predict_successratio < 0.65, 0.65 <= predict_successratio <= 1] #Define the conditions.
     conditions_correct = [0 <= correct_successratio <= 0.35, 0.35 < correct_successratio < 0.65, 0.65 <= correct_successratio <= 1] #Define the conditions.
@@ -131,7 +133,7 @@ def TyLvl_ScsFlr(dep, type, attempts):
     learners, avg_learners_attempts, learners_success, learners_failure, learners_success_prct, success_attempts, failure_attempts, true_prct, slip, guess, b  = Level_Percent(type, correct_level, success_ratio, attempts)
 
     #Find if the quiz difficulty is correct or not
-    adapte = 'Adapte' if 0.60 <= success_ratio <= 0.75 else 'Pas Adapte'
+    adapte = 'Adapte' if 0.65 <= success_ratio <= 0.75 else 'Pas Adapte'
     
     #Return all the variables defined through the two previous functions
     return predict_level, correct_level, adapte, success_ratio, score, score_string, learners, avg_learners_attempts, learners_success, learners_failure, learners_success_prct, success_attempts, failure_attempts, true_prct, slip, guess, b
@@ -184,7 +186,7 @@ chapters = [
         ["Definitions et Vocabulaire de Base", "Structure de l'Ordinateur", "Logiciels et Domaines d'Applicationd de l'Informatique"],
         ["Systeme d'Exploitation", "Traitement de Texte", "Les Tableurs"],
         ["Notion d'Algorithme", "Instruction de Base", "Les Langagues de Programmation"],
-        ["Ntoion de Reseau Informatique"],
+        ["Notion de Reseau Informatique"],
     ], #Informatique
     [   ["Sommes de Sous Espaces", "Sous Espaces Supplementaires", "Theoreme du Rang", "Projecteurs et Symetries", "Determination et Construction d'Applications Lineaires", "Calcul de Dimensions et Construction de Bases, utilisant de la Dualite"], 
         ["Les Divers Types d'Integrale", "Les Methodes Generales d'Integration", "Integration des Fractions Rationnelles", "Fonction Trigonometriques", "Integrales Abeliennes", "Quelques Exemples en Maple"],
@@ -239,6 +241,8 @@ lst_slip, lst_guess, lst_b = [], [], []
 chap_percent = [1] * 4 + [2] * 5 + [3] * 5 + [4] * 5 + [5] * 8 + [6] * 10 + [7] * 15 + [8] * 10 + [9] * 10 + [10] * 8 + [11] * 5 + [12] * 5 + [13] * 5 + [14] * 4 #Array of Choice to determine the number of Quiz per chapter
 quiztype_percent = ['QCU'] * 45 + ['QCM'] * 35 + ['QROC'] * 15 + ['QO'] * 5 #Array of Choice to determine the type of the Quiz
 pred_level = ['Trop Facile'] + ['Facile']  + ['Adapte']  + ['Difficile'] +  ['Trop Difficile']  #Array of choice to determine the level of the Quiz
+choices_score = [-2, -1, 0, 1, 2]
+choices_string = ['Beaucoup plus Difficile que la Prediction', 'Plus Difficile que la Prediction', 'Meme Difficulte que la Prediction', 'Plus Facile que la Prediction', 'Beaucoup plus Facile que la Prediction']
 
 
 #Define the number of Quizzes per Chapter and their ID.
@@ -260,9 +264,10 @@ for year in temp_Years: #Iterate for each year from the "temp_Years" list
                     if quiz_ID in lst_quiz_ID:
                         type_quiz = Type_Quiz(lst_quiz_type[ins[-1]])
                         if lst_adapte[ins[-1]] == "Adapte":
-                            correct_level, predict_level = lst_levelcorrect[ins[-1]], lst_levelcorrect[ins[-1]]
-                            score = 0
-                            score_string = 'Meme Difficulte que la Prediction'
+                            condition_score = [lst_adapte[ins[-1]] != "Adapte", lst_adapte[ins[-1]] != "Adapte", lst_adapte[ins[-1]] == "Adapte", lst_adapte[ins[-1]] != "Adapte", lst_adapte[ins[-1]] != "Adapte"]
+                            correct_level = lst_levelcorrect[ins[-1]]
+                            predict_level = lst_levelcorrect[ins[-1]]
+                            score, score_string = np.select(condition_score, choices_score), np.select(condition_score, choices_string),
                             adapte = lst_adapte[ins[-1]]
                             success_ratio = lst_success_ratio[ins[-1]]
                             learners, avg_learners_attempts, learners_success, learners_failure, learners_success_prct, success_attempts, failure_attempts, true_prct, slip, guess, b  = Level_Percent(type_quiz, correct_level, success_ratio, num_attempts)    
@@ -306,7 +311,7 @@ for year in temp_Years: #Iterate for each year from the "temp_Years" list
 
                     quiz_ID += 1
                 chapter_ID += 1
-        module_ID += 1
+            module_ID += 1
 
 
 #######################
@@ -351,6 +356,9 @@ Quizzes_db = pd.DataFrame({ 'Year': lst_year,
 }).sort_values(by = ['Quizz_ID', 'Year'], ascending = True)
 
 print(Quizzes_db.head(5)) #Display the DataFrame.
+
+
+print(Quizzes_db['Score'].value_counts())
 
 #############
 # Save Data #

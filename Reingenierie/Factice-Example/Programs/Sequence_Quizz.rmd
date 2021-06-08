@@ -27,22 +27,135 @@ write.csv(seq_Spread,'../Data/Spead_Sequences.csv', row.names = FALSE) #Save the
 ```
 
 ```{r}
-prep_Sequences_8 <- prep_Sequences %>% filter(Departement == 'Informatique', Chapter_ID == 8)
-prep_Sequences_8_Correct <- prep_Sequences_8 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
-seq_Spread_8_Correct <- spread(prep_Sequences_8_Correct, Quizz_ID, Correct_Difficulty)
-mvad.Chapt8_Correct <- seqdef(seq_Spread_8_Correct[, -c(1:2)])
+prep_Sequences_mod1chap1 <- prep_Sequences %>% filter(Departement == "Informatique" & Module_ID == 2 & Chapter_ID == 1)
+prep_Sequences_mod1chap2_DS <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String)
+seq_Sequences_mod1chap2_DS <- spread(prep_Sequences_mod1chap2_DS, Quizz_ID, Difficulty_String)
+mvad.Sequences_mod1chap2_DS <- seqdef(seq_Sequences_mod1chap2_DS[, -c(1:2)])
 
 col_correct = c('#0BFF00', '#E2ABAB', '#ABCBE2', '#FF0000', '#0000FF')
 
-png(file="../Figures/SeqCorrect_Chap8_Info.png", heigh = 600, width = 1200)
+png(file="../Figures/Test.png", heigh = 600, width = 1200)
 par(mar=c(5,5,0,2)+0.1, oma=c(0,0,4,0))
-layout(matrix(c(1, 1, 1, 1,2), ncol=5, byrow=TRUE))
-seqiplot(mvad.Chapt8_Correct, with.legend=FALSE, cpal = col_correct, ytlab=seq_Spread_8_Correct$Year, ylas=0, cex.lab = 2.2, cex.axis = 2, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+layout(matrix(c(1, 1, 1, 2,2), ncol=5, byrow=TRUE))
+seqiplot(mvad.Sequences_mod1chap2_DS, with.legend=FALSE, cpal = col_correct, ytlab=seq_Sequences_mod1chap2_DS$Year, ylas=0, cex.lab = 2.2, cex.axis = 2, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
 
-seqlegend(mvad.Chapt8_Correct, cpal = col_correct, cex =2.5, position = 'center')
+seqlegend(mvad.Sequences_mod1chap2_DS, cpal = col_correct, cex =2.5, position = 'center')
 mtext("Séquences du niveau de difficulté réel de chaque Quiz pour le chapitre «8» d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
 dev.off()
 ```
+
+
+```{r}
+prep_Sequences_mod1chap1 <- prep_Sequences %>% filter(Departement == "Informatique" & Module_ID == 3 & Chapter_ID == 2)
+prep_Sequences_mod1chap1$Quizz_ID <- replace(prep_Sequences_mod1chap1$Quizz_ID, prep_Sequences_mod1chap1$Quizz_ID>=0, prep_Sequences_mod1chap1$Quizz_ID - prep_Sequences_mod1chap1$Quizz_ID[1] + 1)
+
+prep_Sequences_mod1chap2_DS <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String)
+seq_Sequences_mod1chap2_DS <- spread(prep_Sequences_mod1chap2_DS, Quizz_ID, Difficulty_String)
+mvad.Sequences_mod1chap2_DS <- seqdef(seq_Sequences_mod1chap2_DS[, -c(1:2)])
+
+prep_Sequences_Adapte <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty)
+seq_Sequences_Adapte <- spread(prep_Sequences_Adapte, Quizz_ID, Difficulty)
+mvad.Sequences_Adapte <- seqdef(seq_Sequences_Adapte[, -c(1:2)])
+
+
+col_correct_prediction = c('#B71C1C', '#0D47A1', '#AED581', '#E57373', '#64B5F6')
+col_correct_Adapte = c('#FFE0B2', '#FF5722')
+
+png(file="../Figures/Test2.png", heigh = 600, width = 1200)
+layout(matrix(c(1, 1, 1, 2, 2, 3, 3, 3, 3, 4), ncol=5, byrow=TRUE))
+par(mar=c(5,5,3,5)+0.1, oma=c(0,0,6,0))
+
+seqiplot(mvad.Sequences_mod1chap2_DS, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Sequences_mod1chap2_DS$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+title(main=list("Séquences des différences de niveaux de difficulté des quiz entre la prédiction de l'enseignant et la réalité \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» de 2015 à 2020",  cex = 1.5, font = 1))
+
+seqlegend(mvad.Sequences_mod1chap2_DS, cpal = col_correct_prediction, cex =1.8, position = 'center')
+
+seqiplot(mvad.Sequences_Adapte, with.legend=FALSE, cpal = col_correct_Adapte, ytlab=seq_Sequences_Adapte$Year, ylas=1, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+title(main=list("Séquences de validation de la difficulté des quiz \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» de 2015 à 2020",  cex = 1.5, font = 1))
+
+mtext("Séquences sur les difficultés des Quiz \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» du département d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
+
+seqlegend(mvad.Sequences_Adapte, cpal = col_correct_Adapte, cex =2, position = 'center')
+
+dev.off()
+```
+```{r}
+prep_Sequences_mod1chap1 <- prep_Sequences %>% filter(Departement == "Informatique" & Module_ID == 3 & Chapter_ID == 2)
+prep_Sequences_mod1chap1$Quizz_ID <- replace(prep_Sequences_mod1chap1$Quizz_ID, prep_Sequences_mod1chap1$Quizz_ID>=0, prep_Sequences_mod1chap1$Quizz_ID - prep_Sequences_mod1chap1$Quizz_ID[1] + 1)
+
+prep_Sequences_mod1chap2_DS <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String)
+seq_Sequences_mod1chap2_DS <- spread(prep_Sequences_mod1chap2_DS, Quizz_ID, Difficulty_String)
+mvad.Sequences_mod1chap2_DS <- seqdef(seq_Sequences_mod1chap2_DS[, -c(1:2)])
+
+prep_Sequences_Correct <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
+seq_Sequences_Correct <- spread(prep_Sequences_Correct, Quizz_ID, Correct_Difficulty)
+mvad.Sequences_Correct <- seqdef(seq_Sequences_Correct[, -c(1:2)])
+
+prep_Sequences_Prediction <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Predict_Difficulty)
+seq_Sequences_Prediction <- spread(prep_Sequences_Prediction, Quizz_ID, Predict_Difficulty)
+mvad.Sequences_Prediction <- seqdef(seq_Sequences_Prediction[, -c(1:2)])
+
+col_correct_prediction = c('red', 'blue', 'green')
+col_diff_diffic = c('#B71C1C', '#0D47A1', '#AED581', '#E57373', '#64B5F6')
+
+png(file="../Figures/Test222.png", heigh = 600, width = 1200)
+layout(matrix(c(1, 1, 2, 2, 3), ncol=5, byrow=TRUE))
+par(mar=c(5,5,3,5)+0.1, oma=c(0,0,6,0))
+
+seqiplot(mvad.Sequences_Prediction, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Sequences_Prediction$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+title(main=list("Séquences des niveaux de difficulté des quiz prédit par l'enseignant \n pour le chapitre «Instruction de Base» de 2015 à 2020",  cex = 1.5, font = 1))
+
+seqiplot(mvad.Sequences_Correct, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Sequences_Correct$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+title(main=list("Séquences des niveaux de difficulté des quiz correct \n pour le chapitre «Instruction de Base» de 2015 à 2020",  cex = 1.5, font = 1))
+
+seqlegend(mvad.Sequences_Correct, cpal = col_correct_prediction, cex =1.8, position = 'center')
+
+mtext("Séquences sur les difficultés des Quiz Prédit et Correct \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» du département d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
+
+dev.off()
+```
+
+```{r}
+prep_Sequences_mod1chap1 <- prep_Sequences %>% filter(Departement == "Informatique" & Module_ID == 3 & Chapter_ID == 2)
+prep_Sequences_mod1chap1$Quizz_ID <- replace(prep_Sequences_mod1chap1$Quizz_ID, prep_Sequences_mod1chap1$Quizz_ID>=0, prep_Sequences_mod1chap1$Quizz_ID - prep_Sequences_mod1chap1$Quizz_ID[1] + 1)
+
+prep_Sequences_mod1chap2_DS <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String)
+seq_Sequences_mod1chap2_DS <- spread(prep_Sequences_mod1chap2_DS, Quizz_ID, Difficulty_String)
+mvad.Sequences_mod1chap2_DS <- seqdef(seq_Sequences_mod1chap2_DS[, -c(1:2)])
+
+prep_Sequences_Correct <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
+seq_Sequences_Correct <- spread(prep_Sequences_Correct, Quizz_ID, Correct_Difficulty)
+mvad.Sequences_Correct <- seqdef(seq_Sequences_Correct[, -c(1:2)])
+
+prep_Sequences_Prediction <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Predict_Difficulty)
+seq_Sequences_Prediction <- spread(prep_Sequences_Prediction, Quizz_ID, Predict_Difficulty)
+mvad.Sequences_Prediction <- seqdef(seq_Sequences_Prediction[, -c(1:2)])
+
+col_correct_prediction = c('red', 'blue', 'green')
+col_diff_diffic = c('#B71C1C', '#0D47A1', '#AED581', '#E57373', '#64B5F6')
+
+png(file="../Figures/Test22.png", heigh = 600, width = 1200)
+layout(matrix(c(1, 1, 2, 2, 3, 4, 4, 4, 5, 5), ncol=5, byrow=TRUE))
+par(mar=c(5,5,3,5)+0.1, oma=c(0,0,6,0))
+
+seqiplot(mvad.Sequences_Prediction, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Sequences_Prediction$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+title(main=list("Séquences des niveaux de difficulté des quiz prédit par l'enseignant \n pour le chapitre «Instruction de Base» de 2015 à 2020",  cex = 1.5, font = 1))
+
+seqiplot(mvad.Sequences_Correct, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Sequences_Correct$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+title(main=list("Séquences des niveaux de difficulté des quiz correct \n pour le chapitre «Instruction de Base» de 2015 à 2020",  cex = 1.5, font = 1))
+
+seqlegend(mvad.Sequences_Correct, cpal = col_correct_prediction, cex =1.8, position = 'center')
+
+seqiplot(mvad.Sequences_mod1chap2_DS, with.legend=FALSE, cpal = col_diff_diffic, ytlab=seq_Sequences_mod1chap2_DS$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+title(main=list("Séquences des différences de niveaux de difficulté des quiz entre la prédiction de l'enseignant et la réalité \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» de 2015 à 2020",  cex = 1.5, font = 1))
+
+seqlegend(mvad.Sequences_mod1chap2_DS, cpal = col_diff_diffic, cex =1.8, position = 'center')
+
+mtext("Séquences sur les difficultés des Quiz Prédit et Correct ainsi que leur différence \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» du département d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
+
+dev.off()
+```
+
 
 ```{r}
 prep_Sequences_8 <- prep_Sequences %>% filter(Departement == 'Informatique', Chapter_ID == 8)
