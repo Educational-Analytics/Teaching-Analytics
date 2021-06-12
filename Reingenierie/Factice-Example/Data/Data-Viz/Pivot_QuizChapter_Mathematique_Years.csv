@@ -1,163 +1,163 @@
 ,Chapter,Year,Success_Prct
-0,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2015,31
-1,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2016,29
-2,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2017,39
-3,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2018,41
-4,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2019,45
-5,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2020,48
-6,Classe Cn par Morceaux,2015,39
-7,Classe Cn par Morceaux,2016,41
-8,Classe Cn par Morceaux,2017,46
-9,Classe Cn par Morceaux,2018,47
-10,Classe Cn par Morceaux,2019,43
-11,Classe Cn par Morceaux,2020,53
-12,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2015,67
-13,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2016,67
-14,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2017,67
-15,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2018,67
-16,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2019,67
-17,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2020,67
-18,Derivee Globale,2015,36
-19,Derivee Globale,2016,45
-20,Derivee Globale,2017,49
-21,Derivee Globale,2018,47
+0,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2015,21
+1,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2016,36
+2,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2017,36
+3,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2018,30
+4,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2019,63
+5,"Calcul de Dimensions et Construction de Bases, utilisant de la Dualite",2020,65
+6,Classe Cn par Morceaux,2015,35
+7,Classe Cn par Morceaux,2016,31
+8,Classe Cn par Morceaux,2017,28
+9,Classe Cn par Morceaux,2018,33
+10,Classe Cn par Morceaux,2019,34
+11,Classe Cn par Morceaux,2020,42
+12,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2015,65
+13,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2016,65
+14,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2017,65
+15,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2018,65
+16,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2019,65
+17,Complement sur les Endomorphismes Autoadjoints d'un Espace Euclidien et les Matrices Symetriques,2020,65
+18,Derivee Globale,2015,22
+19,Derivee Globale,2016,29
+20,Derivee Globale,2017,45
+21,Derivee Globale,2018,40
 22,Derivee Globale,2019,52
-23,Derivee Globale,2020,53
-24,Derivee en un Point,2015,28
-25,Derivee en un Point,2016,19
-26,Derivee en un Point,2017,33
-27,Derivee en un Point,2018,39
-28,Derivee en un Point,2019,47
-29,Derivee en un Point,2020,53
-30,Derivees d'Ordres Superieurs,2015,45
-31,Derivees d'Ordres Superieurs,2016,50
-32,Derivees d'Ordres Superieurs,2017,62
-33,Derivees d'Ordres Superieurs,2018,54
-34,Derivees d'Ordres Superieurs,2019,55
-35,Derivees d'Ordres Superieurs,2020,56
-36,Determination et Construction d'Applications Lineaires,2015,29
-37,Determination et Construction d'Applications Lineaires,2016,34
-38,Determination et Construction d'Applications Lineaires,2017,42
-39,Determination et Construction d'Applications Lineaires,2018,44
-40,Determination et Construction d'Applications Lineaires,2019,51
-41,Determination et Construction d'Applications Lineaires,2020,54
-42,Espaces Euclidiens,2015,27
-43,Espaces Euclidiens,2016,33
-44,Espaces Euclidiens,2017,44
-45,Espaces Euclidiens,2018,45
-46,Espaces Euclidiens,2019,47
-47,Espaces Euclidiens,2020,48
-48,Espaces Prehilbertiens Reel ou Complexes,2015,44
-49,Espaces Prehilbertiens Reel ou Complexes,2016,62
-50,Espaces Prehilbertiens Reel ou Complexes,2017,60
-51,Espaces Prehilbertiens Reel ou Complexes,2018,57
-52,Espaces Prehilbertiens Reel ou Complexes,2019,61
-53,Espaces Prehilbertiens Reel ou Complexes,2020,66
-54,Fonction Trigonometriques,2015,33
-55,Fonction Trigonometriques,2016,34
-56,Fonction Trigonometriques,2017,39
-57,Fonction Trigonometriques,2018,42
-58,Fonction Trigonometriques,2019,57
-59,Fonction Trigonometriques,2020,49
-60,Fonctions Reciproques,2015,52
-61,Fonctions Reciproques,2016,44
-62,Fonctions Reciproques,2017,36
-63,Fonctions Reciproques,2018,39
-64,Fonctions Reciproques,2019,51
-65,Fonctions Reciproques,2020,40
-66,Geometrie Plane,2015,18
-67,Geometrie Plane,2016,32
-68,Geometrie Plane,2017,1
-69,Geometrie Plane,2018,35
-70,Geometrie Plane,2019,38
-71,Geometrie Plane,2020,57
-72,Integrales Abeliennes,2015,47
-73,Integrales Abeliennes,2016,34
-74,Integrales Abeliennes,2017,43
-75,Integrales Abeliennes,2018,56
-76,Integrales Abeliennes,2019,46
-77,Integrales Abeliennes,2020,59
-78,Integration des Fractions Rationnelles,2015,57
-79,Integration des Fractions Rationnelles,2016,51
-80,Integration des Fractions Rationnelles,2017,60
-81,Integration des Fractions Rationnelles,2018,62
-82,Integration des Fractions Rationnelles,2019,60
-83,Integration des Fractions Rationnelles,2020,52
-84,La Fonction Exponentielle Complexe,2015,38
-85,La Fonction Exponentielle Complexe,2016,49
-86,La Fonction Exponentielle Complexe,2017,56
-87,La Fonction Exponentielle Complexe,2018,60
-88,La Fonction Exponentielle Complexe,2019,62
-89,La Fonction Exponentielle Complexe,2020,65
-90,Les Divers Types d'Integrale,2015,25
-91,Les Divers Types d'Integrale,2016,30
-92,Les Divers Types d'Integrale,2017,44
-93,Les Divers Types d'Integrale,2018,47
-94,Les Divers Types d'Integrale,2019,53
+23,Derivee Globale,2020,56
+24,Derivee en un Point,2015,26
+25,Derivee en un Point,2016,45
+26,Derivee en un Point,2017,39
+27,Derivee en un Point,2018,32
+28,Derivee en un Point,2019,31
+29,Derivee en un Point,2020,32
+30,Derivees d'Ordres Superieurs,2015,53
+31,Derivees d'Ordres Superieurs,2016,6
+32,Derivees d'Ordres Superieurs,2017,36
+33,Derivees d'Ordres Superieurs,2018,47
+34,Derivees d'Ordres Superieurs,2019,7
+35,Derivees d'Ordres Superieurs,2020,52
+36,Determination et Construction d'Applications Lineaires,2015,33
+37,Determination et Construction d'Applications Lineaires,2016,32
+38,Determination et Construction d'Applications Lineaires,2017,26
+39,Determination et Construction d'Applications Lineaires,2018,36
+40,Determination et Construction d'Applications Lineaires,2019,47
+41,Determination et Construction d'Applications Lineaires,2020,51
+42,Espaces Euclidiens,2015,30
+43,Espaces Euclidiens,2016,49
+44,Espaces Euclidiens,2017,43
+45,Espaces Euclidiens,2018,49
+46,Espaces Euclidiens,2019,56
+47,Espaces Euclidiens,2020,53
+48,Espaces Prehilbertiens Reel ou Complexes,2015,37
+49,Espaces Prehilbertiens Reel ou Complexes,2016,45
+50,Espaces Prehilbertiens Reel ou Complexes,2017,43
+51,Espaces Prehilbertiens Reel ou Complexes,2018,43
+52,Espaces Prehilbertiens Reel ou Complexes,2019,48
+53,Espaces Prehilbertiens Reel ou Complexes,2020,48
+54,Fonction Trigonometriques,2015,30
+55,Fonction Trigonometriques,2016,26
+56,Fonction Trigonometriques,2017,41
+57,Fonction Trigonometriques,2018,46
+58,Fonction Trigonometriques,2019,51
+59,Fonction Trigonometriques,2020,43
+60,Fonctions Reciproques,2015,30
+61,Fonctions Reciproques,2016,41
+62,Fonctions Reciproques,2017,28
+63,Fonctions Reciproques,2018,44
+64,Fonctions Reciproques,2019,44
+65,Fonctions Reciproques,2020,37
+66,Geometrie Plane,2015,43
+67,Geometrie Plane,2016,42
+68,Geometrie Plane,2017,37
+69,Geometrie Plane,2018,43
+70,Geometrie Plane,2019,44
+71,Geometrie Plane,2020,63
+72,Integrales Abeliennes,2015,33
+73,Integrales Abeliennes,2016,38
+74,Integrales Abeliennes,2017,37
+75,Integrales Abeliennes,2018,50
+76,Integrales Abeliennes,2019,45
+77,Integrales Abeliennes,2020,40
+78,Integration des Fractions Rationnelles,2015,37
+79,Integration des Fractions Rationnelles,2016,44
+80,Integration des Fractions Rationnelles,2017,48
+81,Integration des Fractions Rationnelles,2018,49
+82,Integration des Fractions Rationnelles,2019,39
+83,Integration des Fractions Rationnelles,2020,55
+84,La Fonction Exponentielle Complexe,2015,35
+85,La Fonction Exponentielle Complexe,2016,36
+86,La Fonction Exponentielle Complexe,2017,37
+87,La Fonction Exponentielle Complexe,2018,29
+88,La Fonction Exponentielle Complexe,2019,39
+89,La Fonction Exponentielle Complexe,2020,40
+90,Les Divers Types d'Integrale,2015,30
+91,Les Divers Types d'Integrale,2016,34
+92,Les Divers Types d'Integrale,2017,32
+93,Les Divers Types d'Integrale,2018,38
+94,Les Divers Types d'Integrale,2019,34
 95,Les Divers Types d'Integrale,2020,42
-96,Les Methodes Generales d'Integration,2015,31
-97,Les Methodes Generales d'Integration,2016,36
-98,Les Methodes Generales d'Integration,2017,45
-99,Les Methodes Generales d'Integration,2018,47
-100,Les Methodes Generales d'Integration,2019,51
-101,Les Methodes Generales d'Integration,2020,55
-102,Methodes Generales pour aborder un probleme de Geometrie Analytique,2015,46
-103,Methodes Generales pour aborder un probleme de Geometrie Analytique,2016,41
-104,Methodes Generales pour aborder un probleme de Geometrie Analytique,2017,53
-105,Methodes Generales pour aborder un probleme de Geometrie Analytique,2018,47
-106,Methodes Generales pour aborder un probleme de Geometrie Analytique,2019,57
-107,Methodes Generales pour aborder un probleme de Geometrie Analytique,2020,51
-108,Projecteurs et Symetries,2015,29
-109,Projecteurs et Symetries,2016,36
-110,Projecteurs et Symetries,2017,35
-111,Projecteurs et Symetries,2018,47
-112,Projecteurs et Symetries,2019,53
-113,Projecteurs et Symetries,2020,56
-114,Quelques Exemples en Maple,2015,23
-115,Quelques Exemples en Maple,2016,33
-116,Quelques Exemples en Maple,2017,54
-117,Quelques Exemples en Maple,2018,39
-118,Quelques Exemples en Maple,2019,37
-119,Quelques Exemples en Maple,2020,50
-120,Quelques Techniques de Calcul,2015,33
-121,Quelques Techniques de Calcul,2016,11
-122,Quelques Techniques de Calcul,2017,69
-123,Quelques Techniques de Calcul,2018,69
-124,Quelques Techniques de Calcul,2019,69
-125,Quelques Techniques de Calcul,2020,69
-126,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2015,40
-127,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2016,37
-128,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2017,54
-129,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2018,49
-130,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2019,50
-131,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2020,52
-132,Sommes de Sous Espaces,2015,40
+96,Les Methodes Generales d'Integration,2015,47
+97,Les Methodes Generales d'Integration,2016,47
+98,Les Methodes Generales d'Integration,2017,31
+99,Les Methodes Generales d'Integration,2018,46
+100,Les Methodes Generales d'Integration,2019,34
+101,Les Methodes Generales d'Integration,2020,36
+102,Methodes Generales pour aborder un probleme de Geometrie Analytique,2015,1
+103,Methodes Generales pour aborder un probleme de Geometrie Analytique,2016,9
+104,Methodes Generales pour aborder un probleme de Geometrie Analytique,2017,47
+105,Methodes Generales pour aborder un probleme de Geometrie Analytique,2018,7
+106,Methodes Generales pour aborder un probleme de Geometrie Analytique,2019,53
+107,Methodes Generales pour aborder un probleme de Geometrie Analytique,2020,53
+108,Projecteurs et Symetries,2015,34
+109,Projecteurs et Symetries,2016,35
+110,Projecteurs et Symetries,2017,48
+111,Projecteurs et Symetries,2018,38
+112,Projecteurs et Symetries,2019,39
+113,Projecteurs et Symetries,2020,36
+114,Quelques Exemples en Maple,2015,33
+115,Quelques Exemples en Maple,2016,36
+116,Quelques Exemples en Maple,2017,36
+117,Quelques Exemples en Maple,2018,25
+118,Quelques Exemples en Maple,2019,28
+119,Quelques Exemples en Maple,2020,32
+120,Quelques Techniques de Calcul,2015,14
+121,Quelques Techniques de Calcul,2016,30
+122,Quelques Techniques de Calcul,2017,25
+123,Quelques Techniques de Calcul,2018,56
+124,Quelques Techniques de Calcul,2019,14
+125,Quelques Techniques de Calcul,2020,36
+126,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2015,32
+127,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2016,34
+128,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2017,38
+129,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2018,36
+130,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2019,34
+131,Rappels et Complements sur le Groupe Orthogonal d'un Espace Euclidien,2020,35
+132,Sommes de Sous Espaces,2015,30
 133,Sommes de Sous Espaces,2016,45
-134,Sommes de Sous Espaces,2017,47
-135,Sommes de Sous Espaces,2018,59
+134,Sommes de Sous Espaces,2017,31
+135,Sommes de Sous Espaces,2018,41
 136,Sommes de Sous Espaces,2019,50
-137,Sommes de Sous Espaces,2020,56
-138,Sous Espaces Supplementaires,2015,42
-139,Sous Espaces Supplementaires,2016,33
-140,Sous Espaces Supplementaires,2017,57
-141,Sous Espaces Supplementaires,2018,36
-142,Sous Espaces Supplementaires,2019,68
-143,Sous Espaces Supplementaires,2020,68
-144,Sur l'Utilisation de Maple,2015,21
-145,Sur l'Utilisation de Maple,2016,22
-146,Sur l'Utilisation de Maple,2017,47
-147,Sur l'Utilisation de Maple,2018,39
+137,Sommes de Sous Espaces,2020,46
+138,Sous Espaces Supplementaires,2015,36
+139,Sous Espaces Supplementaires,2016,39
+140,Sous Espaces Supplementaires,2017,47
+141,Sous Espaces Supplementaires,2018,54
+142,Sous Espaces Supplementaires,2019,40
+143,Sous Espaces Supplementaires,2020,45
+144,Sur l'Utilisation de Maple,2015,39
+145,Sur l'Utilisation de Maple,2016,36
+146,Sur l'Utilisation de Maple,2017,41
+147,Sur l'Utilisation de Maple,2018,42
 148,Sur l'Utilisation de Maple,2019,42
-149,Sur l'Utilisation de Maple,2020,48
-150,Theoreme du Rang,2015,38
-151,Theoreme du Rang,2016,51
-152,Theoreme du Rang,2017,43
-153,Theoreme du Rang,2018,47
-154,Theoreme du Rang,2019,54
-155,Theoreme du Rang,2020,44
-156,Theroeme de Rolle et des Accroissements Finis,2015,34
-157,Theroeme de Rolle et des Accroissements Finis,2016,48
-158,Theroeme de Rolle et des Accroissements Finis,2017,47
-159,Theroeme de Rolle et des Accroissements Finis,2018,47
-160,Theroeme de Rolle et des Accroissements Finis,2019,46
-161,Theroeme de Rolle et des Accroissements Finis,2020,45
+149,Sur l'Utilisation de Maple,2020,53
+150,Theoreme du Rang,2015,35
+151,Theoreme du Rang,2016,49
+152,Theoreme du Rang,2017,38
+153,Theoreme du Rang,2018,41
+154,Theoreme du Rang,2019,46
+155,Theoreme du Rang,2020,56
+156,Theroeme de Rolle et des Accroissements Finis,2015,32
+157,Theroeme de Rolle et des Accroissements Finis,2016,37
+158,Theroeme de Rolle et des Accroissements Finis,2017,32
+159,Theroeme de Rolle et des Accroissements Finis,2018,39
+160,Theroeme de Rolle et des Accroissements Finis,2019,35
+161,Theroeme de Rolle et des Accroissements Finis,2020,44

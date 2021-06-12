@@ -117,7 +117,7 @@ def TyLvL_PrdCct(dep):
         predict_level == 'Difficile' and correct_level == 'Moyen' or predict_level == 'Moyen' and correct_level == 'Facile',
         predict_level == 'Difficile' and correct_level == 'Facile']
     choices_score = [-2, -1, 0, 1, 2]
-    choices_string = ['Beaucoup plus Difficile que la Prediction', 'Plus Difficile que la Prediction', 'Meme Difficulte que la Prediction', 'Plus Facile que la Prediction', 'Beaucoup plus Facile que la Prediction']
+    choices_string = ['Beaucoup plus Difficile', 'Plus Difficile', 'Meme Difficulté', 'Plus Facile', 'Beaucoup plus Facile']
     score, score_string = np.select(condition_score, choices_score), np.select(condition_score, choices_string),
 
     #Return the predicted level of difficulty, the correct level of difficulty, the score of the predicted/correct and associated string.
@@ -242,7 +242,7 @@ chap_percent = [1] * 4 + [2] * 5 + [3] * 5 + [4] * 5 + [5] * 8 + [6] * 10 + [7] 
 quiztype_percent = ['QCU'] * 45 + ['QCM'] * 35 + ['QROC'] * 15 + ['QO'] * 5 #Array of Choice to determine the type of the Quiz
 pred_level = ['Trop Facile'] + ['Facile']  + ['Adapte']  + ['Difficile'] +  ['Trop Difficile']  #Array of choice to determine the level of the Quiz
 choices_score = [-2, -1, 0, 1, 2]
-choices_string = ['Beaucoup plus Difficile que la Prediction', 'Plus Difficile que la Prediction', 'Meme Difficulte que la Prediction', 'Plus Facile que la Prediction', 'Beaucoup plus Facile que la Prediction']
+choices_string = ['Beaucoup plus Difficile', 'Plus Difficile', 'Meme Difficulté', 'Plus Facile', 'Beaucoup plus Facile']
 
 
 #Define the number of Quizzes per Chapter and their ID.

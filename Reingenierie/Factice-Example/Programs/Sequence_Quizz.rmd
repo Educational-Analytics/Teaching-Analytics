@@ -11,6 +11,7 @@ library('dplyr')
 library("tidyr")
 library("RColorBrewer")
 library('TraMineR')
+library('ggplot2')
 ```
 
 ```{r}
@@ -27,20 +28,40 @@ write.csv(seq_Spread,'../Data/Spead_Sequences.csv', row.names = FALSE) #Save the
 ```
 
 ```{r}
-prep_Sequences_mod1chap1 <- prep_Sequences %>% filter(Departement == "Informatique" & Module_ID == 2 & Chapter_ID == 1)
-prep_Sequences_mod1chap2_DS <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String)
-seq_Sequences_mod1chap2_DS <- spread(prep_Sequences_mod1chap2_DS, Quizz_ID, Difficulty_String)
-mvad.Sequences_mod1chap2_DS <- seqdef(seq_Sequences_mod1chap2_DS[, -c(1:2)])
+prep_Sequences_mod2chap1 <- prep_Sequences %>% filter(Departement == "Informatique" & Module_ID == 2 & Chapter_ID == 1)
+prep_Sequences_mod2chap1$Quizz_ID <- replace(prep_Sequences_mod2chap1$Quizz_ID, prep_Sequences_mod2chap1$Quizz_ID>=0, prep_Sequences_mod2chap1$Quizz_ID - prep_Sequences_mod2chap1$Quizz_ID[1] + 1)
+unique(prep_Sequences_mod2chap1$Module)
+prep_Sequences_mod2chap1_DS <- prep_Sequences_mod2chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String)
+seq_Sequences_mod2chap1_DS <- spread(prep_Sequences_mod2chap1_DS, Quizz_ID, Difficulty_String)
+mvad.Sequences_mod2chap1_DS <- seqdef(seq_Sequences_mod2chap1_DS[, -c(1:2)])
 
-col_correct = c('#0BFF00', '#E2ABAB', '#ABCBE2', '#FF0000', '#0000FF')
-
+seqplot_color = c("#FF0000",   "#000FFF",   "#F4EFD7",   "#FF7878", "#7878FF")
+legend_color = c('#FF0000', '#FF7878', '#F4EFD7', '#7878FF', '#000FFF')
+legend_order = c('Beaucoup plus Difficile', 'Plus Difficile', 'Meme Difficulté', 'Plus Facile', 'Beaucoup plus Facile')
+  
+prep_Sequences_mod2chap1_DS
 png(file="../Figures/Test.png", heigh = 600, width = 1200)
-par(mar=c(5,5,0,2)+0.1, oma=c(0,0,4,0))
-layout(matrix(c(1, 1, 1, 2,2), ncol=5, byrow=TRUE))
-seqiplot(mvad.Sequences_mod1chap2_DS, with.legend=FALSE, cpal = col_correct, ytlab=seq_Sequences_mod1chap2_DS$Year, ylas=0, cex.lab = 2.2, cex.axis = 2, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+par(mar=c(6,6,0,2)+0.1, oma=c(0,0,7,0))
+layout(matrix(c(1, 1, 2), ncol=3, byrow=TRUE))
 
-seqlegend(mvad.Sequences_mod1chap2_DS, cpal = col_correct, cex =2.5, position = 'center')
-mtext("Séquences du niveau de difficulté réel de chaque Quiz pour le chapitre «8» d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
+seqiplot(mvad.Sequences_mod2chap1_DS, with.legend=FALSE, cpal = seqplot_color, ytlab=seq_Sequences_mod2chap1_DS$Year, ylas=0, cex.lab = 2.5, cex.axis = 2.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+
+seqlegend(mvad.Sequences_mod2chap1_DS, cpal = legend_color, ltext = legend_order, cex =2.5, position = 'center')
+
+text(1, 0.4, paste("Difficulté Réel par rapport à la Prédiction"), cex = 2.3)
+
+
+title_Sequences_mod2chap1_DS = paste(
+  "Séquences de la Différence entre la Difficulté Prédite et Réel, \n",
+  "pour les Quiz du chapitre", paste("«", unique(prep_Sequences_mod2chap1$Chapter), "»,", sep = ""), 
+  "du module", paste("«", unique(prep_Sequences_mod2chap1$Module), "»,", sep = ""),
+  "du Département", paste("d'", unique(prep_Sequences_mod2chap1$Departement), sep = ""),
+  "de 2015 à 2020"
+)
+
+
+mtext(title_Sequences_mod2chap1_DS, outer=TRUE,  cex=1.5, line=1)
+
 dev.off()
 ```
 

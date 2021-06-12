@@ -263,7 +263,7 @@ plt.show()
 ###############################################################################
 # Barplot of the Slip/Guess depending on the Type and Difficulty of each Quiz #
 ###############################################################################
-"""
+
 #Build the figure
 sns.set() # Setting seaborn as default style even if use only matplotlib
 sns.set_style("white")
@@ -289,7 +289,7 @@ ax[1].set_ylabel("", size=15)
 ax[1].legend(loc='center', bbox_to_anchor=(1.10, 0.5), shadow=True, title = 'Difficulté')
 
 plt.ylim([0, 1])
-fig.suptitle("Répartition du 'Guess' et du 'Slip' en fonction du Type et du Niveau de Difficulty des Quiz", ha = 'center', size=16)
+fig.suptitle("Répartition du «Guess» et du «Slip» en fonction du Type et du Niveau de Difficulté de l'Intégralité des Quiz ", ha = 'center', size=16)
 fig.subplots_adjust(top=0.875, bottom=0.07, left=0.05, right=0.915, hspace=0.2, wspace=0.05)
 
 #Save Figure
@@ -297,7 +297,6 @@ fig.savefig(path_Figures + "5° Barplot of the Distribution of Slip_Guess depend
 
 #Display the plots
 plt.show()
-"""
 
 ###############################################################################
 #  #
