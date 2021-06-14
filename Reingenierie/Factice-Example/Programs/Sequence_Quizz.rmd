@@ -4,6 +4,7 @@ author: "ROUX Dorian"
 output: html_document
 ---
 
+**Packages**
 ```{r}
 #Import the Libraries.
 library('readr')
@@ -14,289 +15,409 @@ library('TraMineR')
 library('ggplot2')
 ```
 
+**DataFrame Import**
 ```{r}
-#Import the Dataframe.
-prep_Sequences <- read_csv(file ='../Data/Quizzes.csv') #Import the required CSV.
-prep_Sequences <- select(prep_Sequences, -c(1)) #Remove the first column that represents the index.
+#Import the DataFrame.
+prep_Sequences <- select(read_csv(file ='../Data/Quizzes.csv'), -c(1)) #Import the required CSV and Remove the first column that represents the index.
 head(prep_Sequences, 10) #Display the ten first rows.
 ```
 
-```{r}
-#Save a a Spread Dataframe.
-seq_Spread <- spread(prep_Sequences, Rank, Correct_Difficulty) #Spread the previous Dataframe.
-write.csv(seq_Spread,'../Data/Spead_Sequences.csv', row.names = FALSE) #Save the Spread Dataframe into a CSV file
-```
 
+**Prepare the Variables**
+
+*Sequences Computer Science Module2 Chapter1* 
 ```{r}
+#Sequences Computer Science Module2 Chapter1
 prep_Sequences_mod2chap1 <- prep_Sequences %>% filter(Departement == "Informatique" & Module_ID == 2 & Chapter_ID == 1)
+
+#Reorder the Quizzes ID
 prep_Sequences_mod2chap1$Quizz_ID <- replace(prep_Sequences_mod2chap1$Quizz_ID, prep_Sequences_mod2chap1$Quizz_ID>=0, prep_Sequences_mod2chap1$Quizz_ID - prep_Sequences_mod2chap1$Quizz_ID[1] + 1)
-unique(prep_Sequences_mod2chap1$Module)
-prep_Sequences_mod2chap1_DS <- prep_Sequences_mod2chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String)
-seq_Sequences_mod2chap1_DS <- spread(prep_Sequences_mod2chap1_DS, Quizz_ID, Difficulty_String)
-mvad.Sequences_mod2chap1_DS <- seqdef(seq_Sequences_mod2chap1_DS[, -c(1:2)])
 
-seqplot_color = c("#FF0000",   "#000FFF",   "#F4EFD7",   "#FF7878", "#7878FF")
-legend_color = c('#FF0000', '#FF7878', '#F4EFD7', '#7878FF', '#000FFF')
-legend_order = c('Beaucoup plus Difficile', 'Plus Difficile', 'Meme Difficulté', 'Plus Facile', 'Beaucoup plus Facile')
-  
-prep_Sequences_mod2chap1_DS
-png(file="../Figures/Test.png", heigh = 600, width = 1200)
-par(mar=c(6,6,0,2)+0.1, oma=c(0,0,7,0))
-layout(matrix(c(1, 1, 2), ncol=3, byrow=TRUE))
+#Built the Sequences for the Predict/Real Difficulty of each Quiz of the specific Chapter.
+prep_Sequences_mod2chap1_DS <- prep_Sequences_mod2chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String) #Select the useful columns.
+seq_Sequences_mod2chap1_DS <- spread(prep_Sequences_mod2chap1_DS, Quizz_ID, Difficulty_String) #Spread the values from one column into columns.
+mvad.Sequences_mod2chap1_DS <- seqdef(seq_Sequences_mod2chap1_DS[, -c(1:2)]) #Transform the new columns into sequences.
 
-seqiplot(mvad.Sequences_mod2chap1_DS, with.legend=FALSE, cpal = seqplot_color, ytlab=seq_Sequences_mod2chap1_DS$Year, ylas=0, cex.lab = 2.5, cex.axis = 2.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
+#Set the color and order
+seqplot_color = c("#FF0000", "#000FFF", "#F4EFD7", "#FF7878", "#7878FF") #Color of the figure.
+legend_color = c('#FF0000', '#FF7878', '#F4EFD7', '#7878FF', '#000FFF') #Color of the legend.
+legend_order = c('Beaucoup plus Difficile', 'Plus Difficile', 'Meme Difficulté', 'Plus Facile', 'Beaucoup plus Facile') #Order of the legend.
 
-seqlegend(mvad.Sequences_mod2chap1_DS, cpal = legend_color, ltext = legend_order, cex =2.5, position = 'center')
-
-text(1, 0.4, paste("Difficulté Réel par rapport à la Prédiction"), cex = 2.3)
-
-
-title_Sequences_mod2chap1_DS = paste(
-  "Séquences de la Différence entre la Difficulté Prédite et Réel, \n",
-  "pour les Quiz du chapitre", paste("«", unique(prep_Sequences_mod2chap1$Chapter), "»,", sep = ""), 
-  "du module", paste("«", unique(prep_Sequences_mod2chap1$Module), "»,", sep = ""),
-  "du Département", paste("d'", unique(prep_Sequences_mod2chap1$Departement), sep = ""),
-  "de 2015 à 2020"
-)
-
-
-mtext(title_Sequences_mod2chap1_DS, outer=TRUE,  cex=1.5, line=1)
-
-dev.off()
 ```
 
 
+*Sequences Computer Science Module3 Chapter2* 
 ```{r}
-prep_Sequences_mod1chap1 <- prep_Sequences %>% filter(Departement == "Informatique" & Module_ID == 3 & Chapter_ID == 2)
-prep_Sequences_mod1chap1$Quizz_ID <- replace(prep_Sequences_mod1chap1$Quizz_ID, prep_Sequences_mod1chap1$Quizz_ID>=0, prep_Sequences_mod1chap1$Quizz_ID - prep_Sequences_mod1chap1$Quizz_ID[1] + 1)
+#Sequences Computer Science Module3 Chapter2
+prep_Sequences_mod3chap2 <- prep_Sequences %>% filter(Departement == "Informatique" & Module_ID == 3 & Chapter_ID == 2)
 
-prep_Sequences_mod1chap2_DS <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String)
-seq_Sequences_mod1chap2_DS <- spread(prep_Sequences_mod1chap2_DS, Quizz_ID, Difficulty_String)
-mvad.Sequences_mod1chap2_DS <- seqdef(seq_Sequences_mod1chap2_DS[, -c(1:2)])
-
-prep_Sequences_Adapte <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty)
-seq_Sequences_Adapte <- spread(prep_Sequences_Adapte, Quizz_ID, Difficulty)
-mvad.Sequences_Adapte <- seqdef(seq_Sequences_Adapte[, -c(1:2)])
-
-
-col_correct_prediction = c('#B71C1C', '#0D47A1', '#AED581', '#E57373', '#64B5F6')
-col_correct_Adapte = c('#FFE0B2', '#FF5722')
-
-png(file="../Figures/Test2.png", heigh = 600, width = 1200)
-layout(matrix(c(1, 1, 1, 2, 2, 3, 3, 3, 3, 4), ncol=5, byrow=TRUE))
-par(mar=c(5,5,3,5)+0.1, oma=c(0,0,6,0))
-
-seqiplot(mvad.Sequences_mod1chap2_DS, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Sequences_mod1chap2_DS$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
-title(main=list("Séquences des différences de niveaux de difficulté des quiz entre la prédiction de l'enseignant et la réalité \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» de 2015 à 2020",  cex = 1.5, font = 1))
-
-seqlegend(mvad.Sequences_mod1chap2_DS, cpal = col_correct_prediction, cex =1.8, position = 'center')
-
-seqiplot(mvad.Sequences_Adapte, with.legend=FALSE, cpal = col_correct_Adapte, ytlab=seq_Sequences_Adapte$Year, ylas=1, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
-title(main=list("Séquences de validation de la difficulté des quiz \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» de 2015 à 2020",  cex = 1.5, font = 1))
-
-mtext("Séquences sur les difficultés des Quiz \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» du département d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
-
-seqlegend(mvad.Sequences_Adapte, cpal = col_correct_Adapte, cex =2, position = 'center')
-
-dev.off()
-```
-```{r}
-prep_Sequences_mod1chap1 <- prep_Sequences %>% filter(Departement == "Informatique" & Module_ID == 3 & Chapter_ID == 2)
-prep_Sequences_mod1chap1$Quizz_ID <- replace(prep_Sequences_mod1chap1$Quizz_ID, prep_Sequences_mod1chap1$Quizz_ID>=0, prep_Sequences_mod1chap1$Quizz_ID - prep_Sequences_mod1chap1$Quizz_ID[1] + 1)
-
-prep_Sequences_mod1chap2_DS <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String)
-seq_Sequences_mod1chap2_DS <- spread(prep_Sequences_mod1chap2_DS, Quizz_ID, Difficulty_String)
-mvad.Sequences_mod1chap2_DS <- seqdef(seq_Sequences_mod1chap2_DS[, -c(1:2)])
-
-prep_Sequences_Correct <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
-seq_Sequences_Correct <- spread(prep_Sequences_Correct, Quizz_ID, Correct_Difficulty)
-mvad.Sequences_Correct <- seqdef(seq_Sequences_Correct[, -c(1:2)])
-
-prep_Sequences_Prediction <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Predict_Difficulty)
-seq_Sequences_Prediction <- spread(prep_Sequences_Prediction, Quizz_ID, Predict_Difficulty)
-mvad.Sequences_Prediction <- seqdef(seq_Sequences_Prediction[, -c(1:2)])
-
-col_correct_prediction = c('red', 'blue', 'green')
-col_diff_diffic = c('#B71C1C', '#0D47A1', '#AED581', '#E57373', '#64B5F6')
-
-png(file="../Figures/Test222.png", heigh = 600, width = 1200)
-layout(matrix(c(1, 1, 2, 2, 3), ncol=5, byrow=TRUE))
-par(mar=c(5,5,3,5)+0.1, oma=c(0,0,6,0))
-
-seqiplot(mvad.Sequences_Prediction, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Sequences_Prediction$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
-title(main=list("Séquences des niveaux de difficulté des quiz prédit par l'enseignant \n pour le chapitre «Instruction de Base» de 2015 à 2020",  cex = 1.5, font = 1))
-
-seqiplot(mvad.Sequences_Correct, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Sequences_Correct$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
-title(main=list("Séquences des niveaux de difficulté des quiz correct \n pour le chapitre «Instruction de Base» de 2015 à 2020",  cex = 1.5, font = 1))
-
-seqlegend(mvad.Sequences_Correct, cpal = col_correct_prediction, cex =1.8, position = 'center')
-
-mtext("Séquences sur les difficultés des Quiz Prédit et Correct \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» du département d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
-
-dev.off()
+#Reorder the Quizzes ID
+prep_Sequences_mod3chap2$Quizz_ID <- replace(prep_Sequences_mod3chap2$Quizz_ID, prep_Sequences_mod3chap2$Quizz_ID>=0, prep_Sequences_mod3chap2$Quizz_ID - prep_Sequences_mod3chap2$Quizz_ID[1] + 1)
 ```
 
+#############################################################
+#Build the Sequences and Parameters for the Type of Quizzes #
+#############################################################
 ```{r}
-prep_Sequences_mod1chap1 <- prep_Sequences %>% filter(Departement == "Informatique" & Module_ID == 3 & Chapter_ID == 2)
-prep_Sequences_mod1chap1$Quizz_ID <- replace(prep_Sequences_mod1chap1$Quizz_ID, prep_Sequences_mod1chap1$Quizz_ID>=0, prep_Sequences_mod1chap1$Quizz_ID - prep_Sequences_mod1chap1$Quizz_ID[1] + 1)
+#Built the Sequences for the Type of Quizzes
 
-prep_Sequences_mod1chap2_DS <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String)
-seq_Sequences_mod1chap2_DS <- spread(prep_Sequences_mod1chap2_DS, Quizz_ID, Difficulty_String)
-mvad.Sequences_mod1chap2_DS <- seqdef(seq_Sequences_mod1chap2_DS[, -c(1:2)])
+#Sequences
+prep_Sequences_mod3chap2_Type <- prep_Sequences_mod3chap2 %>% select(Quizz_ID, Year, Chapter_ID, Quizz_Type) #Select the useful columns.
+seq_Sequences_mod3chap2_Type <- spread(prep_Sequences_mod3chap2_Type, Quizz_ID, Quizz_Type) #Spread the values from one column into columns.
+mvad.Sequences_mod3chap2_Type <- seqdef(seq_Sequences_mod3chap2_Type[, -c(1:2)]) #Transform the created columns into sequences.
 
-prep_Sequences_Correct <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
-seq_Sequences_Correct <- spread(prep_Sequences_Correct, Quizz_ID, Correct_Difficulty)
-mvad.Sequences_Correct <- seqdef(seq_Sequences_Correct[, -c(1:2)])
+#Colors/Order
+seqplot_color_Type = c('#FFFF00', '#FFD740', '#64FFDA', '#69F0AE') #Color of the Figure.
+legend_color_Type = c('#FFD740', '#FFFF00', '#69F0AE', '#64FFDA') #Color of the Legend.
+legend_order_Type = c('QCU', 'QCM', 'QROC', 'QO') #Order of the Legend.
+```
 
-prep_Sequences_Prediction <- prep_Sequences_mod1chap1 %>% select(Quizz_ID, Year, Chapter_ID, Predict_Difficulty)
-seq_Sequences_Prediction <- spread(prep_Sequences_Prediction, Quizz_ID, Predict_Difficulty)
-mvad.Sequences_Prediction <- seqdef(seq_Sequences_Prediction[, -c(1:2)])
+##################################################################
+#Build the Sequences and Parameters for the Predicted Difficulty #
+##################################################################
+```{r}
+#Built the Sequences for the Predicted Difficulty
 
-col_correct_prediction = c('red', 'blue', 'green')
-col_diff_diffic = c('#B71C1C', '#0D47A1', '#AED581', '#E57373', '#64B5F6')
+#Sequences
+prep_Sequences_mod3chap2_Predicted <- prep_Sequences_mod3chap2 %>% select(Quizz_ID, Year, Chapter_ID, Predict_Difficulty) #Select the useful columns.
+seq_Sequences_mod3chap2_Predicted<- spread(prep_Sequences_mod3chap2_Predicted, Quizz_ID, Predict_Difficulty) #Spread the values from one column into columns.
+mvad.Sequences_mod3chap2_Predicted <- seqdef(seq_Sequences_mod3chap2_Predicted[, -c(1:2)]) #Transform the created columns into sequences.
 
-png(file="../Figures/Test22.png", heigh = 600, width = 1200)
-layout(matrix(c(1, 1, 2, 2, 3, 4, 4, 4, 5, 5), ncol=5, byrow=TRUE))
-par(mar=c(5,5,3,5)+0.1, oma=c(0,0,6,0))
+#Colors/Order
+seqplot_color_Predicted = c('#FF5722', '#4FC3F7', '#81C784') #Color of the Figure.
+legend_color_Predicted = c('#4FC3F7', '#81C784', '#FF5722') #Color of the Legend.
+legend_order_Predicted =  c('Facile', 'Moyen', 'Difficile') #Order of the Legend.
+```
 
-seqiplot(mvad.Sequences_Prediction, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Sequences_Prediction$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
-title(main=list("Séquences des niveaux de difficulté des quiz prédit par l'enseignant \n pour le chapitre «Instruction de Base» de 2015 à 2020",  cex = 1.5, font = 1))
+#############################################################
+#Build the Sequences and Parameters for the Real Difficulty #
+#############################################################
+```{r}
+#Built the Sequences for the Real Difficulty
 
-seqiplot(mvad.Sequences_Correct, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Sequences_Correct$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
-title(main=list("Séquences des niveaux de difficulté des quiz correct \n pour le chapitre «Instruction de Base» de 2015 à 2020",  cex = 1.5, font = 1))
+#Sequences
+prep_Sequences_mod3chap2_Real <- prep_Sequences_mod3chap2 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty) #Select the useful columns.
+seq_Sequences_mod3chap2_Real <- spread(prep_Sequences_mod3chap2_Real, Quizz_ID, Correct_Difficulty) #Spread the values from one column into columns.
+mvad.Sequences_mod3chap2_Real <- seqdef(seq_Sequences_mod3chap2_Real[, -c(1:2)]) #Transform the created columns into sequences.
 
-seqlegend(mvad.Sequences_Correct, cpal = col_correct_prediction, cex =1.8, position = 'center')
+#Colors/Order
+seqplot_color_Real = c('#FF5722', '#4FC3F7', '#81C784') #Color of the Figure.
+legend_color_Real = c('#4FC3F7', '#81C784', '#FF5722') #Color of the Legend.
+legend_order_Real =  c('Facile', 'Moyen', 'Difficile') #Order of the Legend.
+```
 
-seqiplot(mvad.Sequences_mod1chap2_DS, with.legend=FALSE, cpal = col_diff_diffic, ytlab=seq_Sequences_mod1chap2_DS$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.3, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
-title(main=list("Séquences des différences de niveaux de difficulté des quiz entre la prédiction de l'enseignant et la réalité \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» de 2015 à 2020",  cex = 1.5, font = 1))
+#######################################################################
+#Build the Sequences and Parameters for the Predicted/Real Difficulty #
+#######################################################################
+```{r}
+#Built the Sequences and Parameters for the Predicted/Real Difficulty
 
-seqlegend(mvad.Sequences_mod1chap2_DS, cpal = col_diff_diffic, cex =1.8, position = 'center')
+#Sequences
+prep_Sequences_mod3chap2_PR <- prep_Sequences_mod3chap2 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty_String) #Select the useful columns.
+seq_Sequences_mod3chap2_PR <- spread(prep_Sequences_mod3chap2_PR, Quizz_ID, Difficulty_String) #Spread the values from one column into columns.
+mvad.Sequences_mod3chap2_PR <- seqdef(seq_Sequences_mod3chap2_PR[, -c(1:2)]) #Transform the created columns into sequences.
 
-mtext("Séquences sur les difficultés des Quiz Prédit et Correct ainsi que leur différence \n pour le chapitre «Instruction de Base» du module «Algorithme et Programmation» du département d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
+#Colors/Order
+seqplot_color_PR = c("#FF0000", "#000FFF", "#F4EFD7", "#FF7878", "#7878FF") #Color of the Figure.
+legend_color_PR = c("#FF0000", "#FF7878", "#F4EFD7", "#7878FF", "#000FFF") #Color of the Legend.
+legend_order_PR = c("Beaucoup plus Difficile", "Plus Difficile", "Meme Difficulté", "Plus Facile", "Beaucoup plus Facile") #Order of the Legend.
+```
 
-dev.off()
+################################################################
+#Build the Sequences and Parameters for the Adapted Difficulty #
+################################################################
+```{r}
+#Built the Sequences for the Adapted Difficulty
+
+#Sequences
+prep_Sequences_mod3chap2_Adapted <- prep_Sequences_mod3chap2 %>% select(Quizz_ID, Year, Chapter_ID, Difficulty) #Select the useful columns.
+seq_Sequences_mod3chap2_Adapted <- spread(prep_Sequences_mod3chap2_Adapted, Quizz_ID, Difficulty) #Spread the values from one column into columns.
+mvad.Sequences_mod3chap2_Adapted <- seqdef(seq_Sequences_mod3chap2_Adapted[, -c(1:2)]) #Transform the created columns into sequences.
+
+#Colors/Order
+seqplot_color_Adapted = c('#FFE0B2', '#FF5722') #Color of the Figure.
+legend_color_Adapted = c('#FFE0B2', '#FF5722') #Color of the Legend.
+legend_order_Adapted = c('Quiz Adapté', 'Quiz Non-Adapté') #Order of the Legend.
 ```
 
 
+**Prepare the Figures**
+
+###################################################
+#Build the Figure of the Predicted/RealDifficulty #
+###################################################
 ```{r}
-prep_Sequences_8 <- prep_Sequences %>% filter(Departement == 'Informatique', Chapter_ID == 8)
+#Figure of the Predicted/Real Difficulty
 
-prep_Sequences_8_Correct <- prep_Sequences_8 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
-seq_Spread_8_Correct <- spread(prep_Sequences_8_Correct, Quizz_ID, Correct_Difficulty)
-mvad.Chapt8_Correct <- seqdef(seq_Spread_8_Correct[, -c(1:2)])
+#Define the name of the file
+fig_Sequences_mod3chap2_PR = paste("Seq-PR-Chap_", unique(prep_Sequences_mod3chap2$Chapter_ID),
+                                   "-Mod_", unique(prep_Sequences_mod3chap2$Module_ID),
+                                   "-Dep_", unique(prep_Sequences_mod3chap2$Departement), "-2015_2020", sep = "")
 
-prep_Sequences_8_Prediction <- prep_Sequences_8 %>% select(Quizz_ID, Year, Chapter_ID, Predict_Difficulty)
-seq_Spread_8_Prediction <- spread(prep_Sequences_8_Prediction, Quizz_ID, Predict_Difficulty)
-mvad.Chapt8_Prediction <- seqdef(seq_Spread_8_Prediction[, -c(1:2)])
+#Set the Figure file name and Figure size, margins and positions of the graphs
+png(paste("../Figures/", fig_Sequences_mod3chap2_PR, ".png", sep = ""), heigh = 800, width = 1300)
+layout(matrix(c(1, 1, 1, 1, 2, 2), ncol=6, byrow=TRUE))
+par(mar=c(9,9,3,0)+0.1, oma=c(0,1,9,0))
 
-col_correct_prediction = c('#0BFF00', '#E2ABAB', '#ABCBE2', '#FF0000', '#0000FF')
+#Define the title of the Figure
+title_Sequences_mod3chap2_PR = paste(
+  "Séquences de la Différence entre la Difficulté Prédite par rapport à la Difficulté Réelle de 2015 à 2020, \n",
+  "de chaque Quiz du chapitre", paste("«", unique(prep_Sequences_mod3chap2$Chapter), "»,", sep = ""), 
+  "du module", paste("«", unique(prep_Sequences_mod3chap2$Module), "»,", sep = ""),
+  "du Département", paste("d'", unique(prep_Sequences_mod3chap2$Departement), ".", sep = ""))
 
-png(file="../Figures/SeqCorrectPredict_Chap8_Informatique.png", heigh = 600, width = 1200)
-layout(matrix(c(1, 1, 3, 3, 2), ncol=5, byrow=TRUE))
-par(mar=c(5,5,3,5)+0.1, oma=c(0,0,5,0))
+#Plot the Seqplot Predicted/Real Difficulty and Define its axis and labels
+seqplot(mvad.Sequences_mod3chap2_PR, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_mod3chap2_PR)),
+        cpal = seqplot_color_PR, space = 0.15, main = "")
+title(main=list("Séquences de la Différence entre la Difficulté Prédite par l'Enseignant et la Difficulté Réelle",  cex = 2.5, font = 3))
+axis(1, at = 0.5:8.5, labels = paste(unique(prep_Sequences_mod3chap2$Quizz_ID), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40), labels = paste(seq_Sequences_mod3chap2_PR$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
+title(xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
+title(ylab = "Année", cex.lab = 2.5, line = 7)
 
-seqiplot(mvad.Chapt8_Prediction, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Spread_8_Prediction$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = '')
-title(main=list("Séquences des niveaux de difficulté des quiz prédit par l'enseignant \n pour le chapitre «8» d'Informatique de 2015 à 2020",  cex = 1.5, font = 1))
+#Plot the Seqlegend Predicted/Real Difficulty and Define its title
+seqlegend(mvad.Sequences_mod3chap2_PR, cpal = legend_color_PR, ltext = legend_order_PR, cex = 2.5, position = 'center')
+text(1, 0.35, paste("Différence Prédiction/Réalité"), cex = 2.5)
 
-seqlegend(mvad.Chapt8_Correct, cpal = col_correct, cex =2, position = 'center')
+#Put the main Title of the Figure
+mtext(title_Sequences_mod3chap2_PR, outer=TRUE,  cex=1.8, font = 1, line=3)
 
-seqiplot(mvad.Chapt8_Correct, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Spread_8_Correct$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
-title(main=list("Séquences des niveaux de difficulté des quiz correct \n pour le chapitre «8» d'Informatique de 2015 à 2020",  cex = 1.5, font = 1))
-mtext("Séquences du niveau de difficulté prédit et réel de chaque Quiz pour le chapitre «8» d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
-
+#Save the Figure
 dev.off()
 ```
 
+################################################################
+#Build the Figure of the Predicted/Real and Adapted Difficulty #
+################################################################
 ```{r}
-prep_Sequences_13 <- prep_Sequences %>% filter(Departement == 'Mathematique', Chapter_ID == 13)
+#Figure of the Predicted/Real and Adapted Difficulty
 
-prep_Sequences_13$Correct_Difficulty[prep_Sequences_13$Correct_Difficulty == 'Trop Facile'] <- 'Trop Facile - Réussite : 85% à 100%' 
-prep_Sequences_13$Correct_Difficulty[prep_Sequences_13$Correct_Difficulty == 'Facile'] <- 'Facile - Réussite : 75 à 85%' 
-prep_Sequences_13$Correct_Difficulty[prep_Sequences_13$Correct_Difficulty == 'Adapte'] <- 'Adapte - Réussite : 60 à 75%' 
-prep_Sequences_13$Correct_Difficulty[prep_Sequences_13$Correct_Difficulty == 'Difficile'] <- 'Difficile - Réussite : 25 à 60%' 
-prep_Sequences_13$Correct_Difficulty[prep_Sequences_13$Correct_Difficulty == 'Trop Difficile'] <- 'Trop Difficile - Réussite : 0 à 25%' 
+#Define the name of the file
+fig_Sequences_mod3chap2_PR_A = paste("Seq-PR_A-Chap_", unique(prep_Sequences_mod3chap2$Chapter_ID),
+                                   "-Mod_", unique(prep_Sequences_mod3chap2$Module_ID),
+                                   "-Dep_", unique(prep_Sequences_mod3chap2$Departement), "-2015_2020", sep = "")
 
-prep_Sequences_13$Predict_Difficulty[prep_Sequences_13$Predict_Difficulty == 'Trop Facile'] <- 'Trop Facile - Réussite : 85% à 100%' 
-prep_Sequences_13$Predict_Difficulty[prep_Sequences_13$Predict_Difficulty == 'Facile'] <- 'Facile - Réussite : 75 à 85%' 
-prep_Sequences_13$Predict_Difficulty[prep_Sequences_13$Predict_Difficulty == 'Adapte'] <- 'Adapte - Réussite : 60 à 75%' 
-prep_Sequences_13$Predict_Difficulty[prep_Sequences_13$Predict_Difficulty == 'Difficile'] <- 'Difficile - Réussite : 25 à 60%' 
-prep_Sequences_13$Predict_Difficulty[prep_Sequences_13$Predict_Difficulty == 'Trop Difficile'] <- 'Trop Difficile - Réussite : 0 à 25%' 
+#Set the Figure file name and Figure size, margins and positions of the graphs
+png(paste("../Figures/", fig_Sequences_mod3chap2_PR_A, ".png", sep = ""), heigh = 800, width = 1300)
+layout(matrix(c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4), ncol=10, byrow=TRUE))
+par(mar=c(9,9,3,0)+0.1, oma=c(0,1,9,0))
 
+#Define the title of the Figure
+title_Sequences_mod3chap2_PR_A = paste(
+  "Séquences respectives de la Différence entre la Difficulté Prédite par rapport à la Difficulté Réelle et la Validation de 2015 à 2020, \n",
+  "de chaque Quiz du chapitre", paste("«", unique(prep_Sequences_mod3chap2$Chapter), "»,", sep = ""), 
+  "du module", paste("«", unique(prep_Sequences_mod3chap2$Module), "»,", sep = ""),
+  "du Département", paste("d'", unique(prep_Sequences_mod3chap2$Departement), ".", sep = ""))
 
-prep_Sequences_13_Type <- prep_Sequences_13 %>% select(Quizz_ID, Year, Chapter_ID, Quizz_Type)
-seq_Spread_13_Type <- spread(prep_Sequences_13_Type, Quizz_ID, Quizz_Type)
-mvad.Chapt13_Type <- seqdef(seq_Spread_13_Type[, -c(1:2)])
+#Plot the Seqplot Predicted/Real Difficulty and Define its axis and labels
+seqplot(mvad.Sequences_mod3chap2_PR, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_mod3chap2_PR)),
+        cpal = seqplot_color_PR, space = 0.15, main = "")
+title(main=list("Séquences de la Différence entre la Difficulté Prédite par l'Enseignant et la Difficulté Réelle",  cex = 2.5, font = 3))
+axis(1, at = 0.5:8.5, labels = paste(unique(prep_Sequences_mod3chap2$Quizz_ID), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40), labels = paste(seq_Sequences_mod3chap2_PR$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
+title(xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
+title(ylab = "Année", cex.lab = 2.5, line = 7)
 
-prep_Sequences_13_Correct <- prep_Sequences_13 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
-seq_Spread_13_Correct <- spread(prep_Sequences_13_Correct, Quizz_ID, Correct_Difficulty)
-mvad.Chapt13_Correct <- seqdef(seq_Spread_13_Correct[, -c(1:2)])
+#Plot the Seqlegend Predicted/Real Difficulty and Define its title
+seqlegend(mvad.Sequences_mod3chap2_PR, cpal = legend_color_PR, ltext = legend_order_PR, cex = 2.5, position = 'center')
+text(1, 0.80, paste("Différence Prédiction/Réalité"), cex = 2.5)
 
-prep_Sequences_13_Prediction <- prep_Sequences_13 %>% select(Quizz_ID, Year, Chapter_ID, Predict_Difficulty)
-seq_Spread_13_Prediction <- spread(prep_Sequences_13_Prediction, Quizz_ID, Predict_Difficulty)
-mvad.Chapt13_Prediction <- seqdef(seq_Spread_13_Prediction[, -c(1:2)])
+#Plot the Seqplot Adapted Difficulty and Define its axis and labels
+seqplot(mvad.Sequences_mod3chap2_Adapted, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_mod3chap2_Adapted)),
+        cpal = seqplot_color_Adapted, space = 0.15)
+title(main=list("Séquences de Validation de la Difficulté",  cex = 2.5, font = 3))
+axis(1, at = 0.5:8.5, labels = paste(unique(prep_Sequences_mod3chap2$Quizz_ID), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40), labels = paste(seq_Sequences_mod3chap2_Adapted$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
+title(xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
+title(ylab = "Année", cex.lab = 2.5, line = 7)
 
-col_correct_prediction = c('#0BFF00', '#E2ABAB', '#ABCBE2', '#FF0000', '#0000FF')
-col_type = c('#E5A5A5', '#BFE5A5', '#A5C3E5')
+#Plot the Seqlegend Adapted Difficulty and Define its title
+seqlegend(mvad.Sequences_mod3chap2_Adapted, cpal = legend_color_Adapted, ltext = legend_order_Adapted, cex = 2.5, position = 'center')
+text(1, 0.5, paste("Validation de la Difficulté"), cex = 2.5)
 
-png(file="../Figures/SeqTypeCorrectPredict_Chap13_InformatiqueBIS.png", heigh = 600, width = 1200)
-layout(matrix(c(1,1,1,1,1,1,2,2,3,3,3,4,4,4,5,5), ncol=8, byrow=TRUE))
-par(mar=c(5,5,3,5)+0.1, oma=c(0,0,5,0))
+#Put the main Title of the Figure
+mtext(title_Sequences_mod3chap2_PR_A, outer=TRUE,  cex=1.8, font = 1, line=3)
 
-seqiplot(mvad.Chapt13_Type, with.legend=FALSE, cpal = col_type, ytlab=seq_Spread_13_Type$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = '')
-title(main=list("Séquences des type de chaque quiz \n pour le chapitre «13» d'Informatique de 2015 à 2020",  cex = 1.5, font = 1))
-
-seqlegend(mvad.Chapt13_Type, cpal = col_type, cex =2, position = 'center')
-
-seqiplot(mvad.Chapt13_Prediction, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Spread_13_Prediction$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = '')
-title(main=list("Séquences des niveaux de difficulté des quiz prédit par l'enseignant \n pour le chapitre «13» d'Informatique de 2015 à 2020",  cex = 1.5, font = 1))
-
-seqiplot(mvad.Chapt13_Correct, with.legend=FALSE, cpal = col_correct_prediction, ytlab=seq_Spread_13_Correct$Year, ylas=0, cex.lab = 1.8, cex.axis = 1.5, space = 0.15, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique")
-title(main=list("Séquences des niveaux de difficulté des quiz correct \n pour le chapitre «13» d'Informatique de 2015 à 2020",  cex = 1.5, font = 1))
-mtext("Séquences du niveau de difficulté prédit et réel de chaque Quiz pour le chapitre «13» d'Informatique de 2015 à 2020", outer=TRUE,  cex=1.5, line=1)
-
-seqlegend(mvad.Chapt13_Correct, cpal = col_correct, cex = 1.4, position = 'center')
-
-
+#Save the Figure
 dev.off()
 ```
 
-
+#############################################################
+#Build the Figure of the Predicted/Real and Type of Quizzes #
+#############################################################
 ```{r}
-#Filter the Sequence Data
+# Figure of the Predicted/Real and Type of Quizzes
 
-prep_Sequences_15 <- prep_Sequences %>% filter(Departement == 'Informatique', Chapter_ID == 15)
+#Define the name of the file
+fig_Sequences_mod3chap2_PR_T = paste("Seq-PR_T-Chap_", unique(prep_Sequences_mod3chap2$Chapter_ID),
+                                   "-Mod_", unique(prep_Sequences_mod3chap2$Module_ID),
+                                   "-Dep_", unique(prep_Sequences_mod3chap2$Departement), "-2015_2020", sep = "")
 
-prep_Sequences_15_Type <- prep_Sequences_15 %>% select(Quizz_ID, Year, Chapter_ID, Quizz_Type)
-seq_Spread_15_Type <- spread(prep_Sequences_15_Type, Quizz_ID, Quizz_Type)
-mvad.Chapt15_Type <- seqdef(seq_Spread_15_Type[, -c(1:2)])
+#Set the Figure file name and Figure size, margins and positions of the graphs
+png(paste("../Figures/", fig_Sequences_mod3chap2_PR_T, ".png", sep = ""), heigh = 800, width = 1300)
+layout(matrix(c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4), ncol=10, byrow=TRUE))
+par(mar=c(9,9,3,0)+0.1, oma=c(0,1,9,0))
 
-prep_Sequences_15_Prediction <- prep_Sequences_15 %>% select(Quizz_ID, Year, Chapter_ID, Predict_Difficulty)
-seq_Spread_15_Prediction <- spread(prep_Sequences_15_Prediction, Quizz_ID, Predict_Difficulty)
-mvad.Chapt15_Prediction <- seqdef(seq_Spread_15_Prediction[, -c(1:2)])
+#Define the title of the Figure
+title_Sequences_mod3chap2_PR_T = paste(
+  "Séquences respectives de la Différence entre la Difficulté Prédite par rapport à la Difficulté Réelle et le Type de 2015 à 2020, \n",
+  "de chaque Quiz du chapitre", paste("«", unique(prep_Sequences_mod3chap2$Chapter), "»,", sep = ""), 
+  "du module", paste("«", unique(prep_Sequences_mod3chap2$Module), "»,", sep = ""),
+  "du Département", paste("d'", unique(prep_Sequences_mod3chap2$Departement), ".", sep = ""))
 
-prep_Sequences_15_Correct <- prep_Sequences_15 %>% select(Quizz_ID, Year, Chapter_ID, Correct_Difficulty)
-seq_Spread_15_Correct <- spread(prep_Sequences_15_Correct, Quizz_ID, Correct_Difficulty)
-mvad.Chapt15_Correct <- seqdef(seq_Spread_15_Correct[, -c(1:2)])
 
-#Build the Sequences Plot and Save them.
+#Plot the Seqplot Predicted/Real Difficulty and Define its axis and labels
+seqplot(mvad.Sequences_mod3chap2_PR, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_mod3chap2_PR)),
+        cpal = seqplot_color_PR, space = 0.15, main = "")
+title(main=list("Séquences de la Différence entre la Difficulté Prédite par l'Enseignant et la Difficulté Réelle",  cex = 2.5, font = 3))
+axis(1, at = 0.5:8.5, labels = paste(unique(prep_Sequences_mod3chap2$Quizz_ID), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40), labels = paste(seq_Sequences_mod3chap2_PR$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
+title(xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
+title(ylab = "Année", cex.lab = 2.5, line = 7)
 
-png(file="../Figures/Test.png", heigh = 600, width = 1200)
-par(mfrow=c(2,3),mar=c(5,5,2,5)+0.1, oma=c(0,0,5,0))
-col_type = c('#E5A5A5', '#BFE5A5', '#A5C3E5')
-col_pred = c('#FF0000', '#0000FF', '#00FF00', '#FFED00')
-col_correct = c('#FF0000', '#C100FF', '#0000FF', '#00FF00', '#FFED00')
+#Plot the Seqlegend Predicted/Real Difficulty and Define its title
+seqlegend(mvad.Sequences_mod3chap2_PR, cpal = legend_color_PR, ltext = legend_order_PR, cex = 2.5, position = 'center')
+text(1, 0.80, paste("Différence Prédiction/Réalité"), cex = 2.5)
 
-seqiplot(mvad.Chapt15_Prediction, with.legend=FALSE, cpal = col_pred, ytlab=seq_Spread_15_Prediction$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, cex.legend=1.2, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = 'Predicted')
+#Plot the Seqplot Type of Quizzes and Define its axis and labels
+seqplot(mvad.Sequences_mod3chap2_Type, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_mod3chap2_Type)),
+        cpal = seqplot_color_Type, space = 0.15)
+title(main=list("Séquences du Type de Quiz",  cex = 2.5, font = 3))
+axis(1, at = 0.5:8.5, labels = paste(unique(prep_Sequences_mod3chap2$Quizz_ID), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40), labels = paste(seq_Sequences_mod3chap2_Type$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
+title(xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
+title(ylab = "Année", cex.lab = 2.5, line = 7)
 
-seqiplot(mvad.Chapt15_Correct, with.legend=FALSE, cpal = col_correct, ytlab=seq_Spread_15_Correct$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, cex.legend=1.2, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = 'Correct')
+#Plot the Seqlegend Type of Quizzes and Define its title
+seqlegend(mvad.Sequences_mod3chap2_Type, cpal = legend_color_Type, ltext = legend_order_Type, cex = 2.5, position = 'center')
+text(1, 0.7, paste("Type du Quiz"), cex = 2.55)
 
-seqlegend(mvad.Chapt15_Correct, cpal = col_correct, cex = 1.8, position = 'center')
+#Put the main Title of the Figure
+mtext(title_Sequences_mod3chap2_PR_T, outer=TRUE,  cex=1.8, font = 1, line=3)
 
-seqiplot(mvad.Chapt15_Type, with.legend=FALSE, cpal = col_type, ytlab=seq_Spread_15_Type$Year, ylas=0, cex.lab = 1.5, cex.axis = 1.1, cex.legend=1.2, ncol=1, space = 0.1, ylab = "Année", xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", main = 'Type')
+#Save the Figure
+dev.off()
+```
 
-seqlegend(mvad.Chapt15_Type, cpal = col_type, cex = 1.8, position = 'center')
+########################################################################
+#Build the Figure of the Predicted, Real Difficulty and Predicted/Real #
+########################################################################
+```{r}
+#Figure of the Predicted, Real Difficulty and Predicted/Real
 
-mtext("Séquences Pédagogiques", outer=TRUE,  cex=1.5, line=1)
+#Define the name of the file
+fig_Sequences_mod3chap2_P_R_PR = paste("Seq-P_R_PR-Chap_", unique(prep_Sequences_mod3chap2$Chapter_ID),
+                                   "-Mod_", unique(prep_Sequences_mod3chap2$Module_ID),
+                                   "-Dep_", unique(prep_Sequences_mod3chap2$Departement), "-2015_2020", sep = "")
 
+#Set the Figure file name and Figure size, margins and positions of the graphs
+png(paste("../Figures/", fig_Sequences_mod3chap2_P_R_PR, ".png", sep = ""), heigh = 800, width = 1800)
+layout(matrix(c(1, 1, 1, 1, 1, 1, 6, 2, 2, 2, 2, 2, 2, 3, 3, 3, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6), ncol=16, byrow=TRUE))
+par(mar=c(9,9,3,0)+0.1, oma=c(0,1,9,0))
+
+#Define the title of the Figure
+title_Sequences_mod3chap2_P_R_PR = paste(
+  "Séquences respectives de la Prédiction, de la Réalité et de la Différence de Difficulté Associée de 2015 à 2020, \n",
+  "de chaque Quiz du chapitre", paste("«", unique(prep_Sequences_mod3chap2$Chapter), "»,", sep = ""), 
+  "du module", paste("«", unique(prep_Sequences_mod3chap2$Module), "»,", sep = ""),
+  "du Département", paste("d'", unique(prep_Sequences_mod3chap2$Departement), ".", sep = ""))
+
+#Plot the Seqplot Predicted Difficulty and Define its axis and labels
+seqplot(mvad.Sequences_mod3chap2_Predicted, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_mod3chap2_Predicted)),
+        cpal = seqplot_color_Predicted, space = 0.15)
+title(main=list("Séquences de la Difficulté Prédite par l'Enseignant",  cex = 2.5, font = 3))
+axis(1, at = 0.5:8.5, labels = paste(unique(prep_Sequences_mod3chap2$Quizz_ID), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40), labels = paste(seq_Sequences_mod3chap2_Predicted$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
+title(xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
+title(ylab = "Année", cex.lab = 2.5, line = 7)
+
+#Plot the Seqplot Real Difficulty and Define its axis and labels
+seqplot(mvad.Sequences_mod3chap2_Real, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_mod3chap2_Real)),
+        cpal = seqplot_color_Real, space = 0.15)
+title(main=list("Séquences de la Difficulté Réelle",  cex = 2.5, font = 3))
+axis(1, at = 0.5:8.5, labels = paste(unique(prep_Sequences_mod3chap2$Quizz_ID), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40), labels = paste(seq_Sequences_mod3chap2_Real$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
+title(xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
+title(ylab = "Année", cex.lab = 2.5, line = 7)
+
+#Plot the Seqlegend Predicted or Real Difficulty and Define its title
+seqlegend(mvad.Sequences_mod3chap2_Predicted, cpal = legend_color_Predicted, ltext = legend_order_Predicted, cex = 2.5, position = 'center')
+text(1, 0.60, paste("Niveau de Difficulté"), cex = 2.5)
+
+#Plot the Seqplot Predicted/Real Difficulty and Define its axis and labels
+seqplot(mvad.Sequences_mod3chap2_PR, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_mod3chap2_PR)),
+        cpal = seqplot_color_PR, space = 0.15, main = "")
+title(main=list("Séquences de la Différence entre la Difficulté Prédite par l'Enseignant et la Difficulté Réelle",  cex = 2.5, font = 3))
+axis(1, at = 0.5:8.5, labels = paste(unique(prep_Sequences_mod3chap2$Quizz_ID), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40), labels = paste(seq_Sequences_mod3chap2_PR$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
+title(xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
+title(ylab = "Année", cex.lab = 2.5, line = 7)
+
+#Plot the Seqlegend Predicted/Real Difficulty and Define its title
+seqlegend(mvad.Sequences_mod3chap2_PR, cpal = legend_color_PR, ltext = legend_order_PR, cex = 2.5, position = 'center')
+text(1, 0.80, paste("Différence Prédiction/Réalité"), cex = 2.5)
+
+#Plot an empty graph 
+plot.new()
+
+#Put the main Title of the Figure
+mtext(title_Sequences_mod3chap2_P_R_PR, outer=TRUE,  cex=2.2, font = 1, line=2)
+
+#Save the Figure
+dev.off()
+```
+
+###################################################################
+#Build the Figure of the Predicted Difficulty and Real Difficulty #
+###################################################################
+```{r}
+#Figure of the Predicted Difficulty and Real Difficulty
+
+#Define the name of the file
+fig_Sequences_mod3chap2_P_R = paste("Seq-P_R-Chap_", unique(prep_Sequences_mod3chap2$Chapter_ID),
+                                   "-Mod_", unique(prep_Sequences_mod3chap2$Module_ID),
+                                   "-Dep_", unique(prep_Sequences_mod3chap2$Departement), "-2015_2020", sep = "")
+
+#Set the Figure file name and Figure size, margins and positions of the graphs
+png(paste("../Figures/", fig_Sequences_mod3chap2_P_R, ".png", sep = ""), heigh = 600, width = 1600)
+layout(matrix(c(1, 1, 1, 1, 1, 1, 4, 2, 2, 2, 2, 2, 2, 3, 3, 3), ncol=16, byrow=TRUE))
+par(mar=c(9,9,3,0)+0.1, oma=c(0,1,9,0))
+
+#Define the title of the Figure
+title_Sequences_mod3chap2_P_R = paste(
+  "Séquences respectives du Niveau de Difficulté Prédit et du Niveau de Difficulté Réel de 2015 à 2020, \n",
+  "de chaque Quiz du chapitre", paste("«", unique(prep_Sequences_mod3chap2$Chapter), "»,", sep = ""), 
+  "du module", paste("«", unique(prep_Sequences_mod3chap2$Module), "»,", sep = ""),
+  "du Département", paste("d'", unique(prep_Sequences_mod3chap2$Departement), ".", sep = ""))
+
+#Plot the Seqplot Predicted Difficulty and Define its axis and labels
+seqplot(mvad.Sequences_mod3chap2_Predicted, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_mod3chap2_Predicted)),
+        cpal = seqplot_color_Predicted, space = 0.15)
+title(main=list("Séquences de la Difficulté Prédite par l'Enseignant",  cex = 2.5, font = 3))
+axis(1, at = 0.5:8.5, labels = paste(unique(prep_Sequences_mod3chap2$Quizz_ID), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40), labels = paste(seq_Sequences_mod3chap2_Predicted$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
+title(xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
+title(ylab = "Année", cex.lab = 2.5, line = 7)
+
+#Plot the Seqplot Real Difficulty and Define its axis and labels
+seqplot(mvad.Sequences_mod3chap2_Real, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_mod3chap2_Real)),
+        cpal = seqplot_color_Real, space = 0.15)
+title(main=list("Séquences de la Difficulté Réelle",  cex = 2.5, font = 3))
+axis(1, at = 0.5:8.5, labels = paste(unique(prep_Sequences_mod3chap2$Quizz_ID), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40), labels = paste(seq_Sequences_mod3chap2_Real$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
+title(xlab = "Rang et Identification du Quiz dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
+title(ylab = "Année", cex.lab = 2.5, line = 7)
+
+#Plot the Seqlegend Predicted or Real Difficulty and Define its title
+seqlegend(mvad.Sequences_mod3chap2_Predicted, cpal = legend_color_Predicted, ltext = legend_order_Predicted, cex = 2.5, position = 'center')
+text(1, 0.60, paste("Niveau de Difficulté"), cex = 2.5)
+
+#Plot an empty graph 
+plot.new()
+
+#Put the main Title of the Figure
+mtext(title_Sequences_mod3chap2_P_R, outer=TRUE,  cex=2.2, font = 1, line=2)
+
+#Save the Figure
 dev.off()
 ```
