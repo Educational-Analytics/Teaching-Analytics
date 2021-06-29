@@ -283,7 +283,12 @@ Ressource_type = [int for ress in Ressource_col]
 Resources = type_modif(Resources, Ressource_col, Ressource_type)
 Resources['Departement'] = Resources['Department'].replace(
     ['Art', 'Computer Science', 'Economy', 'Engineering', 'History', 'Languages and Literature', 'Law', 'Management', 'Mathematics', 'Sociology'],
-    ['Art', 'Informatique', 'Economie', 'Ingénieurie', 'Histoire', 'Langues et Litterature', 'Droit', 'Management', 'Mathematiques', 'Sociologie'])
+    ['Art', 'Informatique', 'Économie', 'Ingénieurie', 'Histoire', 'Langues et Littérature', 'Droit', 'Management', 'Mathématiques', 'Sociologie'])
+
+Resources['Scholar_Year'] = Resources['Year'].replace(
+    [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
+    ['2012/2013', '2013/2014', '2014/2015', '2015/2016', '2016/2017', '2017/2018', '2018/2019', '2019/2020'])
+
 
 Resources = Resources.sort_values(by = ['Year', 'Course_ID'], ascending = True).reset_index().drop('index', axis = 1)
 print(Resources.head(5))    

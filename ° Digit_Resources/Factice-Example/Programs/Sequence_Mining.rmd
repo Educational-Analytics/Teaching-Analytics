@@ -27,7 +27,7 @@ head(prep_Sequences, 10) #Display the ten first rows.
 **Spread and Write**
 ```{r}
 #Save a a Spread Dataframe.
-seq_Spread <- spread(prep_Sequences, Ressources_Rank,Ressources_Type_Basic) #Spread the previous Dataframe.
+seq_Spread <- spread(prep_Sequences, Resources_Rank,Resources_Type_Basic) #Spread the previous Dataframe.
 write.csv(seq_Spread,'../Data/Spead_Sequences.csv', row.names = FALSE) #Save the Spread Dataframe into a CSV file
 ```
 
@@ -37,13 +37,13 @@ write.csv(seq_Spread,'../Data/Spead_Sequences.csv', row.names = FALSE) #Save the
 #Rename the Sequence Type
 Seq <- prep_Sequences
 
-Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'Lecture'] <- 'en Presentiel: Leçon' 
-Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'Exercise'] <- 'en Presentiel: Exercices' 
-Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'Examen'] <- 'en Presentiel: Examen'  
+Seq$Resources_Type_Basic[Seq$Resources_Type_Basic == 'Lecture'] <- 'en Presentiel: Leçon' 
+Seq$Resources_Type_Basic[Seq$Resources_Type_Basic == 'Exercise'] <- 'en Presentiel: Exercices' 
+Seq$Resources_Type_Basic[Seq$Resources_Type_Basic == 'Examen'] <- 'en Presentiel: Examen'  
 
-Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'Video'] <- 'en Ligne: Video'
-Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'QCM'] <- 'en Ligne: Questionnaire' 
-Seq$Ressources_Type_Basic[Seq$Ressources_Type_Basic == 'Test'] <- 'en Ligne: Test'
+Seq$Resources_Type_Basic[Seq$Resources_Type_Basic == 'Video'] <- 'en Ligne: Video'
+Seq$Resources_Type_Basic[Seq$Resources_Type_Basic == 'QCM'] <- 'en Ligne: Questionnaire' 
+Seq$Resources_Type_Basic[Seq$Resources_Type_Basic == 'Test'] <- 'en Ligne: Test'
 ```
 
 ```{r}
@@ -64,7 +64,7 @@ legend_order_EN = c('in Class: Lecture', 'in Class: Exercises', 'in Class: Exam'
 ```{r}
 #Sequences 11
 prep_Sequences_11 <- Seq %>% filter(Course_ID == 11) #Filter the dataset.
-seq_Sequences_11 <- spread(prep_Sequences_11, Ressources_Rank,Ressources_Type_Basic) #Spread the values from one column into columns.
+seq_Sequences_11 <- spread(prep_Sequences_11, Resources_Rank,Resources_Type_Basic) #Spread the values from one column into columns.
 mvad.Sequences_11 <- seqdef(seq_Sequences_11[, -c(1:6)]) # Transform the new columns into sequences.
 
 #Set the Seqplot Color
@@ -75,7 +75,7 @@ seqplot_color_11 = c('#7878FF', '#000FFF', '#96B3FF', '#FF7878', '#FFB396') #Col
 ```{r}
 #Sequences 35
 prep_Sequences_35 <- Seq %>% filter(Course_ID == 35) #Filter the dataset.
-seq_Sequences_35 <- spread(prep_Sequences_35, Ressources_Rank,Ressources_Type_Basic) #Spread the values from one column into columns.
+seq_Sequences_35 <- spread(prep_Sequences_35, Resources_Rank,Resources_Type_Basic) #Spread the values from one column into columns.
 mvad.Sequences_35 <- seqdef(seq_Sequences_35[, -c(1:6)]) # Transform the new columns into sequences.
 
 #Set the Seqplot Color
@@ -86,7 +86,7 @@ seqplot_color_35 = c('#96B3FF', '#FF0000', '#FF7878', '#FFB396') #Color of the f
 ```{r}
 #Sequences 38
 prep_Sequences_38 <- Seq %>% filter(Course_ID == 38) #Filter the dataset.
-seq_Sequences_38 <- spread(prep_Sequences_38, Ressources_Rank,Ressources_Type_Basic) #Spread the values from one column into columns.
+seq_Sequences_38 <- spread(prep_Sequences_38, Resources_Rank,Resources_Type_Basic) #Spread the values from one column into columns.
 mvad.Sequences_38 <- seqdef(seq_Sequences_38[, -c(1:6)]) # Transform the new columns into sequences.
 
 #Set the Seqplot Color
@@ -97,7 +97,7 @@ seqplot_color_38 = c('#7878FF', '#96B3FF', '#FF7878', '#FFB396') #Color of the f
 ```{r}
 #Sequences 41
 prep_Sequences_41 <- Seq %>% filter(Course_ID == 41) #Filter the dataset.
-seq_Sequences_41 <- spread(prep_Sequences_41, Ressources_Rank,Ressources_Type_Basic) #Spread the values from one column into columns.
+seq_Sequences_41 <- spread(prep_Sequences_41, Resources_Rank,Resources_Type_Basic) #Spread the values from one column into columns.
 mvad.Sequences_41 <- seqdef(seq_Sequences_41[, -c(1:6)]) # Transform the new columns into sequences.
 
 #Set the Seqplot Color
@@ -108,7 +108,7 @@ seqplot_color_41 = c('#7878FF', '#000FFF', '#96B3FF', '#FF0000', '#FF7878', '#FF
 ```{r}
 #Sequences 60
 prep_Sequences_60 <- Seq %>% filter(Course_ID == 60) #Filter the dataset.
-seq_Sequences_60 <- spread(prep_Sequences_60, Ressources_Rank,Ressources_Type_Basic) #Spread the values from one column into columns.
+seq_Sequences_60 <- spread(prep_Sequences_60, Resources_Rank,Resources_Type_Basic) #Spread the values from one column into columns.
 mvad.Sequences_60 <- seqdef(seq_Sequences_60[, -c(1:6)]) # Transform the new columns into sequences.
 
 #Set the Seqplot Color
@@ -119,7 +119,7 @@ seqplot_color_60 = c('#7878FF', '#96B3FF', '#FF0000', '#FF7878', '#FFB396') #Col
 ```{r}
 #Sequences 61
 prep_Sequences_61 <- Seq %>% filter(Course_ID == 61) #Filter the dataset.
-seq_Sequences_61 <- spread(prep_Sequences_61, Ressources_Rank,Ressources_Type_Basic) #Spread the values from one column into columns.
+seq_Sequences_61 <- spread(prep_Sequences_61, Resources_Rank,Resources_Type_Basic) #Spread the values from one column into columns.
 mvad.Sequences_61 <- seqdef(seq_Sequences_61[, -c(1:6)]) # Transform the new columns into sequences.
 
 #Set the Seqplot Color
@@ -130,7 +130,7 @@ seqplot_color_61 = c('#7878FF', '#000FFF', '#96B3FF', '#FF7878', '#FFB396') #Col
 ```{r}
 #Sequences 69
 prep_Sequences_69 <- Seq %>% filter(Course_ID == 69) #Filter the dataset.
-seq_Sequences_69 <- spread(prep_Sequences_69, Ressources_Rank,Ressources_Type_Basic) #Spread the values from one column into columns.
+seq_Sequences_69 <- spread(prep_Sequences_69, Resources_Rank,Resources_Type_Basic) #Spread the values from one column into columns.
 mvad.Sequences_69 <- seqdef(seq_Sequences_69[, -c(1:6)]) # Transform the new columns into sequences.
 
 #Set the Seqplot Color
@@ -141,7 +141,7 @@ seqplot_color_69 = c('#7878FF', '#96B3FF', '#FF0000', '#FF7878', '#FFB396') #Col
 ```{r}
 #Sequences 80
 prep_Sequences_80 <- Seq %>% filter(Course_ID == 80) #Filter the dataset.
-seq_Sequences_80 <- spread(prep_Sequences_80, Ressources_Rank,Ressources_Type_Basic) #Spread the values from one column into columns.
+seq_Sequences_80 <- spread(prep_Sequences_80, Resources_Rank,Resources_Type_Basic) #Spread the values from one column into columns.
 mvad.Sequences_80 <- seqdef(seq_Sequences_80[, -c(1:6)]) # Transform the new columns into sequences.
 
 #Set the Seqplot Color
@@ -152,7 +152,7 @@ seqplot_color_80 = c('#96B3FF', '#FF7878', '#FFB396') #Color of the figure.
 ```{r}
 #Sequences 386
 prep_Sequences_386 <- Seq %>% filter(Course_ID == 386) #Filter the dataset.
-seq_Sequences_386 <- spread(prep_Sequences_386, Ressources_Rank,Ressources_Type_Basic) #Spread the values from one column into columns.
+seq_Sequences_386 <- spread(prep_Sequences_386, Resources_Rank,Resources_Type_Basic) #Spread the values from one column into columns.
 mvad.Sequences_386 <- seqdef(seq_Sequences_386[, -c(1:6)]) # Transform the new columns into sequences.
 
 #Set the Seqplot Color
@@ -180,12 +180,12 @@ layout(matrix(c(1, 1, 1, 1, 2, 2), ncol=6, byrow=TRUE))
 par(mar=c(8,9,0,0)+0.1, oma=c(0,1,6,0))
 
 #Define the title of the Figure
-title_fig_Sequences_386 =  "Séquences Pédagogiques de 2013 à 2020 pour le Module «386» enseigné par Mr VERDIN du Départment d'Histoire"
+title_fig_Sequences_386 =  "Séquences Pédagogiques de 2013 à 2020 pour le Module «386» enseigné par Mr VERDIN du Département d'Histoire"
 
 #Plot the Seqplot and Define its axis and labels
 seqplot(mvad.Sequences_386, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_386)),
         cpal = seqplot_color_386, space = 0.15, main = "")
-axis(1, at = 0.5:(max(prep_Sequences_386$Ressources_Rank) - 0.5), labels = paste(unique(prep_Sequences_386$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_386$Resources_Rank) - 0.5), labels = paste(unique(prep_Sequences_386$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_386$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rang des Ressources dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
 title(ylab = "Années", cex.lab = 2.5, line = 7)
@@ -221,7 +221,7 @@ title_fig_Sequences_386 = "Learning Sequences from 2013 to 2020 for the Module �
 #Plot the Seqplot and Define its axis and labels
 seqplot(mvad.Sequences_386, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_386)),
         cpal = seqplot_color_386, space = 0.15, main = "")
-axis(1, at = 0.5:(max(prep_Sequences_386$Ressources_Rank) - 0.5), labels = paste(unique(prep_Sequences_386$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_386$Resources_Rank) - 0.5), labels = paste(unique(prep_Sequences_386$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_386$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rank of the Ressources in the Learning Sequence", cex.lab = 2.5, line = 5)
 title(ylab = "Years", cex.lab = 2.5, line = 7)
@@ -255,12 +255,12 @@ layout(matrix(c(1, 1, 1, 1, 2, 2), ncol=6, byrow=TRUE))
 par(mar=c(8,9,0,0)+0.1, oma=c(0,1,6,0))
 
 #Define the title of the Figure
-title_fig_Sequences_41 =  "Séquences Pédagogiques de 2013 à 2020 pour le Module «41» enseigné par Mme FAVRET du Départment d'Informatique"
+title_fig_Sequences_41 =  "Séquences Pédagogiques de 2013 à 2020 pour le Module «41» enseigné par Mme FAVRET du Département d'Informatique"
 
 #Plot the Seqplot and Define its axis and labels
 seqplot(mvad.Sequences_41, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_41)),
         cpal = seqplot_color_41, space = 0.15, main = "")
-axis(1, at = 0.5:(max(prep_Sequences_41$Ressources_Rank) - 0.5), labels = paste(unique(prep_Sequences_41$Ressources_Rank), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_41$Resources_Rank) - 0.5), labels = paste(unique(prep_Sequences_41$Resources_Rank), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_41$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
 title(xlab = "Rang des Ressources dans la Séquence Pédagogique", cex.lab = 2.5, line = 5)
 title(ylab = "Années", cex.lab = 2.5, line = 7)
@@ -296,7 +296,7 @@ title_fig_Sequences_41 = "Learning Sequences from 2013 to 2020 for the Module «
 #Plot the Seqplot and Define its axis and labels
 seqplot(mvad.Sequences_41, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_41)),
         cpal = seqplot_color_41, space = 0.15, main = "")
-axis(1, at = 0.5:(max(prep_Sequences_41$Ressources_Rank) - 0.5), labels = paste(unique(prep_Sequences_41$Ressources_Rank), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_41$Resources_Rank) - 0.5), labels = paste(unique(prep_Sequences_41$Resources_Rank), sep = ""), cex.axis = 2.5, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_41$Year, sep = ""), las = 1,  cex.axis = 2.5, line = 0, tick = FALSE)
 title(xlab = "Rank of the Ressources in the Learning Sequence", cex.lab = 2.5, line = 5)
 title(ylab = "Years", cex.lab = 2.5, line = 7)
@@ -336,7 +336,7 @@ title_fig_Sequences_60_61_69 = paste("Séquences Pédagogiques de 2013 à 2020, 
 seqplot(mvad.Sequences_60, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_60)),
         cpal = seqplot_color_60, space = 0.15, main = "")
 title(main=list("Séquences Pédagogiques pour le Module «60»",  cex = 2.5, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_60$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_60$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_60$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_60$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_60$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rang des Ressources dans les Séquences Pédagogiques", cex.lab = 2.5, line = 5)
 title(ylab = "Années", cex.lab = 2.5, line = 7)
@@ -345,7 +345,7 @@ title(ylab = "Années", cex.lab = 2.5, line = 7)
 seqplot(mvad.Sequences_61, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_61)),
         cpal = seqplot_color_61, space = 0.15, main = "")
 title(main=list("Séquences Pédagogiques pour le Module «61»",  cex = 2.5, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_61$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_61$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_61$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_61$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_61$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rang des Ressources dans les Séquences Pédagogiques", cex.lab = 2.5, line = 5)
 title(ylab = "Années", cex.lab = 2.5, line = 7)
@@ -354,7 +354,7 @@ title(ylab = "Années", cex.lab = 2.5, line = 7)
 seqplot(mvad.Sequences_69, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_69)),
         cpal = seqplot_color_69, space = 0.15, main = "")
 title(main=list("Séquences Pédagogiques pour le Module «69»",  cex = 2.5, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_69$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_69$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_69$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_69$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_69$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rang des Ressources dans les Séquences Pédagogiques", cex.lab = 2.5, line = 5)
 title(ylab = "Années", cex.lab = 2.5, line = 7)
@@ -391,7 +391,7 @@ title_fig_Sequences_60_61_69 = paste("Learning Sequences from 2013 to 2020, \n f
 seqplot(mvad.Sequences_60, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_60)),
         cpal = seqplot_color_60, space = 0.15, main = "")
 title(main=list("Learning Sequences for the Module «60» from 2013 to 2020",  cex = 2.5, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_60$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_60$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_60$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_60$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_60$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rank of the Ressources in the Learning Sequences", cex.lab = 2.5, line = 5)
 title(ylab = "Years", cex.lab = 2.5, line = 7)
@@ -401,7 +401,7 @@ seqplot(mvad.Sequences_61, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab
         cpal = seqplot_color_61, space = 0.15, main = "")
 title(main=list("Learning Sequences for the Module «61» from 2013 to 2020",  cex = 2.5, font = 3))
 
-axis(1, at = 0.5:(max(prep_Sequences_61$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_61$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_61$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_61$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_61$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rank of the Resources in the Learning Sequences", cex.lab = 2.5, line = 5)
 title(ylab = "Years", cex.lab = 2.5, line = 7)
@@ -410,7 +410,7 @@ title(ylab = "Years", cex.lab = 2.5, line = 7)
 seqplot(mvad.Sequences_69, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_69)),
         cpal = seqplot_color_69, space = 0.15, main = "")
 title(main=list("Learning Sequences for the Module «69» from 2013 to 2020",  cex = 2.5, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_69$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_69$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_69$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_69$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_69$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rank of the Resources in the Learning Sequences", cex.lab = 2.5, line = 5)
 title(ylab = "Years", cex.lab = 2.5, line = 7)
@@ -450,7 +450,7 @@ title_fig_Sequences_35_38_41 = paste("Séquences Pédagogiques de 2013 à 2020, 
 seqplot(mvad.Sequences_35, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_35)),
         cpal = seqplot_color_35, space = 0.15, main = "")
 title(main=list("Séquences Pédagogiques pour le Module «35»",  cex = 2.5, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_35$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_35$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_35$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_35$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_35$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rang des Ressources dans les Séquences Pédagogiques", cex.lab = 2.5, line = 5)
 title(ylab = "Années", cex.lab = 2.5, line = 7)
@@ -459,7 +459,7 @@ title(ylab = "Années", cex.lab = 2.5, line = 7)
 seqplot(mvad.Sequences_38, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_38)),
         cpal = seqplot_color_38, space = 0.15, main = "")
 title(main=list("Séquences Pédagogiques pour le Module «38»",  cex = 2.5, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_38$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_38$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_38$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_38$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_38$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rang des Ressources dans les Séquences Pédagogiques", cex.lab = 2.5, line = 5)
 title(ylab = "Années", cex.lab = 2.5, line = 7)
@@ -468,7 +468,7 @@ title(ylab = "Années", cex.lab = 2.5, line = 7)
 seqplot(mvad.Sequences_41, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_41)),
         cpal = seqplot_color_41, space = 0.15, main = "")
 title(main=list("Séquences Pédagogiques pour le Module «41»",  cex = 2.5, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_41$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_41$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_41$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_41$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_41$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rang des Ressources dans les Séquences Pédagogiques", cex.lab = 2.5, line = 5)
 title(ylab = "Années", cex.lab = 2.5, line = 7)
@@ -505,7 +505,7 @@ title_fig_Sequences_35_38_41 = paste("Learning Sequences from 2013 to 2020, \n f
 seqplot(mvad.Sequences_35, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_35)),
         cpal = seqplot_color_35, space = 0.15, main = "")
 title(main=list("Learning Sequences for the Module «35»",  cex = 2.5, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_35$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_35$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_35$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_35$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_35$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rank of the Resources in the Learning Sequences", cex.lab = 2.5, line = 5)
 title(ylab = "Years", cex.lab = 2.5, line = 7)
@@ -514,7 +514,7 @@ title(ylab = "Years", cex.lab = 2.5, line = 7)
 seqplot(mvad.Sequences_38, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_38)),
         cpal = seqplot_color_38, space = 0.15, main = "")
 title(main=list("Learning Sequences for the Module «38»",  cex = 2.5, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_38$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_38$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_38$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_38$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_38$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rank of the Resources in the Learning Sequences", cex.lab = 2.5, line = 5)
 title(ylab = "Years", cex.lab = 2.5, line = 7)
@@ -523,7 +523,7 @@ title(ylab = "Years", cex.lab = 2.5, line = 7)
 seqplot(mvad.Sequences_41, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_41)),
         cpal = seqplot_color_41, space = 0.15, main = "")
 title(main=list("Learning Sequences for the Module «41»",  cex = 2.5, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_41$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_41$Ressources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_41$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_41$Resources_Rank), sep = ""), cex.axis = 2.3, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_41$Year, sep = ""), las = 1,  cex.axis = 2.3, line = 0, tick = FALSE)
 title(xlab = "Rank of the Resources in the Learning Sequences", cex.lab = 2.5, line = 5)
 title(ylab = "Years", cex.lab = 2.5, line = 7)
@@ -557,13 +557,13 @@ layout(matrix(c(1, 1, 2, 2, 3, 3, 4, 4), ncol=4, byrow=TRUE))
 par(mar=c(8,9,3,5)+0.1, oma=c(0,1,8,1))
 
 #Define the title of the Figure
-title_fig_Sequences_11_41_80 = paste("Séquences Pédagogiques de 2013 à 2020 pour les Modules «11», «41» et «80», \n enseignés respectivement par Mme GALLE, Mme FAVRET et Mr AMIRAULT du Département d'Informatique", sep = "")
+title_fig_Sequences_11_41_80 = paste("Séquences Pédagogiques de 2013 à 2020 pour les Modules «11», «41» et «80» \n enseignés respectivement par Mme GALLE, Mme FAVRET et Mr AMIRAULT du Département d'Informatique", sep = "")
 
 #Plot the Seqplot of the Module 11 and Define its axis and labels
 seqplot(mvad.Sequences_11, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_11)),
         cpal = seqplot_color_11, space = 0.15, main = "")
 title(main=list("Séquences Pédagogiques pour le Module «11» enseigné par Mme GALLE",  cex = 2.3, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_11$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_11$Ressources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_11$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_11$Resources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_11$Year, sep = ""), las = 1,  cex.axis = 2.2, line = 0, tick = FALSE)
 title(xlab = "Rang des Ressources dans les Séquences Pédagogiques", cex.lab = 2.5, line = 5)
 title(ylab = "Années", cex.lab = 2.5, line = 7)
@@ -572,7 +572,7 @@ title(ylab = "Années", cex.lab = 2.5, line = 7)
 seqplot(mvad.Sequences_41, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_41)),
         cpal = seqplot_color_41, space = 0.15, main = "")
 title(main=list("Séquences Pédagogiques pour le Module «41» enseigné par Mme FAVRET",  cex = 2.3, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_41$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_41$Ressources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_41$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_41$Resources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_41$Year, sep = ""), las = 1,  cex.axis = 2.2, line = 0, tick = FALSE)
 title(xlab = "Rang des Ressources dans les Séquences Pédagogiques", cex.lab = 2.5, line = 5)
 title(ylab = "Années", cex.lab = 2.5, line = 7)
@@ -581,7 +581,7 @@ title(ylab = "Années", cex.lab = 2.5, line = 7)
 seqplot(mvad.Sequences_80, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_80)),
         cpal = seqplot_color_80, space = 0.15, main = "")
 title(main=list("Séquences Pédagogiques pour le Module «80» enseigné par Mr AMIRAULT",  cex = 2.3, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_80$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_80$Ressources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_80$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_80$Resources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_80$Year, sep = ""), las = 1,  cex.axis = 2.2, line = 0, tick = FALSE)
 title(xlab = "Rang des Ressources dans les Séquences Pédagogiques", cex.lab = 2.5, line = 5)
 title(ylab = "Années", cex.lab = 2.5, line = 7)
@@ -618,7 +618,7 @@ title_fig_Sequences_11_41_80 = paste("Learning Sequences from 2013 to 2020 for t
 seqplot(mvad.Sequences_11, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_11)),
         cpal = seqplot_color_11, space = 0.15, main = "")
 title(main=list("Learning Sequences for the Module «11» teached by Mme GALLE ",  cex = 2.3, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_11$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_11$Ressources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_11$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_11$Resources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_11$Year, sep = ""), las = 1,  cex.axis = 2.2, line = 0, tick = FALSE)
 title(xlab = "Rank of the Ressources in the Learning Sequences", cex.lab = 2.5, line = 5)
 title(ylab = "Years", cex.lab = 2.5, line = 7)
@@ -627,7 +627,7 @@ title(ylab = "Years", cex.lab = 2.5, line = 7)
 seqplot(mvad.Sequences_41, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_41)),
         cpal = seqplot_color_41, space = 0.15, main = "")
 title(main=list("Learning Sequences for the Module «41» teached by Mme FAVRET ",  cex = 2.3, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_41$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_41$Ressources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_41$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_41$Resources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_41$Year, sep = ""), las = 1,  cex.axis = 2.2, line = 0, tick = FALSE)
 title(xlab = "Rank of the Ressources in the Learning Sequences", cex.lab = 2.5, line = 5)
 title(ylab = "Years", cex.lab = 2.5, line = 7)
@@ -636,7 +636,7 @@ title(ylab = "Years", cex.lab = 2.5, line = 7)
 seqplot(mvad.Sequences_80, with.legend = FALSE, axes = FALSE, ann = FALSE, ytlab = rep("", nrow(seq_Sequences_80)),
         cpal = seqplot_color_80, space = 0.15, main = "")
 title(main=list("Learning Sequences for the Module «80» teached by Mr AMIRAULT ",  cex = 2.3, font = 3))
-axis(1, at = 0.5:(max(prep_Sequences_80$Ressources_Rank)-0.5), labels = paste(unique(prep_Sequences_80$Ressources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
+axis(1, at = 0.5:(max(prep_Sequences_80$Resources_Rank)-0.5), labels = paste(unique(prep_Sequences_80$Resources_Rank), sep = ""), cex.axis = 2.2, line = 0, tick = TRUE, padj = 0.5)
 axis(2, at = c(0.65, 1.80, 2.95, 4.1, 5.25, 6.40, 7.55, 8.70), labels = paste(seq_Sequences_80$Year, sep = ""), las = 1,  cex.axis = 2.2, line = 0, tick = FALSE)
 title(xlab = "Rank of the Ressources in the Learning Sequences", cex.lab = 2.5, line = 5)
 title(ylab = "Years", cex.lab = 2.5, line = 7)

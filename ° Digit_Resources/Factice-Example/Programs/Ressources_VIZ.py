@@ -114,7 +114,7 @@ plt.show()
 #####################
 # Version Française #
 #####################
-"""
+
 #Build the Data
 Digitalization_Depts = Resources.groupby(['Departement', 'Year'])['Digitalization_Ressource_Percent'].mean().reset_index()
 Digitalization_Depts['Digitalization_Ressource_Percent'] = round(Digitalization_Depts['Digitalization_Ressource_Percent']).astype(int)
@@ -135,7 +135,7 @@ cbar_kws = {"orientation":"vertical",
 
 ax = sns.heatmap(Digitalization_Depts_pivot, annot= True, fmt="d", linewidths=1, linecolor="w", cmap="Spectral", cbar_kws=cbar_kws, annot_kws={'size': 16})
 ax.set_xlabel("Années", size=18)
-ax.set_ylabel("Departements de l'Université", size=18)
+ax.set_ylabel("Départements de l'Université", size=18)
 plt.text(1.2,0.5,'Pourcentage de Digitalisation [%]', horizontalalignment='right', verticalalignment='center', transform = ax.transAxes, rotation = 90, fontsize = 18)
 plt.setp(ax.get_xticklabels(), fontsize=14)
 plt.setp(ax.get_yticklabels(), fontsize=14, rotation = 0)
@@ -149,7 +149,7 @@ fig.savefig(path_Figures_FR + "1° - Heatmap - Pourcentage de Digitalisation de 
 
 #Display the Figure
 plt.show()
-"""
+
 
 
 ############################################################################################################################################
